@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSE Knowledge Space Navigator</title>
+  <script src="https://cdn.jsdelivr.net/npm/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    :root {
+      --primary: #0066CC;
+      --secondary: #00A9E0;
+      --accent: #FFB81C;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --white: #ffffff;
+      --text: #333333;
+      --text-light: #666666;
+      --border: #e0e0e0;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      background: var(--dark);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .header-stats {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .header-stats span strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* Toolbar */
+    .toolbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-right: 0.75rem;
+      border-right: 1px solid var(--border);
+    }
+    .toolbar-group:last-child { border-right: none; padding-right: 0; }
+    .toolbar-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+    }
+    .btn {
+      padding: 0.4rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      color: var(--text);
+    }
+    .btn:hover { border-color: var(--secondary); color: var(--secondary); }
+    .btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+    }
+    .btn-accent.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--dark);
+    }
+    .search-box {
+      position: relative;
+    }
+    .search-box input {
+      padding: 0.4rem 0.75rem 0.4rem 2rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      width: 220px;
+      outline: none;
+    }
+    .search-box input:focus { border-color: var(--secondary); }
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    .mode-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 100px;
+      background: var(--secondary);
+      color: var(--white);
+    }
+
+    /* Main layout */
+    .main {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+    #network {
+      flex: 1;
+      background: var(--light);
+    }
+
+    /* Side panel */
+    .side-panel {
+      width: 380px;
+      background: var(--white);
+      border-left: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 20;
+    }
+    .side-panel.open { display: flex; }
+    .side-panel-header {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .side-panel-header h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.35;
+    }
+    .side-panel-close {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--text-light);
+      padding: 0;
+      line-height: 1;
+    }
+    .side-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+    }
+    .detail-row {
+      margin-bottom: 1rem;
+    }
+    .detail-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.25rem;
+    }
+    .detail-value {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-right: 0.3rem;
+      margin-bottom: 0.3rem;
+    }
+    .badge-domain { background: var(--dark); color: var(--white); }
+    .badge-content { background: var(--primary); color: var(--white); }
+    .badge-standard { background: var(--accent); color: var(--dark); }
+    .badge-instructional-unit { background: #e0e0e0; color: var(--text); }
+    .badge-skill { background: var(--secondary); color: var(--white); }
+    .badge-content-group { background: var(--primary); color: var(--white); }
+
+    .related-list {
+      list-style: none;
+    }
+    .related-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+    .related-list li:hover { text-decoration: underline; }
+    .related-list li:last-child { border-bottom: none; }
+
+    /* Legend overlay */
+    .legend {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow);
+      font-size: 0.8rem;
+      z-index: 15;
+      max-width: 240px;
+    }
+    .legend-title {
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-line {
+      width: 20px;
+      height: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Loading */
+    .loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(248,249,250,0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      gap: 1rem;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Track mode banner */
+    .track-banner {
+      position: absolute;
+      top: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.4rem 1.25rem;
+      box-shadow: var(--shadow);
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 15;
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .track-banner.visible { display: flex; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌐 GSE Knowledge Space Navigator</h1>
+    <div class="header-stats">
+      <span><strong id="stat-nodes">0</strong> nodes</span>
+      <span><strong id="stat-edges">0</strong> edges</span>
+      <span><strong id="stat-visible">0</strong> visible</span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <span class="toolbar-label">View</span>
+      <button class="btn active" id="btn-overview" onclick="setMode('overview')">Overview</button>
+      <button class="btn" id="btn-track" onclick="exitTrackMode()">Track Explorer</button>
+    </div>
+    <div class="toolbar-group">
+      <span class="toolbar-label">Nodes</span>
+      <button class="btn" id="toggle-skills" onclick="toggleSkills()">Skills</button>
+      <button class="btn" id="toggle-units" onclick="toggleUnits()">Units</button>
+      <button class="btn" id="toggle-standards" onclick="toggleStandards()">Standards</button>
+    </div>
+    <div class="toolbar-group">
+      <span class="toolbar-label">Edges</span>
+      <button class="btn active" id="toggle-contains" onclick="toggleEdgeType('contains')">Contains</button>
+      <button class="btn active" id="toggle-align" onclick="toggleEdgeType('aligned_to_standard')">Align</button>
+      <button class="btn" id="toggle-prereq" onclick="toggleEdgeType('prerequisite_for')">Prereqs</button>
+      <button class="btn" id="toggle-supports" onclick="toggleEdgeType('supports')">Supports</button>
+    </div>
+    <div class="toolbar-group">
+      <span class="toolbar-label">Track</span>
+      <select class="btn" id="track-select" onchange="enterTrackMode(this.value)" style="padding: 0.35rem 0.6rem;">
+        <option value="">Select track...</option>
+      </select>
+    </div>
+    <div class="toolbar-group">
+      <span class="toolbar-label">CEFR</span>
+      <button class="btn active" id="cefr-all" onclick="toggleCefr('all')">All</button>
+      <button class="btn active" id="cefr-below-a1" onclick="toggleCefr('Below A1')">&lt;A1</button>
+      <button class="btn active" id="cefr-a1" onclick="toggleCefr('A1')">A1</button>
+      <button class="btn active" id="cefr-a2" onclick="toggleCefr('A2')">A2</button>
+      <button class="btn active" id="cefr-a2-plus" onclick="toggleCefr('A2(+)')">A2+</button>
+      <button class="btn active" id="cefr-b1" onclick="toggleCefr('B1')">B1</button>
+      <button class="btn active" id="cefr-b1-plus" onclick="toggleCefr('B1(+)')">B1+</button>
+      <button class="btn active" id="cefr-b2" onclick="toggleCefr('B2')">B2</button>
+      <button class="btn active" id="cefr-b2-plus" onclick="toggleCefr('B2(+)')">B2+</button>
+      <button class="btn active" id="cefr-c1" onclick="toggleCefr('C1')">C1</button>
+      <button class="btn active" id="cefr-c2" onclick="toggleCefr('C2')">C2</button>
+    </div>
+    <div class="toolbar-group" style="margin-left:auto;">
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Find skill or unit..." oninput="handleSearch(this.value)">
+      </div>
+      <button class="btn" onclick="resetView()">Reset</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div id="network"></div>
+    <div class="track-banner" id="track-banner">
+      <span id="track-label">Track</span>
+      <button class="btn" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="exitTrackMode()">← Back to Overview</button>
+    </div>
+
+    <div class="side-panel" id="side-panel">
+      <div class="side-panel-header">
+        <h2 id="panel-title">Node Details</h2>
+        <button class="side-panel-close" onclick="closePanel()">&times;</button>
+      </div>
+      <div class="side-panel-body" id="panel-body"></div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-title">Nodes</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--dark)"></div> Domain</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--primary)"></div> Content Group</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Standard</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#999"></div> Instructional Unit</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--secondary)"></div> Skill</div>
+      <div class="legend-title" style="margin-top:0.5rem">Edges</div>
+      <div class="legend-item"><div class="legend-line" style="background:#999"></div> Contains</div>
+      <div class="legend-item"><div class="legend-line" style="background:var(--accent); height:2px; border-top:1px dashed var(--accent); background:none;"></div> Aligned to Standard</div>
+      <div class="legend-item"><div class="legend-line" style="background:var(--primary)"></div> Prerequisite</div>
+      <div class="legend-item"><div class="legend-line" style="background:var(--secondary); opacity:0.6"></div> Supports</div>
+    </div>
+
+    <div class="loading-overlay" id="loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading knowledge space...</div>
+    </div>
+  </div>
+
+  <script>
+  // --------------------------------------------------------------------------
+  // Globals
+  // --------------------------------------------------------------------------
+  let network = null;
+  let nodesDataSet = null;
+  let edgesDataSet = null;
+  let rawGraph = null;
+  let nodeMap = new Map();
+  let currentMode = 'overview';
+  let currentTrack = null;
+
+  const COLOR_MAP = {
+    domain: { bg: '#1a1a2e', border: '#1a1a2e', text: '#ffffff' },
+    content_group: { bg: '#0066CC', border: '#005bb5', text: '#ffffff' },
+    standard: { bg: '#FFB81C', border: '#e6a619', text: '#1a1a2e' },
+    instructional_unit: { bg: '#e0e0e0', border: '#cccccc', text: '#333333' },
+    skill: { bg: '#00A9E0', border: '#0097c8', text: '#ffffff' },
+  };
+
+  const EDGE_STYLE = {
+    contains: { color: '#999999', width: 2, dashes: false, arrows: 'to' },
+    appears_in_context: { color: '#cccccc', width: 1, dashes: false, arrows: 'to' },
+    aligned_to_standard: { color: '#FFB81C', width: 1.5, dashes: [6, 4], arrows: 'to' },
+    prerequisite_for: { color: '#0066CC', width: 1.5, dashes: false, arrows: 'to' },
+    supports: { color: '#00A9E0', width: 1, dashes: [3, 3], arrows: 'to', opacity: 0.5 },
+  };
+
+  const VISIBILITY = {
+    skills: false,
+    units: true,
+    standards: true,
+    edgeTypes: {
+      contains: true,
+      appears_in_context: false,
+      aligned_to_standard: true,
+      prerequisite_for: false,
+      supports: false,
+    },
+    cefrLevels: new Set(['Below A1','A1','A2','A2(+)','B1','B1(+)','B2','B2(+)','C1','C2']),
+  };
+
+  // --------------------------------------------------------------------------
+  // Data loading
+  // --------------------------------------------------------------------------
+  async function loadData() {
+    try {
+      const res = await fetch('gse-knowledge-space.json');
+      rawGraph = await res.json();
+    } catch (err) {
+      console.error(err);
+      document.querySelector('.loading-text').innerHTML =
+        'Cannot load JSON due to browser CORS policy.<br>' +
+        '<strong>Open <code>knowledge-space-viz-standalone.html</code> instead</strong>,<br>' +
+        'or run a local server: <code>python3 -m http.server 8000</code>';
+      return;
+    }
+    nodeMap = new Map(rawGraph.nodes.map(n => [n.id, n]));
+    populateTrackSelect();
+    buildNetwork();
+    document.getElementById('loading').style.display = 'none';
+    updateStats();
+  }
+
+  function populateTrackSelect() {
+    const select = document.getElementById('track-select');
+    const tracks = [];
+    for (const node of rawGraph.nodes) {
+      if (node.kind === 'content_group') {
+        tracks.push({ id: node.id, label: node.title });
+      }
+    }
+    tracks.sort((a, b) => a.label.localeCompare(b.label));
+    for (const t of tracks) {
+      const opt = document.createElement('option');
+      opt.value = t.id;
+      opt.textContent = t.label;
+      select.appendChild(opt);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Network builder
+  // --------------------------------------------------------------------------
+  function buildNetwork() {
+    const overviewPositions = computeOverviewPositions();
+    const nodes = rawGraph.nodes.map(n => makeVisNode(n, overviewPositions.get(n.id)));
+    const edges = rawGraph.edges.map((e, i) => makeVisEdge(e, i));
+
+    nodesDataSet = new vis.DataSet(nodes);
+    edgesDataSet = new vis.DataSet(edges);
+
+    const container = document.getElementById('network');
+    const data = { nodes: nodesDataSet, edges: edgesDataSet };
+
+    const options = {
+      nodes: {
+        font: { face: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto', size: 13, color: '#333' },
+        borderWidth: 2,
+        shadow: { enabled: true, color: 'rgba(0,0,0,0.1)', size: 8, x: 2, y: 2 },
+      },
+      edges: {
+        smooth: { enabled: true, type: 'continuous', roundness: 0.2 },
+        selectionWidth: 3,
+        hoverWidth: 2,
+      },
+      physics: {
+        enabled: false,
+      },
+      interaction: {
+        hover: true,
+        tooltipDelay: 200,
+        navigationButtons: true,
+        keyboard: false,
+        dragNodes: true,
+        dragView: true,
+        zoomView: true,
+      },
+    };
+
+    network = new vis.Network(container, data, options);
+
+    network.on('click', params => {
+      if (params.nodes.length === 1) {
+        showNodeDetails(params.nodes[0]);
+      } else {
+        closePanel();
+      }
+    });
+
+    network.on('doubleClick', params => {
+      if (params.nodes.length === 1) {
+        const node = nodeMap.get(params.nodes[0]);
+        if (node.kind === 'content_group') {
+          enterTrackMode(node.id);
+        }
+      }
+    });
+
+    // Apply initial visibility
+    applyVisibility();
+  }
+
+  function makeVisNode(node, pos) {
+    const colors = COLOR_MAP[node.kind];
+    const base = {
+      id: node.id,
+      label: node.kind === 'skill' ? truncate(node.title, 40) : truncate(node.title, 30),
+      title: makeTooltip(node),
+      group: node.kind,
+      color: {
+        background: colors.bg,
+        border: colors.border,
+        highlight: { background: colors.bg, border: '#FF5722' },
+        hover: { background: colors.bg, border: '#FF5722' },
+      },
+      font: { color: colors.text, multi: 'html' },
+      hidden: shouldHideNode(node),
+    };
+    if (pos) {
+      base.x = pos.x;
+      base.y = pos.y;
+    }
+
+    if (node.kind === 'domain') {
+      base.shape = 'diamond';
+      base.size = 35;
+      base.font = { ...base.font, size: 15, bold: true };
+    } else if (node.kind === 'content_group') {
+      base.shape = 'box';
+      base.font = { ...base.font, size: 14, bold: true };
+      base.margin = 10;
+      base.borderWidth = 0;
+    } else if (node.kind === 'standard') {
+      base.shape = 'box';
+      base.font = { ...base.font, size: 12, bold: true };
+      base.margin = 8;
+      base.borderWidth = 0;
+    } else if (node.kind === 'instructional_unit') {
+      base.shape = 'dot';
+      base.size = 12;
+      base.font = { ...base.font, size: 11 };
+    } else if (node.kind === 'skill') {
+      base.shape = 'dot';
+      base.size = 8;
+      base.font = { ...base.font, size: 10 };
+    }
+
+    return base;
+  }
+
+  function computeOverviewPositions() {
+    const positions = new Map();
+    if (!rawGraph) return positions;
+
+    // Domain at top center
+    positions.set('english.gse.domain', { x: 0, y: -320 });
+
+    // Content groups: adults in top row, young in bottom row
+    const cgLayout = [
+      { id: 'english.gse.group.adult.reading',    x: -420, y: -100 },
+      { id: 'english.gse.group.adult.listening',  x: -140, y: -100 },
+      { id: 'english.gse.group.adult.speaking',   x:  140, y: -100 },
+      { id: 'english.gse.group.adult.writing',    x:  420, y: -100 },
+      { id: 'english.gse.group.young.reading',    x: -420, y:   20 },
+      { id: 'english.gse.group.young.listening',  x: -140, y:   20 },
+      { id: 'english.gse.group.young.speaking',   x:  140, y:   20 },
+      { id: 'english.gse.group.young.writing',    x:  420, y:   20 },
+    ];
+    for (const cg of cgLayout) positions.set(cg.id, { x: cg.x, y: cg.y });
+
+    // Standards: ordered row below content groups
+    const cefrOrder = ['Below A1','A1','A2','A2(+)','B1','B1(+)','B2','B2(+)','C1','C2'];
+    const standards = rawGraph.nodes
+      .filter(n => n.kind === 'standard')
+      .sort((a, b) => cefrOrder.indexOf(a.metadata.level) - cefrOrder.indexOf(b.metadata.level));
+    const stdSpacing = 120;
+    const stdWidth = (standards.length - 1) * stdSpacing;
+    standards.forEach((std, i) => {
+      positions.set(std.id, { x: (i * stdSpacing) - (stdWidth / 2), y: 300 });
+    });
+
+    // Instructional units: small grids under their content group
+    const unitsByCg = new Map();
+    for (const node of rawGraph.nodes) {
+      if (node.kind === 'instructional_unit') {
+        const cgId = `english.gse.group.${node.metadata.ageSlug}.${node.metadata.skillSlug}`;
+        if (!unitsByCg.has(cgId)) unitsByCg.set(cgId, []);
+        unitsByCg.get(cgId).push(node);
+      }
+    }
+    for (const [cgId, units] of unitsByCg) {
+      const cgPos = positions.get(cgId);
+      if (!cgPos) continue;
+      units.sort((a, b) => {
+        const cDiff = cefrOrder.indexOf(a.metadata.cefr) - cefrOrder.indexOf(b.metadata.cefr);
+        if (cDiff !== 0) return cDiff;
+        return parseInt(a.metadata.gseRange) - parseInt(b.metadata.gseRange);
+      });
+      const cols = 3;
+      const sx = 70;
+      const sy = 45;
+      const gridW = (Math.min(cols, units.length) - 1) * sx;
+      units.forEach((u, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        positions.set(u.id, {
+          x: cgPos.x + (col * sx) - (gridW / 2),
+          y: cgPos.y + 90 + (row * sy),
+        });
+      });
+    }
+
+    // Skills: clustered around their parent instructional unit
+    // (prevents them from collapsing into a circle at origin if toggled on in overview)
+    const skillOffsets = new Map();
+    for (const node of rawGraph.nodes) {
+      if (node.kind === 'skill') {
+        const rangeSlug = node.metadata.gseRange.replace(/[–\s]/g, '-');
+        const unitId = `english.gse.unit.${node.metadata.ageSlug}.${node.metadata.skillSlug}.${node.metadata.cefrSlug}.${rangeSlug}`;
+        const unitPos = positions.get(unitId);
+        if (unitPos) {
+          const idx = skillOffsets.get(unitId) || 0;
+          skillOffsets.set(unitId, idx + 1);
+          const angle = (idx * 137.5) * (Math.PI / 180); // golden angle spiral
+          const radius = 18 + Math.floor(idx / 6) * 12;
+          positions.set(node.id, {
+            x: unitPos.x + Math.cos(angle) * radius,
+            y: unitPos.y + Math.sin(angle) * radius,
+          });
+        }
+      }
+    }
+
+    return positions;
+  }
+
+  function makeVisEdge(edge, index) {
+    const style = EDGE_STYLE[edge.type] || EDGE_STYLE.contains;
+    return {
+      id: edge.id,
+      from: edge.sourceId,
+      to: edge.targetId,
+      label: '',
+      title: `${edge.type}\nweight: ${edge.weight.toFixed(2)}`,
+      color: { color: style.color, opacity: style.opacity || 1, highlight: '#FF5722', hover: '#FF5722' },
+      width: style.width,
+      dashes: style.dashes,
+      arrows: { to: { enabled: true, scaleFactor: 0.6 } },
+      hidden: shouldHideEdge(edge),
+      smooth: { type: edge.type === 'supports' ? 'continuous' : 'dynamic', roundness: 0.3 },
+    };
+  }
+
+  function shouldHideNode(node) {
+    if (node.kind === 'skill' && !VISIBILITY.skills) return true;
+    if (node.kind === 'instructional_unit' && !VISIBILITY.units) return true;
+    if (node.kind === 'standard' && !VISIBILITY.standards) return true;
+    // CEFR filter
+    if (node.metadata) {
+      const nodeCefr = node.metadata.cefr || node.metadata.level;
+      if (nodeCefr && !VISIBILITY.cefrLevels.has(nodeCefr)) return true;
+    }
+    return false;
+  }
+
+  function shouldHideEdge(edge) {
+    if (!VISIBILITY.edgeTypes[edge.type]) return true;
+    const src = nodeMap.get(edge.sourceId);
+    const tgt = nodeMap.get(edge.targetId);
+    if (!src || !tgt) return true;
+    if (shouldHideNode(src) || shouldHideNode(tgt)) return true;
+    return false;
+  }
+
+  // --------------------------------------------------------------------------
+  // Visibility controls
+  // --------------------------------------------------------------------------
+  function applyVisibility() {
+    if (!nodesDataSet || !edgesDataSet) return;
+
+    const nodeUpdates = [];
+    for (const node of rawGraph.nodes) {
+      let hidden = shouldHideNode(node);
+      // In track mode, keep non-track skills hidden regardless of global toggle
+      if (currentTrack && node.kind === 'skill') {
+        const trackNode = nodeMap.get(currentTrack);
+        const isInTrack = node.metadata.ageGroup === trackNode.metadata.ageGroup &&
+                          node.metadata.skill === trackNode.metadata.skill;
+        if (!isInTrack) hidden = true;
+      }
+      nodeUpdates.push({ id: node.id, hidden });
+    }
+    nodesDataSet.update(nodeUpdates);
+
+    const edgeUpdates = [];
+    for (const edge of rawGraph.edges) {
+      let hidden = shouldHideEdge(edge);
+      // In track mode, hide edges connected to non-track skills
+      if (currentTrack && !hidden) {
+        const trackNode = nodeMap.get(currentTrack);
+        const src = nodeMap.get(edge.sourceId);
+        const tgt = nodeMap.get(edge.targetId);
+        if (src.kind === 'skill' && (src.metadata.ageGroup !== trackNode.metadata.ageGroup || src.metadata.skill !== trackNode.metadata.skill)) hidden = true;
+        if (tgt.kind === 'skill' && (tgt.metadata.ageGroup !== trackNode.metadata.ageGroup || tgt.metadata.skill !== trackNode.metadata.skill)) hidden = true;
+      }
+      edgeUpdates.push({ id: edge.id, hidden });
+    }
+    edgesDataSet.update(edgeUpdates);
+
+    updateStats();
+  }
+
+  function toggleSkills() {
+    VISIBILITY.skills = !VISIBILITY.skills;
+    document.getElementById('toggle-skills').classList.toggle('active', VISIBILITY.skills);
+    applyVisibility();
+  }
+
+  function toggleUnits() {
+    VISIBILITY.units = !VISIBILITY.units;
+    document.getElementById('toggle-units').classList.toggle('active', VISIBILITY.units);
+    applyVisibility();
+  }
+
+  function toggleStandards() {
+    VISIBILITY.standards = !VISIBILITY.standards;
+    document.getElementById('toggle-standards').classList.toggle('active', VISIBILITY.standards);
+    applyVisibility();
+  }
+
+  function toggleEdgeType(type) {
+    VISIBILITY.edgeTypes[type] = !VISIBILITY.edgeTypes[type];
+    const map = {
+      'contains': 'toggle-contains',
+      'aligned_to_standard': 'toggle-align',
+      'prerequisite_for': 'toggle-prereq',
+      'supports': 'toggle-supports',
+    };
+    document.getElementById(map[type]).classList.toggle('active', VISIBILITY.edgeTypes[type]);
+    applyVisibility();
+  }
+
+  function toggleCefr(level) {
+    if (level === 'all') {
+      const allOn = VISIBILITY.cefrLevels.size === 10;
+      if (allOn) {
+        VISIBILITY.cefrLevels.clear();
+      } else {
+        ['Below A1','A1','A2','A2(+)','B1','B1(+)','B2','B2(+)','C1','C2'].forEach(l => VISIBILITY.cefrLevels.add(l));
+      }
+    } else {
+      if (VISIBILITY.cefrLevels.has(level)) {
+        VISIBILITY.cefrLevels.delete(level);
+      } else {
+        VISIBILITY.cefrLevels.add(level);
+      }
+    }
+    const allActive = VISIBILITY.cefrLevels.size === 10;
+    document.getElementById('cefr-all').classList.toggle('active', allActive);
+    const levelIds = {
+      'Below A1': 'cefr-below-a1', 'A1': 'cefr-a1', 'A2': 'cefr-a2', 'A2(+)': 'cefr-a2-plus',
+      'B1': 'cefr-b1', 'B1(+)': 'cefr-b1-plus', 'B2': 'cefr-b2', 'B2(+)': 'cefr-b2-plus',
+      'C1': 'cefr-c1', 'C2': 'cefr-c2',
+    };
+    for (const [lvl, id] of Object.entries(levelIds)) {
+      document.getElementById(id).classList.toggle('active', VISIBILITY.cefrLevels.has(lvl));
+    }
+    applyVisibility();
+  }
+
+  // --------------------------------------------------------------------------
+  // Mode switching
+  // --------------------------------------------------------------------------
+  function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('btn-overview').classList.toggle('active', mode === 'overview');
+    document.getElementById('btn-track').classList.toggle('active', mode === 'track');
+  }
+
+  function enterTrackMode(trackId) {
+    if (!trackId) return;
+    const trackNode = nodeMap.get(trackId);
+    if (!trackNode) return;
+
+    currentTrack = trackId;
+    currentMode = 'track';
+    setMode('track');
+
+    // Determine which skills belong to this track
+    const trackKey = `${trackNode.metadata.ageGroup}|${trackNode.metadata.skill}`;
+    const trackSkills = rawGraph.nodes.filter(n =>
+      n.kind === 'skill' &&
+      n.metadata.ageGroup === trackNode.metadata.ageGroup &&
+      n.metadata.skill === trackNode.metadata.skill
+    );
+
+    // Enable skills, units, standards; show prereqs and supports
+    VISIBILITY.skills = true;
+    VISIBILITY.units = true;
+    VISIBILITY.standards = true;
+    VISIBILITY.edgeTypes.prerequisite_for = true;
+    VISIBILITY.edgeTypes.supports = true;
+    VISIBILITY.edgeTypes.contains = true;
+    VISIBILITY.edgeTypes.aligned_to_standard = true;
+    VISIBILITY.edgeTypes.appears_in_context = false;
+
+    // Update buttons
+    document.getElementById('toggle-skills').classList.add('active');
+    document.getElementById('toggle-units').classList.add('active');
+    document.getElementById('toggle-standards').classList.add('active');
+    document.getElementById('toggle-prereq').classList.add('active');
+    document.getElementById('toggle-supports').classList.add('active');
+    document.getElementById('toggle-contains').classList.add('active');
+    document.getElementById('toggle-align').classList.add('active');
+
+    // Compute positions: x = gseScore, y = spread by index within score
+    const scoreGroups = new Map();
+    for (const s of trackSkills) {
+      const key = s.metadata.gseScore;
+      if (!scoreGroups.has(key)) scoreGroups.set(key, []);
+      scoreGroups.get(key).push(s);
+    }
+    for (const [, group] of scoreGroups) {
+      group.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    const nodeUpdates = [];
+    for (const [score, group] of scoreGroups) {
+      const centerX = (score - 10) * 60;
+      const spread = (group.length - 1) * 40;
+      for (let i = 0; i < group.length; i++) {
+        const y = (i * 40) - (spread / 2);
+        nodeUpdates.push({ id: group[i].id, x: centerX, y: y, fixed: { x: true, y: false } });
+      }
+    }
+
+    // Also position standards and units nicely
+    const trackUnits = rawGraph.nodes.filter(n =>
+      n.kind === 'instructional_unit' &&
+      n.metadata.ageGroup === trackNode.metadata.ageGroup &&
+      n.metadata.skill === trackNode.metadata.skill
+    );
+    for (const u of trackUnits) {
+      const rangeStart = parseInt(u.metadata.gseRange.split('–')[0]);
+      nodeUpdates.push({ id: u.id, x: (rangeStart - 10) * 60, y: -250, fixed: { x: true, y: false } });
+    }
+
+    // Hide ALL non-track skills
+    for (const node of rawGraph.nodes) {
+      if (node.kind === 'skill') {
+        const isInTrack = node.metadata.ageGroup === trackNode.metadata.ageGroup &&
+                          node.metadata.skill === trackNode.metadata.skill;
+        if (!isInTrack) {
+          nodeUpdates.push({ id: node.id, hidden: true });
+        } else {
+          nodeUpdates.push({ id: node.id, hidden: false });
+        }
+      }
+    }
+
+    nodesDataSet.update(nodeUpdates);
+
+    // Update edge visibility for track-only
+    const edgeUpdates = [];
+    for (const edge of rawGraph.edges) {
+      const src = nodeMap.get(edge.sourceId);
+      const tgt = nodeMap.get(edge.targetId);
+      let hidden = !VISIBILITY.edgeTypes[edge.type];
+      if (!hidden) {
+        if (src.kind === 'skill' && (src.metadata.ageGroup !== trackNode.metadata.ageGroup || src.metadata.skill !== trackNode.metadata.skill)) hidden = true;
+        if (tgt.kind === 'skill' && (tgt.metadata.ageGroup !== trackNode.metadata.ageGroup || tgt.metadata.skill !== trackNode.metadata.skill)) hidden = true;
+      }
+      edgeUpdates.push({ id: edge.id, hidden });
+    }
+    edgesDataSet.update(edgeUpdates);
+
+    // Switch physics for track mode (gentle, no stabilization delay)
+    network.setOptions({
+      physics: {
+        enabled: true,
+        solver: 'forceAtlas2Based',
+        forceAtlas2Based: {
+          gravitationalConstant: -30,
+          centralGravity: 0.01,
+          springLength: 80,
+          springConstant: 0.05,
+          damping: 0.6,
+        },
+        stabilization: { enabled: false },
+      },
+    });
+
+    network.fit({ animation: { duration: 800, easingFunction: 'easeInOutQuad' } });
+
+    document.getElementById('track-banner').classList.add('visible');
+    document.getElementById('track-label').textContent = trackNode.title;
+    updateStats();
+  }
+
+  function exitTrackMode() {
+    currentTrack = null;
+    currentMode = 'overview';
+    setMode('overview');
+    document.getElementById('track-select').value = '';
+    document.getElementById('track-banner').classList.remove('visible');
+
+    // Restore default visibility
+    VISIBILITY.skills = false;
+    VISIBILITY.units = true;
+    VISIBILITY.standards = true;
+    VISIBILITY.edgeTypes = {
+      contains: true,
+      appears_in_context: false,
+      aligned_to_standard: true,
+      prerequisite_for: false,
+      supports: false,
+    };
+
+    document.getElementById('toggle-skills').classList.remove('active');
+    document.getElementById('toggle-units').classList.add('active');
+    document.getElementById('toggle-standards').classList.add('active');
+    document.getElementById('toggle-contains').classList.add('active');
+    document.getElementById('toggle-align').classList.add('active');
+    document.getElementById('toggle-prereq').classList.remove('active');
+    document.getElementById('toggle-supports').classList.remove('active');
+
+    // Restore overview positions and disable physics
+    const overviewPositions = computeOverviewPositions();
+    const nodeUpdates = [];
+    for (const node of rawGraph.nodes) {
+      const pos = overviewPositions.get(node.id);
+      nodeUpdates.push({
+        id: node.id,
+        x: pos ? pos.x : undefined,
+        y: pos ? pos.y : undefined,
+        hidden: shouldHideNode(node),
+      });
+    }
+    nodesDataSet.update(nodeUpdates);
+
+    const edgeUpdates = [];
+    for (const edge of rawGraph.edges) {
+      edgeUpdates.push({ id: edge.id, hidden: shouldHideEdge(edge) });
+    }
+    edgesDataSet.update(edgeUpdates);
+
+    network.setOptions({ physics: { enabled: false } });
+
+    network.fit({ animation: { duration: 800, easingFunction: 'easeInOutQuad' } });
+    updateStats();
+  }
+
+  // --------------------------------------------------------------------------
+  // Search
+  // --------------------------------------------------------------------------
+  function handleSearch(query) {
+    const q = query.toLowerCase().trim();
+    if (!q) {
+      network.selectNodes([]);
+      return;
+    }
+    const matches = rawGraph.nodes
+      .filter(n => n.title.toLowerCase().includes(q) || n.id.toLowerCase().includes(q))
+      .map(n => n.id);
+    network.selectNodes(matches);
+    if (matches.length > 0) {
+      network.focus(matches[0], { scale: 1.2, animation: { duration: 500 } });
+    }
+  }
+
+  function resetView() {
+    document.getElementById('search-input').value = '';
+    network.selectNodes([]);
+    // Reset CEFR filter
+    ['Below A1','A1','A2','A2(+)','B1','B1(+)','B2','B2(+)','C1','C2'].forEach(l => VISIBILITY.cefrLevels.add(l));
+    document.getElementById('cefr-all').classList.add('active');
+    const levelIds = {
+      'Below A1': 'cefr-below-a1', 'A1': 'cefr-a1', 'A2': 'cefr-a2', 'A2(+)': 'cefr-a2-plus',
+      'B1': 'cefr-b1', 'B1(+)': 'cefr-b1-plus', 'B2': 'cefr-b2', 'B2(+)': 'cefr-b2-plus',
+      'C1': 'cefr-c1', 'C2': 'cefr-c2',
+    };
+    for (const id of Object.values(levelIds)) document.getElementById(id).classList.add('active');
+    applyVisibility();
+    if (currentMode === 'track') {
+      exitTrackMode();
+    } else {
+      network.fit({ animation: { duration: 600 } });
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Side panel
+  // --------------------------------------------------------------------------
+  function showNodeDetails(nodeId) {
+    const node = nodeMap.get(nodeId);
+    if (!node) return;
+
+    const panel = document.getElementById('side-panel');
+    const title = document.getElementById('panel-title');
+    const body = document.getElementById('panel-body');
+
+    title.textContent = truncate(node.title, 80);
+
+    let html = '';
+    html += `<div class="detail-row"><div class="detail-label">Kind</div><div class="detail-value"><span class="badge badge-${node.kind.replace('_', '-')}">${node.kind}</span></div></div>`;
+    html += `<div class="detail-row"><div class="detail-label">ID</div><div class="detail-value" style="font-family:monospace;font-size:0.8rem;word-break:break-all;">${node.id}</div></div>`;
+
+    if (node.description && node.description !== node.title) {
+      html += `<div class="detail-row"><div class="detail-label">Description</div><div class="detail-value">${node.description}</div></div>`;
+    }
+    if (node.difficulty !== undefined) {
+      html += `<div class="detail-row"><div class="detail-label">Difficulty</div><div class="detail-value">${node.difficulty.toFixed(3)}</div></div>`;
+    }
+    if (node.metadata) {
+      for (const [key, val] of Object.entries(node.metadata)) {
+        if (key.endsWith('Slug')) continue;
+        html += `<div class="detail-row"><div class="detail-label">${key}</div><div class="detail-value">${val}</div></div>`;
+      }
+    }
+
+    // Incoming prerequisites
+    const incomingPrereqs = rawGraph.edges.filter(e => e.type === 'prerequisite_for' && e.targetId === nodeId);
+    if (incomingPrereqs.length > 0) {
+      html += `<div class="detail-row"><div class="detail-label">Prerequisites (${incomingPrereqs.length})</div><ul class="related-list">`;
+      for (const e of incomingPrereqs.slice(0, 10)) {
+        const src = nodeMap.get(e.sourceId);
+        html += `<li onclick="focusNode('${e.sourceId}')">${src ? truncate(src.title, 70) : e.sourceId} <span style="color:#999">(w=${e.weight.toFixed(2)})</span></li>`;
+      }
+      if (incomingPrereqs.length > 10) html += `<li style="color:#999">...and ${incomingPrereqs.length - 10} more</li>`;
+      html += '</ul></div>';
+    }
+
+    // Outgoing prerequisites
+    const outgoingPrereqs = rawGraph.edges.filter(e => e.type === 'prerequisite_for' && e.sourceId === nodeId);
+    if (outgoingPrereqs.length > 0) {
+      html += `<div class="detail-row"><div class="detail-label">Unlocks (${outgoingPrereqs.length})</div><ul class="related-list">`;
+      for (const e of outgoingPrereqs.slice(0, 10)) {
+        const tgt = nodeMap.get(e.targetId);
+        html += `<li onclick="focusNode('${e.targetId}')">${tgt ? truncate(tgt.title, 70) : e.targetId} <span style="color:#999">(w=${e.weight.toFixed(2)})</span></li>`;
+      }
+      if (outgoingPrereqs.length > 10) html += `<li style="color:#999">...and ${outgoingPrereqs.length - 10} more</li>`;
+      html += '</ul></div>';
+    }
+
+    // Supports
+    const outgoingSupports = rawGraph.edges.filter(e => e.type === 'supports' && e.sourceId === nodeId);
+    if (outgoingSupports.length > 0) {
+      html += `<div class="detail-row"><div class="detail-label">Co-competencies (${outgoingSupports.length})</div><ul class="related-list">`;
+      for (const e of outgoingSupports.slice(0, 8)) {
+        const tgt = nodeMap.get(e.targetId);
+        html += `<li onclick="focusNode('${e.targetId}')">${tgt ? truncate(tgt.title, 60) : e.targetId}</li>`;
+      }
+      if (outgoingSupports.length > 8) html += `<li style="color:#999">...and ${outgoingSupports.length - 8} more</li>`;
+      html += '</ul></div>';
+    }
+
+    body.innerHTML = html;
+    panel.classList.add('open');
+  }
+
+  function closePanel() {
+    document.getElementById('side-panel').classList.remove('open');
+  }
+
+  function focusNode(nodeId) {
+    network.selectNodes([nodeId]);
+    network.focus(nodeId, { scale: 1.3, animation: { duration: 500 } });
+    showNodeDetails(nodeId);
+  }
+
+  // --------------------------------------------------------------------------
+  // Utilities
+  // --------------------------------------------------------------------------
+  function truncate(str, len) {
+    if (!str) return '';
+    return str.length > len ? str.substring(0, len) + '...' : str;
+  }
+
+  function makeTooltip(node) {
+    let text = truncate(node.title, 60) + '\n' + node.kind;
+    if (node.metadata && node.metadata.gseScore !== undefined) {
+      text += '\nGSE: ' + node.metadata.gseScore;
+    }
+    if (node.metadata && node.metadata.cefr) {
+      text += ' | CEFR: ' + node.metadata.cefr;
+    }
+    return text;
+  }
+
+  function updateStats() {
+    let visibleNodes = 0;
+    for (const node of rawGraph.nodes) {
+      let hidden = shouldHideNode(node);
+      if (currentTrack && node.kind === 'skill') {
+        const trackNode = nodeMap.get(currentTrack);
+        const isInTrack = node.metadata.ageGroup === trackNode.metadata.ageGroup &&
+                          node.metadata.skill === trackNode.metadata.skill;
+        if (!isInTrack) hidden = true;
+      }
+      if (!hidden) visibleNodes++;
+    }
+    let visibleEdges = 0;
+    for (const edge of rawGraph.edges) {
+      let hidden = shouldHideEdge(edge);
+      if (currentTrack && !hidden) {
+        const trackNode = nodeMap.get(currentTrack);
+        const src = nodeMap.get(edge.sourceId);
+        const tgt = nodeMap.get(edge.targetId);
+        if (src.kind === 'skill' && (src.metadata.ageGroup !== trackNode.metadata.ageGroup || src.metadata.skill !== trackNode.metadata.skill)) hidden = true;
+        if (tgt.kind === 'skill' && (tgt.metadata.ageGroup !== trackNode.metadata.ageGroup || tgt.metadata.skill !== trackNode.metadata.skill)) hidden = true;
+      }
+      if (!hidden) visibleEdges++;
+    }
+    document.getElementById('stat-nodes').textContent = rawGraph.nodes.length.toLocaleString();
+    document.getElementById('stat-edges').textContent = rawGraph.edges.length.toLocaleString();
+    document.getElementById('stat-visible').textContent = `${visibleNodes.toLocaleString()} nodes, ${visibleEdges.toLocaleString()} edges`;
+  }
+
+  // --------------------------------------------------------------------------
+  // Init
+  // --------------------------------------------------------------------------
+  loadData().catch(err => {
+    console.error(err);
+    document.querySelector('.loading-text').textContent = 'Error loading knowledge space. Check console.';
+  });
+  </script>
+</body>
+</html>
