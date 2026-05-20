@@ -202,7 +202,7 @@
   <!-- SVG inlined directly — no iframe, no object tag -->
   <div class="main-frame" id="graph-frame">
     <div class="anim-status" id="anim-status">
-      <span class="anim-status-text" id="anim-status-text">Mastery Challenge ®</span>
+      <span class="anim-status-text" id="anim-status-text">Mastery Advantage ®</span>
     </div>
 
     <svg
@@ -401,7 +401,7 @@
         <text x="500" y="984"
               font-family="ui-sans-serif, system-ui, sans-serif"
               font-size="16" font-weight="800" text-anchor="middle"
-              letter-spacing="0.12em" fill="rgba(255,255,255,0.35)">MASTERY CHALLENGE ®</text>
+              letter-spacing="0.12em" fill="rgba(255,255,255,0.35)">MASTERY ADVANTAGE ®</text>
       </g>
 
       <!-- LAYERS 2–6: rendered by renderGraph() in JS -->
@@ -1127,7 +1127,7 @@
   function _demoFinish(domain) {
     renderGraph(domain);
     const st = document.getElementById('anim-status-text');
-    if (st) { st.textContent = 'Mastery Challenge ®'; st.style.color = ''; }
+    if (st) { st.textContent = 'Mastery Advantage ®'; st.style.color = ''; }
     const sb = document.getElementById('anim-status');
     if (sb) sb.style.borderBottomColor = '';
     _animRunning = false;
