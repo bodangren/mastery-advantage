@@ -160,6 +160,23 @@
     font-size: 11px; color: rgba(255,255,255,0.28); line-height: 1.6;
     font-style: italic; text-align: center; margin-top: 6px; padding: 0 4px;
   }
+
+  /* Animation status bar — sits above SVG, shows phase captions */
+  .anim-status {
+    padding: 14px 28px;
+    background: rgba(10, 16, 28, 0.98);
+    border-bottom: 2px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; min-height: 72px;
+    transition: border-color 0.4s;
+  }
+  .anim-status-text {
+    font-size: clamp(16px, 2.2vw, 28px);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: rgba(255,255,255,0.9);
+    transition: color 0.35s;
+    line-height: 1.2;
+  }
 </style>
 </head>
 <body>
@@ -184,6 +201,9 @@
 
   <!-- SVG inlined directly — no iframe, no object tag -->
   <div class="main-frame" id="graph-frame">
+    <div class="anim-status" id="anim-status">
+      <span class="anim-status-text" id="anim-status-text">Mastery Challenge ®</span>
+    </div>
 
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -378,6 +398,10 @@
                x="28" y="28" width="200" height="80"
                preserveAspectRatio="xMinYMid meet"
                style="opacity:0.85"/>
+        <text x="500" y="984"
+              font-family="ui-sans-serif, system-ui, sans-serif"
+              font-size="16" font-weight="800" text-anchor="middle"
+              letter-spacing="0.12em" fill="rgba(255,255,255,0.35)">MASTERY CHALLENGE ®</text>
       </g>
 
       <!-- LAYERS 2–6: rendered by renderGraph() in JS -->
@@ -458,7 +482,7 @@
 
     reading: {
       // A1 → C2 — secondary students (ages 11–18)
-      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9, newReady: [11, 13],
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'A1 · Beginner',     labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'A2 · Elementary',   labelY:434 },
@@ -511,7 +535,7 @@
 
     primary: {
       // Pre-A1 → B1 — upper primary students (ages 8–11)
-      forgetIdx: 5, currentIdx: 9, learnIdx: 10,
+      forgetIdx: 5, currentIdx: 9, learnIdx: 10, newReady: [12, 14],
       clusters: [
         { cx:160, cy:800, rx:140, ry:115, label:'Pre-A1 · Starter',    labelY:912 },
         { cx:340, cy:575, rx:155, ry:130, label:'A1 · Beginner',       labelY:446 },
@@ -554,7 +578,7 @@
 
     math: {
       // Descriptive skill-progression names — clearer to viewers than curriculum codes
-      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9, newReady: [11, 13],
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'Numbers · Operations',   labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'Fractions · Ratios',     labelY:434 },
@@ -588,7 +612,7 @@
 
     science: {
       // Science disciplines as clusters — recognisable to any student or parent
-      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9, newReady: [11, 13],
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'Life Science',      labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'Earth & Space',     labelY:434 },
@@ -622,7 +646,7 @@
 
     stem: {
       // Robotics & engineering jargon — signals the hands-on, technical nature of the app
-      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9, newReady: [11, 13],
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'Circuits & Power',    labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'Sensors & Input',     labelY:434 },
@@ -656,7 +680,7 @@
 
     tutor: {
       // Amalgam of 6 domain mini-networks arranged hexagonally around a central AI Tutor node.
-      forgetIdx: 0, currentIdx: 48, learnIdx: 49,
+      forgetIdx: 0, currentIdx: 48, learnIdx: 49, newReady: [51, 21],
       // Each satellite has a branching tree: hub → 2 branches → 2 leaves each + 1 far node.
       clusters: [
         { cx:500, cy:175, rx:150, ry:115, label:'Reading',  labelY: 74, color:'#38bdf8' },
@@ -803,7 +827,7 @@
 
     zhongwen: {
       // HSK 1–6 — classic 6-level framework (≈ CEFR A1–C2)
-      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9, newReady: [11, 13],
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'HSK 1 · 入门',   labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'HSK 2 · 基础',   labelY:434 },
@@ -857,7 +881,7 @@
     storytime: {
       // Pre-A1 & A1 only — lower primary students (ages 5–8)
       // Two large clusters; Pre-A1 is dense (phonics / early literacy)
-      forgetIdx: 0, currentIdx: 9, learnIdx: 10,
+      forgetIdx: 0, currentIdx: 9, learnIdx: 10, newReady: [13, 15],
       clusters: [
         { cx:285, cy:680, rx:225, ry:188, label:'Pre-A1 · Starter', labelY:866 },
         { cx:730, cy:335, rx:215, ry:188, label:'A1 · Beginner',    labelY:145 },
@@ -1014,53 +1038,82 @@
     const lEl = lN ? document.getElementById('ma-node-' + data.learnIdx) : null;
 
     // Phase 1: forgetting node starts to decay
+    _setCaption('About to forget — reviewing before it fades', '#d97706');
     fEl.setAttribute('data-state', 'forgetting');
     const lbl1 = _addLabel(fN.x, fN.y - fN.r - 30, 'About to forget…', '#d97706');
 
     // Phase 2 (900ms): cursor hops from current to forgetting node
     setTimeout(() => {
       lbl1.remove();
+      _setCaption('Reviewing…', '#d97706');
       _travel(cN.x, cN.y, fN.x, fN.y, 860, () => {
 
         // Phase 3: POP — node refreshes
         fEl.setAttribute('data-state', 'refreshed');
+        _setCaption('Reviewed! Memory secured.', '#34d399');
         const lbl2 = _addLabel(fN.x, fN.y - fN.r - 30, 'Reviewed! ✓', '#34d399');
 
         setTimeout(() => {
           fEl.setAttribute('data-state', 'mastered');
 
-          // Phase 4 (650ms after refresh): cursor arcs back to current node
+          // Phase 4: cursor arcs back to current node
           setTimeout(() => {
             lbl2.remove();
             _travel(fN.x, fN.y, cN.x, cN.y, 800, () => {
               if (!lN || !lEl) { _demoFinish(domain); return; }
 
-              // Brief pause before learn sequence
               setTimeout(() => {
-
                 // Phase 5: ready node highlighted
+                _setCaption('Ready to learn — prerequisites mastered', '#f5b942');
                 const lbl3 = _addLabel(lN.x, lN.y - lN.r - 30, 'Ready to learn!', '#f5b942');
                 setTimeout(() => {
                   lbl3.remove();
+                  _setCaption('Learning…', '#f5b942');
 
                   // Phase 6: cursor hops to learn-next node
                   _travel(cN.x, cN.y, lN.x, lN.y, 900, () => {
 
-                    // Phase 7: transition — current becomes mastered, ready becomes current
+                    // Phase 7: transition — current→mastered, ready→current
                     cEl.removeAttribute('filter');
                     cEl.setAttribute('data-state', 'mastered');
                     lEl.setAttribute('data-state', 'current');
                     lEl.setAttribute('filter', 'url(#ma-glow-strong)');
 
-                    // Move "You are here" label to new current position
+                    // Move "You are here" label
                     const ll = document.getElementById('ma-layer-labels');
                     ll.innerHTML = '';
                     const lt = el('text', { class: 'ma-node-label', x: lN.x, y: lN.y - lN.r - 18, 'text-anchor': 'middle' });
                     lt.textContent = 'You are here';
                     ll.appendChild(lt);
 
-                    // Hold the final state, then reset
-                    setTimeout(() => _demoFinish(domain), 1600);
+                    _setCaption('Skill unlocked! Recalculating your path…', '#818cf8');
+
+                    // Phase 8: cascade newly-unlocked ready nodes
+                    const newReady = data.newReady || [];
+                    setTimeout(() => {
+                      newReady.forEach((idx, i) => {
+                        setTimeout(() => {
+                          const nEl = document.getElementById('ma-node-' + idx);
+                          if (nEl) {
+                            nEl.setAttribute('data-state', 'ready');
+                            nEl.setAttribute('filter', 'url(#ma-glow-soft)');
+                            setTimeout(() => nEl.removeAttribute('filter'), 850);
+                          }
+                        }, i * 320);
+                      });
+
+                      // Phase 9: path updated — hold 3s then auto-reset
+                      const n = newReady.length;
+                      setTimeout(() => {
+                        _setCaption(
+                          n > 0
+                            ? `${n} new skill${n !== 1 ? 's' : ''} unlocked — your path just expanded`
+                            : 'Your path has been updated',
+                          '#34d399'
+                        );
+                        setTimeout(() => _demoFinish(domain), 3000);
+                      }, n * 320 + 500);
+                    }, 520);
                   });
                 }, 700);
               }, 480);
@@ -1073,8 +1126,19 @@
 
   function _demoFinish(domain) {
     renderGraph(domain);
+    const st = document.getElementById('anim-status-text');
+    if (st) { st.textContent = 'Mastery Challenge ®'; st.style.color = ''; }
+    const sb = document.getElementById('anim-status');
+    if (sb) sb.style.borderBottomColor = '';
     _animRunning = false;
     document.getElementById('btn-demo').disabled = false;
+  }
+
+  function _setCaption(text, color) {
+    const st = document.getElementById('anim-status-text');
+    if (st) { st.textContent = text; st.style.color = color || ''; }
+    const sb = document.getElementById('anim-status');
+    if (sb) sb.style.borderBottomColor = color ? color + '55' : '';
   }
 
   // Animated cursor dot traveling a bezier arc between two points
