@@ -489,6 +489,105 @@
       label: { x:570, y:346, text:'You are here' },
     },
 
+    math: {
+      // Descriptive skill-progression names — clearer to viewers than curriculum codes
+      clusters: [
+        { cx:170, cy:780, rx:140, ry:120, label:'Numbers · Operations',   labelY:895 },
+        { cx:320, cy:560, rx:150, ry:130, label:'Fractions · Ratios',     labelY:434 },
+        { cx:500, cy:380, rx:160, ry:135, label:'Geometry · Measurement', labelY:244 },
+        { cx:720, cy:430, rx:150, ry:125, label:'Algebra · Patterns',     labelY:304 },
+        { cx:830, cy:660, rx:130, ry:115, label:'Statistics · Data',      labelY:776 },
+        { cx:700, cy:850, rx:120, ry:100, label:'Advanced Math',          labelY:954 },
+      ],
+      nodes: [
+        { x:170, y:800, r:18, state:'mastered' }, { x:100, y:740, r:16, state:'mastered' },
+        { x:230, y:720, r:16, state:'mastered' }, { x:160, y:870, r:15, state:'mastered' },
+        { x:290, y:600, r:18, state:'mastered' }, { x:370, y:560, r:16, state:'mastered' },
+        { x:260, y:510, r:15, state:'mastered' }, { x:380, y:620, r:14, state:'mastered' },
+        { x:460, y:380, r:22, state:'current', glow:true },
+        { x:540, y:340, r:17, state:'ready' }, { x:500, y:460, r:16, state:'ready' }, { x:430, y:310, r:14, state:'locked' },
+        { x:680, y:400, r:18, state:'ready' }, { x:760, y:440, r:16, state:'locked' }, { x:720, y:480, r:15, state:'locked' }, { x:740, y:370, r:14, state:'locked' },
+        { x:820, y:640, r:16, state:'locked' }, { x:870, y:680, r:15, state:'locked' }, { x:790, y:720, r:14, state:'locked' },
+        { x:700, y:850, r:16, state:'locked' }, { x:660, y:890, r:14, state:'locked' }, { x:740, y:820, r:13, state:'locked' },
+      ],
+      edges: [
+        'M 200 720 Q 270 660 290 600', 'M 140 740 Q 200 640 280 580', 'M 220 820 Q 290 720 340 620',
+        'M 360 510 Q 420 440 460 380', 'M 300 500 Q 380 420 470 360', 'M 380 610 Q 440 500 500 420',
+        'M 560 360 Q 620 380 680 400', 'M 540 420 Q 620 430 700 440', 'M 520 320 Q 620 350 720 380',
+        'M 760 480 Q 800 560 820 620', 'M 720 500 Q 780 580 830 640',
+        'M 800 720 Q 760 790 720 830', 'M 830 730 Q 780 820 730 860',
+        'M 280 540 Q 320 530 360 560', 'M 470 350 Q 500 370 540 380',
+      ],
+      activePath: 'M 170 800 Q 240 700 290 600 Q 360 500 460 380 Q 540 360 680 400',
+      label: { x:460, y:342, text:'You are here' },
+    },
+
+    science: {
+      // Science disciplines as clusters — recognisable to any student or parent
+      clusters: [
+        { cx:170, cy:780, rx:140, ry:120, label:'Life Science',      labelY:895 },
+        { cx:320, cy:560, rx:150, ry:130, label:'Earth & Space',     labelY:434 },
+        { cx:500, cy:380, rx:160, ry:135, label:'Physical Science',  labelY:244 },
+        { cx:720, cy:430, rx:150, ry:125, label:'Chemistry',         labelY:304 },
+        { cx:830, cy:660, rx:130, ry:115, label:'Biology',           labelY:776 },
+        { cx:700, cy:850, rx:120, ry:100, label:'Physics',           labelY:954 },
+      ],
+      nodes: [
+        { x:170, y:800, r:18, state:'mastered' }, { x:100, y:740, r:16, state:'mastered' },
+        { x:230, y:720, r:16, state:'mastered' }, { x:160, y:870, r:15, state:'mastered' },
+        { x:290, y:600, r:18, state:'mastered' }, { x:370, y:560, r:16, state:'mastered' },
+        { x:260, y:510, r:15, state:'mastered' }, { x:380, y:620, r:14, state:'mastered' },
+        { x:460, y:380, r:22, state:'current', glow:true },
+        { x:540, y:340, r:17, state:'ready' }, { x:500, y:460, r:16, state:'ready' }, { x:430, y:310, r:14, state:'locked' },
+        { x:680, y:400, r:18, state:'ready' }, { x:760, y:440, r:16, state:'locked' }, { x:720, y:480, r:15, state:'locked' }, { x:740, y:370, r:14, state:'locked' },
+        { x:820, y:640, r:16, state:'locked' }, { x:870, y:680, r:15, state:'locked' }, { x:790, y:720, r:14, state:'locked' },
+        { x:700, y:850, r:16, state:'locked' }, { x:660, y:890, r:14, state:'locked' }, { x:740, y:820, r:13, state:'locked' },
+      ],
+      edges: [
+        'M 200 720 Q 270 660 290 600', 'M 140 740 Q 200 640 280 580', 'M 220 820 Q 290 720 340 620',
+        'M 360 510 Q 420 440 460 380', 'M 300 500 Q 380 420 470 360', 'M 380 610 Q 440 500 500 420',
+        'M 560 360 Q 620 380 680 400', 'M 540 420 Q 620 430 700 440', 'M 520 320 Q 620 350 720 380',
+        'M 760 480 Q 800 560 820 620', 'M 720 500 Q 780 580 830 640',
+        'M 800 720 Q 760 790 720 830', 'M 830 730 Q 780 820 730 860',
+        'M 280 540 Q 320 530 360 560', 'M 470 350 Q 500 370 540 380',
+      ],
+      activePath: 'M 170 800 Q 240 700 290 600 Q 360 500 460 380 Q 540 360 680 400',
+      label: { x:460, y:342, text:'You are here' },
+    },
+
+    stem: {
+      // Robotics & engineering jargon — signals the hands-on, technical nature of the app
+      clusters: [
+        { cx:170, cy:780, rx:140, ry:120, label:'Circuits & Power',    labelY:895 },
+        { cx:320, cy:560, rx:150, ry:130, label:'Sensors & Input',     labelY:434 },
+        { cx:500, cy:380, rx:160, ry:135, label:'Algorithms & Logic',  labelY:244 },
+        { cx:720, cy:430, rx:150, ry:125, label:'Mechanical Design',   labelY:304 },
+        { cx:830, cy:660, rx:130, ry:115, label:'Autonomous Systems',  labelY:776 },
+        { cx:700, cy:850, rx:120, ry:100, label:'AI & Optimisation',   labelY:954 },
+      ],
+      nodes: [
+        { x:170, y:800, r:18, state:'mastered' }, { x:100, y:740, r:16, state:'mastered' },
+        { x:230, y:720, r:16, state:'mastered' }, { x:160, y:870, r:15, state:'mastered' },
+        { x:290, y:600, r:18, state:'mastered' }, { x:370, y:560, r:16, state:'mastered' },
+        { x:260, y:510, r:15, state:'mastered' }, { x:380, y:620, r:14, state:'mastered' },
+        { x:460, y:380, r:22, state:'current', glow:true },
+        { x:540, y:340, r:17, state:'ready' }, { x:500, y:460, r:16, state:'ready' }, { x:430, y:310, r:14, state:'locked' },
+        { x:680, y:400, r:18, state:'ready' }, { x:760, y:440, r:16, state:'locked' }, { x:720, y:480, r:15, state:'locked' }, { x:740, y:370, r:14, state:'locked' },
+        { x:820, y:640, r:16, state:'locked' }, { x:870, y:680, r:15, state:'locked' }, { x:790, y:720, r:14, state:'locked' },
+        { x:700, y:850, r:16, state:'locked' }, { x:660, y:890, r:14, state:'locked' }, { x:740, y:820, r:13, state:'locked' },
+      ],
+      edges: [
+        'M 200 720 Q 270 660 290 600', 'M 140 740 Q 200 640 280 580', 'M 220 820 Q 290 720 340 620',
+        'M 360 510 Q 420 440 460 380', 'M 300 500 Q 380 420 470 360', 'M 380 610 Q 440 500 500 420',
+        'M 560 360 Q 620 380 680 400', 'M 540 420 Q 620 430 700 440', 'M 520 320 Q 620 350 720 380',
+        'M 760 480 Q 800 560 820 620', 'M 720 500 Q 780 580 830 640',
+        'M 800 720 Q 760 790 720 830', 'M 830 730 Q 780 820 730 860',
+        'M 280 540 Q 320 530 360 560', 'M 470 350 Q 500 370 540 380',
+      ],
+      activePath: 'M 170 800 Q 240 700 290 600 Q 360 500 460 380 Q 540 360 680 400',
+      label: { x:460, y:342, text:'You are here' },
+    },
+
     zhongwen: {
       // HSK 1–6 — classic 6-level framework (≈ CEFR A1–C2)
       clusters: [
