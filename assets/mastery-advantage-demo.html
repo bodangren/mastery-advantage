@@ -331,157 +331,12 @@
                style="opacity:0.85"/>
       </g>
 
-      <!-- LAYER 2: Cluster regions -->
-      <g id="ma-layer-clusters">
-        <ellipse cx="170" cy="780" rx="140" ry="120" fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
-        <ellipse cx="320" cy="560" rx="150" ry="130" fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
-        <ellipse cx="500" cy="380" rx="160" ry="135" fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
-        <ellipse cx="720" cy="430" rx="150" ry="125" fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
-        <ellipse cx="830" cy="660" rx="130" ry="115" fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
-        <ellipse cx="700" cy="850" rx="120" ry="100" fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
-        <!-- Cluster labels inside the cluster group -->
-        <text class="ma-cluster-label" x="170" y="895" text-anchor="middle">A1 · Beginner</text>
-        <text class="ma-cluster-label" x="320" y="434" text-anchor="middle">A2 · Elementary</text>
-        <text class="ma-cluster-label" x="500" y="244" text-anchor="middle">B1 · Intermediate</text>
-        <text class="ma-cluster-label" x="720" y="304" text-anchor="middle">B2 · Upper-Int.</text>
-        <text class="ma-cluster-label" x="830" y="776" text-anchor="middle">C1 · Advanced</text>
-        <text class="ma-cluster-label" x="700" y="954" text-anchor="middle">C2 · Proficient</text>
-      </g>
-
-      <!-- LAYER 3: Edges -->
-      <g id="ma-layer-edges">
-        <path class="ma-edge" d="M 200 720 Q 270 660 290 600"/>
-        <path class="ma-edge" d="M 140 740 Q 200 640 280 580"/>
-        <path class="ma-edge" d="M 220 820 Q 290 720 340 620"/>
-        <path class="ma-edge" d="M 360 510 Q 420 440 460 380"/>
-        <path class="ma-edge" d="M 300 500 Q 380 420 470 360"/>
-        <path class="ma-edge" d="M 380 610 Q 440 500 500 420"/>
-        <path class="ma-edge" d="M 560 360 Q 620 380 680 400"/>
-        <path class="ma-edge" d="M 540 420 Q 620 430 700 440"/>
-        <path class="ma-edge" d="M 520 320 Q 620 350 720 380"/>
-        <path class="ma-edge" d="M 760 480 Q 800 560 820 620"/>
-        <path class="ma-edge" d="M 720 500 Q 780 580 830 640"/>
-        <path class="ma-edge" d="M 800 720 Q 760 790 720 830"/>
-        <path class="ma-edge" d="M 830 730 Q 780 820 730 860"/>
-        <path class="ma-edge" d="M 280 540 Q 320 530 360 560"/>
-        <path class="ma-edge" d="M 470 350 Q 500 370 540 380"/>
-      </g>
-
-      <!-- LAYER 4: Active path -->
-      <g id="ma-layer-active-path">
-        <path class="ma-edge-active-line"
-          d="M 170 800 Q 240 700 290 600 Q 360 500 460 380 Q 540 360 680 400"
-          stroke="url(#ma-active-gradient)"/>
-      </g>
-
-      <!-- LAYER 5: Nodes -->
-      <g id="ma-layer-nodes">
-
-        <!-- A1: mastered -->
-        <g class="ma-node" data-state="mastered" data-cefr="a1" transform="translate(170 800)">
-          <circle class="ma-node-fill" r="18"/><circle class="ma-node-ring" r="22"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="mastered" data-cefr="a1" transform="translate(100 740)">
-          <circle class="ma-node-fill" r="16"/><circle class="ma-node-ring" r="20"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="mastered" data-cefr="a1" transform="translate(230 720)">
-          <circle class="ma-node-fill" r="16"/><circle class="ma-node-ring" r="20"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="mastered" data-cefr="a1" transform="translate(160 870)">
-          <circle class="ma-node-fill" r="15"/><circle class="ma-node-ring" r="19"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-
-        <!-- A2: mastered -->
-        <g class="ma-node" data-state="mastered" data-cefr="a2" transform="translate(290 600)">
-          <circle class="ma-node-fill" r="18"/><circle class="ma-node-ring" r="22"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="mastered" data-cefr="a2" transform="translate(370 560)">
-          <circle class="ma-node-fill" r="16"/><circle class="ma-node-ring" r="20"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="mastered" data-cefr="a2" transform="translate(260 510)">
-          <circle class="ma-node-fill" r="15"/><circle class="ma-node-ring" r="19"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="mastered" data-cefr="a2" transform="translate(380 620)">
-          <circle class="ma-node-fill" r="14"/><circle class="ma-node-ring" r="18"/>
-          <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-
-        <!-- B1: current + ready + locked -->
-        <g class="ma-node" data-state="current" data-cefr="b1" transform="translate(460 380)" filter="url(#ma-glow-strong)">
-          <circle class="ma-node-fill" r="22"/><circle class="ma-node-ring" r="28"/>
-          <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="ready" data-cefr="b1" transform="translate(540 340)">
-          <circle class="ma-node-fill" r="17"/><circle class="ma-node-ring" r="21"/>
-          <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="ready" data-cefr="b1" transform="translate(500 460)">
-          <circle class="ma-node-fill" r="16"/><circle class="ma-node-ring" r="20"/>
-          <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="b1" transform="translate(430 310)">
-          <circle class="ma-node-fill" r="14"/><circle class="ma-node-ring" r="18"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-
-        <!-- B2: one ready, rest locked -->
-        <g class="ma-node" data-state="ready" data-cefr="b2" transform="translate(680 400)">
-          <circle class="ma-node-fill" r="18"/><circle class="ma-node-ring" r="22"/>
-          <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="b2" transform="translate(760 440)">
-          <circle class="ma-node-fill" r="16"/><circle class="ma-node-ring" r="20"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="b2" transform="translate(720 480)">
-          <circle class="ma-node-fill" r="15"/><circle class="ma-node-ring" r="19"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="b2" transform="translate(740 370)">
-          <circle class="ma-node-fill" r="14"/><circle class="ma-node-ring" r="18"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-
-        <!-- C1: all locked -->
-        <g class="ma-node" data-state="locked" data-cefr="c1" transform="translate(820 640)">
-          <circle class="ma-node-fill" r="16"/><circle class="ma-node-ring" r="20"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="c1" transform="translate(870 680)">
-          <circle class="ma-node-fill" r="15"/><circle class="ma-node-ring" r="19"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="c1" transform="translate(790 720)">
-          <circle class="ma-node-fill" r="14"/><circle class="ma-node-ring" r="18"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-
-        <!-- C2: all locked -->
-        <g class="ma-node" data-state="locked" data-cefr="c2" transform="translate(700 850)">
-          <circle class="ma-node-fill" r="16"/><circle class="ma-node-ring" r="20"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="c2" transform="translate(660 890)">
-          <circle class="ma-node-fill" r="14"/><circle class="ma-node-ring" r="18"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-        <g class="ma-node" data-state="locked" data-cefr="c2" transform="translate(740 820)">
-          <circle class="ma-node-fill" r="13"/><circle class="ma-node-ring" r="17"/>
-          <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
-        </g>
-      </g>
-
-      <!-- LAYER 6: Labels -->
-      <g id="ma-layer-labels">
-        <text class="ma-node-label" x="460" y="342" text-anchor="middle">You are here</text>
-      </g>
+      <!-- LAYERS 2–6: rendered by renderGraph() in JS -->
+      <g id="ma-layer-clusters"></g>
+      <g id="ma-layer-edges"></g>
+      <g id="ma-layer-active-path"></g>
+      <g id="ma-layer-nodes"></g>
+      <g id="ma-layer-labels"></g>
 
     </svg>
   </div>
@@ -533,24 +388,235 @@
     tutor:    'logos/tutor-advantage.png',
   };
 
+  // ── Graph data per app ──────────────────────────────────────────────────────
+  // Each entry defines: clusters (ellipses + labels), nodes, edges, activePath,
+  // and the "you are here" label. Non-reading apps fall back to 'reading' layout
+  // until their own domain graphs are defined.
+
+  const graphData = {
+
+    reading: {
+      // A1 → C2 — secondary students (ages 11–18)
+      clusters: [
+        { cx:170, cy:780, rx:140, ry:120, label:'A1 · Beginner',     labelY:895 },
+        { cx:320, cy:560, rx:150, ry:130, label:'A2 · Elementary',   labelY:434 },
+        { cx:500, cy:380, rx:160, ry:135, label:'B1 · Intermediate', labelY:244 },
+        { cx:720, cy:430, rx:150, ry:125, label:'B2 · Upper-Int.',   labelY:304 },
+        { cx:830, cy:660, rx:130, ry:115, label:'C1 · Advanced',     labelY:776 },
+        { cx:700, cy:850, rx:120, ry:100, label:'C2 · Proficient',   labelY:954 },
+      ],
+      nodes: [
+        // A1 — mastered
+        { x:170, y:800, r:18, state:'mastered' },
+        { x:100, y:740, r:16, state:'mastered' },
+        { x:230, y:720, r:16, state:'mastered' },
+        { x:160, y:870, r:15, state:'mastered' },
+        // A2 — mastered
+        { x:290, y:600, r:18, state:'mastered' },
+        { x:370, y:560, r:16, state:'mastered' },
+        { x:260, y:510, r:15, state:'mastered' },
+        { x:380, y:620, r:14, state:'mastered' },
+        // B1 — current focus + ready + locked
+        { x:460, y:380, r:22, state:'current', glow:true },
+        { x:540, y:340, r:17, state:'ready' },
+        { x:500, y:460, r:16, state:'ready' },
+        { x:430, y:310, r:14, state:'locked' },
+        // B2 — first node ready, rest locked
+        { x:680, y:400, r:18, state:'ready' },
+        { x:760, y:440, r:16, state:'locked' },
+        { x:720, y:480, r:15, state:'locked' },
+        { x:740, y:370, r:14, state:'locked' },
+        // C1 — all locked
+        { x:820, y:640, r:16, state:'locked' },
+        { x:870, y:680, r:15, state:'locked' },
+        { x:790, y:720, r:14, state:'locked' },
+        // C2 — all locked
+        { x:700, y:850, r:16, state:'locked' },
+        { x:660, y:890, r:14, state:'locked' },
+        { x:740, y:820, r:13, state:'locked' },
+      ],
+      edges: [
+        'M 200 720 Q 270 660 290 600', 'M 140 740 Q 200 640 280 580', 'M 220 820 Q 290 720 340 620',
+        'M 360 510 Q 420 440 460 380', 'M 300 500 Q 380 420 470 360', 'M 380 610 Q 440 500 500 420',
+        'M 560 360 Q 620 380 680 400', 'M 540 420 Q 620 430 700 440', 'M 520 320 Q 620 350 720 380',
+        'M 760 480 Q 800 560 820 620', 'M 720 500 Q 780 580 830 640',
+        'M 800 720 Q 760 790 720 830', 'M 830 730 Q 780 820 730 860',
+        'M 280 540 Q 320 530 360 560', 'M 470 350 Q 500 370 540 380',
+      ],
+      activePath: 'M 170 800 Q 240 700 290 600 Q 360 500 460 380 Q 540 360 680 400',
+      label: { x:460, y:342, text:'You are here' },
+    },
+
+    primary: {
+      // Pre-A1 → B1 — upper primary students (ages 8–11)
+      clusters: [
+        { cx:160, cy:800, rx:140, ry:115, label:'Pre-A1 · Starter',    labelY:912 },
+        { cx:340, cy:575, rx:155, ry:130, label:'A1 · Beginner',       labelY:446 },
+        { cx:590, cy:375, rx:165, ry:135, label:'A2 · Elementary',     labelY:240 },
+        { cx:815, cy:210, rx:145, ry:115, label:'B1 · Intermediate',   labelY:100 },
+      ],
+      nodes: [
+        // Pre-A1 — mastered
+        { x:160, y:810, r:18, state:'mastered' },
+        { x: 90, y:760, r:16, state:'mastered' },
+        { x:220, y:740, r:16, state:'mastered' },
+        { x:150, y:880, r:15, state:'mastered' },
+        { x:230, y:850, r:14, state:'mastered' },
+        // A1 — mastered
+        { x:320, y:590, r:18, state:'mastered' },
+        { x:400, y:550, r:16, state:'mastered' },
+        { x:280, y:530, r:15, state:'mastered' },
+        { x:390, y:640, r:14, state:'mastered' },
+        // A2 — current + ready + locked
+        { x:570, y:385, r:22, state:'current', glow:true },
+        { x:650, y:345, r:17, state:'ready' },
+        { x:625, y:460, r:16, state:'ready' },
+        { x:530, y:315, r:14, state:'locked' },
+        { x:685, y:430, r:13, state:'locked' },
+        // B1 — all locked
+        { x:800, y:215, r:18, state:'locked' },
+        { x:860, y:265, r:15, state:'locked' },
+        { x:750, y:165, r:14, state:'locked' },
+        { x:845, y:160, r:13, state:'locked' },
+      ],
+      edges: [
+        'M 200 760 Q 260 680 300 600', 'M 150 770 Q 220 660 290 580', 'M 220 850 Q 280 750 330 640',
+        'M 380 510 Q 470 450 540 400', 'M 330 530 Q 430 450 550 390', 'M 400 640 Q 470 540 555 450',
+        'M 670 325 Q 730 265 790 225', 'M 650 355 Q 720 295 800 245', 'M 640 400 Q 730 325 815 265',
+        'M 280 550 Q 330 545 375 565', 'M 620 368 Q 645 378 665 393',
+      ],
+      activePath: 'M 160 810 Q 240 720 320 590 Q 440 480 570 385 Q 660 345 800 215',
+      label: { x:570, y:346, text:'You are here' },
+    },
+
+    storytime: {
+      // Pre-A1 & A1 only — lower primary students (ages 5–8)
+      // Two large clusters; Pre-A1 is dense (phonics / early literacy)
+      clusters: [
+        { cx:285, cy:680, rx:225, ry:188, label:'Pre-A1 · Starter', labelY:866 },
+        { cx:730, cy:335, rx:215, ry:188, label:'A1 · Beginner',    labelY:145 },
+      ],
+      nodes: [
+        // Pre-A1 — mastered (dense — phonics, sight words, alphabet)
+        { x:235, y:665, r:20, state:'mastered' },
+        { x:130, y:710, r:17, state:'mastered' },
+        { x:320, y:628, r:17, state:'mastered' },
+        { x:185, y:795, r:16, state:'mastered' },
+        { x:365, y:748, r:15, state:'mastered' },
+        { x:280, y:840, r:15, state:'mastered' },
+        { x:385, y:678, r:14, state:'mastered' },
+        { x:110, y:800, r:13, state:'mastered' },
+        { x:200, y:875, r:13, state:'mastered' },
+        // A1 — current + ready + locked
+        { x:715, y:345, r:22, state:'current', glow:true },
+        { x:805, y:288, r:18, state:'ready' },
+        { x:773, y:422, r:17, state:'ready' },
+        { x:628, y:288, r:16, state:'ready' },
+        { x:862, y:378, r:15, state:'locked' },
+        { x:672, y:432, r:14, state:'locked' },
+        { x:845, y:442, r:13, state:'locked' },
+        { x:600, y:378, r:13, state:'locked' },
+      ],
+      edges: [
+        // Pre-A1 internal connections
+        'M 258 678 Q 288 655 312 638', 'M 215 750 Q 258 718 322 700',
+        'M 195 793 Q 248 773 285 752', 'M 315 758 Q 353 733 378 715',
+        'M 240 685 Q 268 660 292 643',
+        // Pre-A1 → A1 bridge edges
+        'M 392 678 Q 530 568 632 380', 'M 382 710 Q 514 598 644 422',
+        'M 372 748 Q 502 650 665 438',
+        // A1 internal connections
+        'M 738 366 Q 765 358 790 352', 'M 742 378 Q 762 413 778 428',
+        'M 810 308 Q 835 338 855 362',
+      ],
+      activePath: 'M 235 665 Q 388 655 392 678 Q 524 568 715 345',
+      label: { x:715, y:306, text:'You are here' },
+    },
+
+  };
+
+  // ── Renderer ────────────────────────────────────────────────────────────────
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const iconFor = { mastered:'#ma-icon-check', ready:'#ma-icon-spark', current:'#ma-icon-spark', locked:'#ma-icon-lock' };
+
+  function el(tag, attrs) {
+    const e = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    return e;
+  }
+
+  function renderGraph(domain) {
+    const data = graphData[domain] || graphData.reading;
+
+    // Clusters + labels
+    const clusterLayer = document.getElementById('ma-layer-clusters');
+    clusterLayer.innerHTML = '';
+    for (const c of data.clusters) {
+      clusterLayer.appendChild(el('ellipse', {
+        cx: c.cx, cy: c.cy, rx: c.rx, ry: c.ry,
+        fill: 'var(--ma-cluster-fill)', stroke: 'var(--ma-cluster-stroke)', 'stroke-dasharray': '3 5',
+      }));
+      const t = el('text', { class: 'ma-cluster-label', x: c.cx, y: c.labelY, 'text-anchor': 'middle' });
+      t.textContent = c.label;
+      clusterLayer.appendChild(t);
+    }
+
+    // Prerequisite edges
+    const edgeLayer = document.getElementById('ma-layer-edges');
+    edgeLayer.innerHTML = '';
+    for (const d of data.edges) edgeLayer.appendChild(el('path', { class: 'ma-edge', d }));
+
+    // Active path
+    const pathLayer = document.getElementById('ma-layer-active-path');
+    pathLayer.innerHTML = '';
+    pathLayer.appendChild(el('path', {
+      class: 'ma-edge-active-line', d: data.activePath, stroke: 'url(#ma-active-gradient)',
+    }));
+
+    // Nodes
+    const nodeLayer = document.getElementById('ma-layer-nodes');
+    nodeLayer.innerHTML = '';
+    for (const n of data.nodes) {
+      const g = el('g', { class: 'ma-node', 'data-state': n.state, transform: `translate(${n.x} ${n.y})` });
+      if (n.glow) g.setAttribute('filter', 'url(#ma-glow-strong)');
+      g.appendChild(el('circle', { class: 'ma-node-fill', r: n.r }));
+      g.appendChild(el('circle', { class: 'ma-node-ring', r: n.r + (n.state === 'current' ? 6 : 4) }));
+      const icon = el('use', { href: iconFor[n.state] || '#ma-icon-lock', x:-10, y:-10, width:20, height:20, class:'ma-node-icon' });
+      g.appendChild(icon);
+      nodeLayer.appendChild(g);
+    }
+
+    // "You are here" label
+    const labelLayer = document.getElementById('ma-layer-labels');
+    labelLayer.innerHTML = '';
+    if (data.label) {
+      const t = el('text', { class: 'ma-node-label', x: data.label.x, y: data.label.y, 'text-anchor': 'middle' });
+      t.textContent = data.label.text;
+      labelLayer.appendChild(t);
+    }
+  }
+
+  // ── Controls ────────────────────────────────────────────────────────────────
+
   function setTheme(btn) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
     const theme = btn.dataset.theme;
     svg.setAttribute('data-domain', theme);
     document.getElementById('ma-app-logo').setAttribute('href', logos[theme] || '');
+    renderGraph(theme);
   }
 
   function toggleLayer(layer) {
     layerState[layer] = !layerState[layer];
     const attr = 'data-hide-' + layer;
-    if (layerState[layer]) {
-      svg.removeAttribute(attr);
-    } else {
-      svg.setAttribute(attr, '');
-    }
+    svg[layerState[layer] ? 'removeAttribute' : 'setAttribute'](attr, '');
     document.getElementById('toggle-' + layer).classList.toggle('on', layerState[layer]);
   }
+
+  // Initial render
+  renderGraph('reading');
 </script>
 
 </body>
