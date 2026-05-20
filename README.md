@@ -134,7 +134,9 @@ Open `assets/mastery-advantage-demo.html` in a browser to see all themes and lay
 
 ## The Outer Fringe Algorithm
 
-This is the core computation shared across all domain implementations. The same TypeScript logic runs in every Advantage app.
+This is the core computation shared across all domain implementations. The v2 specification defines a **time-aware, weighted** outer fringe that accounts for skill decay and prerequisite strength. See [§2 Knowledge State & Mastery](SPECIFICATION.md#2-knowledge-state--mastery) for the full algorithm including hysteresis, weighted readiness, and decay propagation.
+
+The simplified version below shows the core logic (binary mastery, no weights):
 
 ```typescript
 function getOuterFringe(
@@ -146,7 +148,7 @@ function getOuterFringe(
   // Build: skillId → set of prerequisite skillIds
   const prereqsFor = new Map<string, Set<string>>();
   for (const edge of prereqEdges) {
-    if (!prereqsFor.has(edge.targetId)) prereqsFor.set(edge.targetId, new Set());
+    if (!prereqsFor.has(edge.targetId)) prereqFor.set(edge.targetId, new Set());
     prereqsFor.get(edge.targetId)!.add(edge.sourceId);
   }
 
@@ -161,42 +163,21 @@ function getOuterFringe(
 }
 ```
 
-Each domain's knowledge graph uses the same node/edge schema so this function works unchanged across Reading Advantage, Math Advantage, Science Advantage, and Code Advantage.
+For the production algorithm with time-aware readiness scoring, see [§2.6 Time-Aware Outer Fringe Algorithm](SPECIFICATION.md#26-time-aware-outer-fringe-algorithm).
 
 ---
 
 ## Domain Knowledge Graph Schema
 
-All domain graphs share this schema, making it possible to use the same visualization, query logic, and app integration code across subjects.
+The canonical schema is defined in [SPECIFICATION.md](SPECIFICATION.md). The summary below is non-normative.
 
 ### Node
 
-```json
-{
-  "id": "string (unique, semantic — e.g. 'en-reading-b1-inference-3')",
-  "kind": "domain | content_group | standard | instructional_unit | skill",
-  "label": "string",
-  "difficulty": "number (0–1, normalized)",
-  "metadata": {
-    "domain": "english | math | science | code",
-    "cefr": "a1 | a2 | b1 | b2 | c1 | c2  (English domains only)",
-    "gradeLevel": "number (Math/Science domains)",
-    "score": "number (domain-specific raw score)"
-  }
-}
-```
+Nodes use a dot-separated lower-kebab-case ID pattern (e.g. `english.gse.skill.b1.reading.main-idea`), a `kind` from 11 possible values, a `title` string, and domain-specific `metadata`. See [§3 Knowledge Space Data Model](SPECIFICATION.md#3-knowledge-space-data-model) for the full schema.
 
 ### Edge
 
-```json
-{
-  "sourceId": "string",
-  "targetId": "string",
-  "type": "prerequisite_for | contains | supports | aligned_to_standard",
-  "weight": "number (0–1)",
-  "confidence": "high | medium | low"
-}
-```
+Edges have a typed relationship (`prerequisite_for`, `contains`, `supports`, `aligned_to_standard`, and 9 others including `remediated_by` and `transfers_to`), a `weight` (0–1, consumed by weighted readiness), and a `confidence` level. See [§3.2 Edge Types](SPECIFICATION.md#32-edge-types) and [§3.4 Edge Schema](SPECIFICATION.md#34-edge-schema) for the full schema.
 
 ---
 
@@ -207,7 +188,7 @@ To add a new subject domain to Mastery Advantage:
 1. **Create the subdirectory** — `mkdir <domain>` (e.g. `math/`, `science/`).
 2. **Define the skill taxonomy** — the list of discrete learnable skills, each with a unique ID and difficulty score. Source from the relevant curriculum framework (Thai national curriculum, international standards, etc.).
 3. **Map prerequisite relationships** — define which skills require other skills. This can be done manually for small domains, or generated from the curriculum structure + expert review.
-4. **Build the knowledge graph** — output a `<domain>-knowledge-space.json` file conforming to the schema above.
+4. **Build the knowledge graph** — output a `<domain>-knowledge-space.json` file conforming to the schema in [SPECIFICATION.md](SPECIFICATION.md).
 5. **Create level mappings** — a CSV mapping internal app levels to difficulty ranges within the graph.
 6. **Write `<domain>/README.md`** — document the curriculum source, skill count, level mappings, and any domain-specific decisions.
 7. **Add a row to the apps table** in this README.
