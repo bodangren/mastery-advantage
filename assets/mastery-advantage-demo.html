@@ -139,6 +139,27 @@
   .legend-dot.ready    { background: #f5b942; border-color: #ffd27a; }
   .legend-dot.current  { background: #ffffff; border-color: #a5f3fc; }
   .legend-dot.locked   { background: #2a3552; border-color: #3a4870; }
+
+  /* Demo button */
+  .demo-btn {
+    display: flex; align-items: center; gap: 13px;
+    width: 100%; padding: 13px 14px; margin-bottom: 4px;
+    border-radius: 8px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.85); cursor: pointer; text-align: left;
+    transition: background .2s, border-color .2s;
+  }
+  .demo-btn:hover:not(:disabled) {
+    border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
+  }
+  .demo-btn:disabled { opacity: .38; cursor: default; }
+  .demo-btn .btn-icon { font-size: 20px; flex-shrink: 0; line-height: 1; }
+  .demo-btn .btn-title { display: block; font-size: 13px; font-weight: 700; }
+  .demo-btn .btn-sub   { display: block; font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 2px; }
+  .demo-tagline {
+    font-size: 11px; color: rgba(255,255,255,0.28); line-height: 1.6;
+    font-style: italic; text-align: center; margin-top: 6px; padding: 0 4px;
+  }
 </style>
 </head>
 <body>
@@ -284,6 +305,34 @@
         }
         @keyframes ma-flow { to { stroke-dashoffset: -28; } }
 
+        /* Forgetting state — mastered node decaying */
+        .ma-node[data-state="forgetting"] circle.ma-node-fill {
+          fill: #4a2f08 !important; opacity: .6; transition: fill .35s, opacity .35s;
+        }
+        .ma-node[data-state="forgetting"] circle.ma-node-ring {
+          stroke: #d97706 !important; stroke-width: 1.5 !important;
+          animation: ma-flicker .85s ease-in-out infinite !important;
+        }
+        @keyframes ma-flicker {
+          0%,100% { stroke-opacity: .25; stroke-width: 1; }
+          50%      { stroke-opacity: 1;   stroke-width: 4.5; }
+        }
+
+        /* Refreshed state — pop burst on review */
+        .ma-node[data-state="refreshed"] circle.ma-node-fill {
+          fill: #ffffff !important; transition: fill .05s;
+        }
+        .ma-node[data-state="refreshed"] circle.ma-node-ring {
+          stroke: #ffffff !important; stroke-opacity: 1 !important;
+          animation: ma-pop .55s ease-out forwards !important;
+          transform-origin: center; transform-box: fill-box;
+        }
+        @keyframes ma-pop {
+          0%   { stroke-width: 22; stroke-opacity: 1;  transform: scale(1.9); }
+          60%  { stroke-width: 7;  stroke-opacity: .9; transform: scale(1.1); }
+          100% { stroke-width: 2.5; stroke-opacity: .7; transform: scale(1); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .mastery-advantage-graph[data-animate="true"] * { animation: none !important; }
         }
@@ -370,6 +419,18 @@
       </div>
     </div>
 
+    <div class="control-group">
+      <h3>Demo</h3>
+      <button class="demo-btn" id="btn-demo" onclick="runDemoSequence()">
+        <span class="btn-icon">▶</span>
+        <span>
+          <span class="btn-title">Start Session Demo</span>
+          <span class="btn-sub">Review · Learn what's next</span>
+        </span>
+      </button>
+      <p class="demo-tagline">Review exactly what you're about to forget.<br>Learn exactly what you're ready for.</p>
+    </div>
+
   </div>
 </div>
 
@@ -397,6 +458,7 @@
 
     reading: {
       // A1 → C2 — secondary students (ages 11–18)
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'A1 · Beginner',     labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'A2 · Elementary',   labelY:434 },
@@ -449,6 +511,7 @@
 
     primary: {
       // Pre-A1 → B1 — upper primary students (ages 8–11)
+      forgetIdx: 5, currentIdx: 9, learnIdx: 10,
       clusters: [
         { cx:160, cy:800, rx:140, ry:115, label:'Pre-A1 · Starter',    labelY:912 },
         { cx:340, cy:575, rx:155, ry:130, label:'A1 · Beginner',       labelY:446 },
@@ -491,6 +554,7 @@
 
     math: {
       // Descriptive skill-progression names — clearer to viewers than curriculum codes
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'Numbers · Operations',   labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'Fractions · Ratios',     labelY:434 },
@@ -524,6 +588,7 @@
 
     science: {
       // Science disciplines as clusters — recognisable to any student or parent
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'Life Science',      labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'Earth & Space',     labelY:434 },
@@ -557,6 +622,7 @@
 
     stem: {
       // Robotics & engineering jargon — signals the hands-on, technical nature of the app
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'Circuits & Power',    labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'Sensors & Input',     labelY:434 },
@@ -590,6 +656,7 @@
 
     tutor: {
       // Amalgam of 6 domain mini-networks arranged hexagonally around a central AI Tutor node.
+      forgetIdx: 0, currentIdx: 48, learnIdx: 49,
       // Each satellite has a branching tree: hub → 2 branches → 2 leaves each + 1 far node.
       clusters: [
         { cx:500, cy:175, rx:150, ry:115, label:'Reading',  labelY: 74, color:'#38bdf8' },
@@ -736,6 +803,7 @@
 
     zhongwen: {
       // HSK 1–6 — classic 6-level framework (≈ CEFR A1–C2)
+      forgetIdx: 4, currentIdx: 8, learnIdx: 9,
       clusters: [
         { cx:170, cy:780, rx:140, ry:120, label:'HSK 1 · 入门',   labelY:895 },
         { cx:320, cy:560, rx:150, ry:130, label:'HSK 2 · 基础',   labelY:434 },
@@ -789,6 +857,7 @@
     storytime: {
       // Pre-A1 & A1 only — lower primary students (ages 5–8)
       // Two large clusters; Pre-A1 is dense (phonics / early literacy)
+      forgetIdx: 0, currentIdx: 9, learnIdx: 10,
       clusters: [
         { cx:285, cy:680, rx:225, ry:188, label:'Pre-A1 · Starter', labelY:866 },
         { cx:730, cy:335, rx:215, ry:188, label:'A1 · Beginner',    labelY:145 },
@@ -877,8 +946,10 @@
     // Nodes
     const nodeLayer = document.getElementById('ma-layer-nodes');
     nodeLayer.innerHTML = '';
-    for (const n of data.nodes) {
+    for (let ni = 0; ni < data.nodes.length; ni++) {
+      const n = data.nodes[ni];
       const g = el('g', { class: 'ma-node', 'data-state': n.state, transform: `translate(${n.x} ${n.y})` });
+      g.setAttribute('id', 'ma-node-' + ni);
       if (n.glow) g.setAttribute('filter', 'url(#ma-glow-strong)');
       const fill = el('circle', { class: 'ma-node-fill', r: n.r });
       if (n.fillColor) fill.style.fill = n.fillColor;
@@ -921,6 +992,135 @@
 
   // Initial render
   renderGraph('reading');
+
+  // ── Demo animations ──────────────────────────────────────────────────────────
+
+  let _animRunning = false;
+
+  function runDemoSequence() {
+    if (_animRunning) return;
+    const domain = svg.getAttribute('data-domain') || 'reading';
+    const data = graphData[domain] || graphData.reading;
+    if (data.currentIdx == null) return;
+
+    _animRunning = true;
+    document.getElementById('btn-demo').disabled = true;
+
+    const fN = data.nodes[data.forgetIdx];
+    const cN = data.nodes[data.currentIdx];
+    const lN = data.learnIdx != null ? data.nodes[data.learnIdx] : null;
+    const fEl = document.getElementById('ma-node-' + data.forgetIdx);
+    const cEl = document.getElementById('ma-node-' + data.currentIdx);
+    const lEl = lN ? document.getElementById('ma-node-' + data.learnIdx) : null;
+
+    // Phase 1: forgetting node starts to decay
+    fEl.setAttribute('data-state', 'forgetting');
+    const lbl1 = _addLabel(fN.x, fN.y - fN.r - 30, 'About to forget…', '#d97706');
+
+    // Phase 2 (900ms): cursor hops from current to forgetting node
+    setTimeout(() => {
+      lbl1.remove();
+      _travel(cN.x, cN.y, fN.x, fN.y, 860, () => {
+
+        // Phase 3: POP — node refreshes
+        fEl.setAttribute('data-state', 'refreshed');
+        const lbl2 = _addLabel(fN.x, fN.y - fN.r - 30, 'Reviewed! ✓', '#34d399');
+
+        setTimeout(() => {
+          fEl.setAttribute('data-state', 'mastered');
+
+          // Phase 4 (650ms after refresh): cursor arcs back to current node
+          setTimeout(() => {
+            lbl2.remove();
+            _travel(fN.x, fN.y, cN.x, cN.y, 800, () => {
+              if (!lN || !lEl) { _demoFinish(domain); return; }
+
+              // Brief pause before learn sequence
+              setTimeout(() => {
+
+                // Phase 5: ready node highlighted
+                const lbl3 = _addLabel(lN.x, lN.y - lN.r - 30, 'Ready to learn!', '#f5b942');
+                setTimeout(() => {
+                  lbl3.remove();
+
+                  // Phase 6: cursor hops to learn-next node
+                  _travel(cN.x, cN.y, lN.x, lN.y, 900, () => {
+
+                    // Phase 7: transition — current becomes mastered, ready becomes current
+                    cEl.removeAttribute('filter');
+                    cEl.setAttribute('data-state', 'mastered');
+                    lEl.setAttribute('data-state', 'current');
+                    lEl.setAttribute('filter', 'url(#ma-glow-strong)');
+
+                    // Move "You are here" label to new current position
+                    const ll = document.getElementById('ma-layer-labels');
+                    ll.innerHTML = '';
+                    const lt = el('text', { class: 'ma-node-label', x: lN.x, y: lN.y - lN.r - 18, 'text-anchor': 'middle' });
+                    lt.textContent = 'You are here';
+                    ll.appendChild(lt);
+
+                    // Hold the final state, then reset
+                    setTimeout(() => _demoFinish(domain), 1600);
+                  });
+                }, 700);
+              }, 480);
+            });
+          }, 680);
+        }, 700);
+      });
+    }, 900);
+  }
+
+  function _demoFinish(domain) {
+    renderGraph(domain);
+    _animRunning = false;
+    document.getElementById('btn-demo').disabled = false;
+  }
+
+  // Animated cursor dot traveling a bezier arc between two points
+  function _travel(x1, y1, x2, y2, ms, onDone) {
+    const g = el('g', { filter: 'url(#ma-glow-soft)' });
+    g.appendChild(el('circle', { r: 13, fill: '#fff', opacity: '.35' }));
+    g.appendChild(el('circle', { r:  6, fill: '#fff' }));
+    document.getElementById('ma-layer-nodes').appendChild(g);
+
+    // Bezier control point — arc perpendicular to the travel line
+    const mx = (x1+x2)/2, my = (y1+y2)/2;
+    const dx = x2-x1, dy = y2-y1;
+    const len = Math.sqrt(dx*dx + dy*dy) || 1;
+    const s = Math.min(60, len * 0.38);
+    const cpX = mx - (dy/len)*s, cpY = my + (dx/len)*s;
+
+    const t0 = performance.now();
+    function tick(now) {
+      const t = Math.min((now-t0)/ms, 1);
+      const e = t < .5 ? 2*t*t : -1+(4-2*t)*t; // ease-in-out
+      const m = 1-e;
+      const x = m*m*x1 + 2*m*e*cpX + e*e*x2;
+      const y = m*m*y1 + 2*m*e*cpY + e*e*y2;
+      g.setAttribute('transform', `translate(${x} ${y})`);
+      if (t < 1) requestAnimationFrame(tick);
+      else { g.remove(); onDone && onDone(); }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Floating annotation label in the SVG labels layer
+  function _addLabel(x, y, text, color) {
+    const g = el('g', { transform: `translate(${x} ${y})` });
+    const w = text.length * 7.5 + 24;
+    g.appendChild(el('rect', { x: -w/2, y: -14, width: w, height: 22, rx: 4, fill: '#0b1220', opacity: '.9' }));
+    const t = el('text', {
+      'text-anchor': 'middle', y: 3,
+      'font-size': '12', 'font-weight': '700',
+      'font-family': 'ui-sans-serif,system-ui,sans-serif',
+      fill: color || '#fff',
+    });
+    t.textContent = text;
+    g.appendChild(t);
+    document.getElementById('ma-layer-labels').appendChild(g);
+    return g;
+  }
 </script>
 
 </body>
