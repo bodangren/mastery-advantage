@@ -325,6 +325,10 @@
       <g id="ma-layer-background">
         <rect width="1000" height="1000" fill="url(#ma-bg-gradient)"/>
         <rect width="1000" height="1000" fill="url(#ma-grid-pattern)"/>
+        <image id="ma-app-logo" href="logos/reading-advantage.jpg"
+               x="28" y="28" width="200" height="80"
+               preserveAspectRatio="xMinYMid meet"
+               style="opacity:0.85"/>
       </g>
 
       <!-- LAYER 2: Cluster regions -->
@@ -518,10 +522,23 @@
   const svg = document.getElementById('ma-svg');
   const layerState = { background: true, clusters: true, path: true, labels: true };
 
+  const logos = {
+    reading:  'logos/reading-advantage.jpg',
+    primary:  'logos/primary-advantage.png',
+    storytime:'logos/storytime-advantage.png',
+    math:     'logos/math-advantage.png',
+    science:  'logos/science-advantage.png',
+    stem:     'logos/stem-advantage.png',
+    zhongwen: 'logos/zhongwen-advantage.png',
+    tutor:    'logos/tutor-advantage.png',
+  };
+
   function setTheme(btn) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
-    svg.setAttribute('data-domain', btn.dataset.theme);
+    const theme = btn.dataset.theme;
+    svg.setAttribute('data-domain', theme);
+    document.getElementById('ma-app-logo').setAttribute('href', logos[theme] || '');
   }
 
   function toggleLayer(layer) {

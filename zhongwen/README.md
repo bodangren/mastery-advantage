@@ -26,9 +26,19 @@
 
 ---
 
+## Label System
+
+Zhongwen Advantage uses **HSK levels** (1–9) rather than CEFR as its primary proficiency axis. This affects the knowledge graph schema:
+
+- Cluster labels in the visualization use HSK-1 through HSK-9 instead of A1–C2
+- The level mapping CSV maps HSK levels to internal app levels (not GSE scores)
+- Difficulty scores (0–1) are normalized from HSK 1–9 rather than CEFR/GSE range
+
+The shared graph schema and outer fringe algorithm are identical — only the labeling and level mapping differ.
+
 ## Open Questions
 
-- **Framework:** HSK (汉语水平考试) levels 1–9 as the primary skill axis, or a custom framework? HSK has the advantage of being a recognized standard, but it may need supplementation for younger Thai learners.
+- **Framework:** HSK (汉语水平考试) levels 1–9 as the primary skill axis, potentially supplemented for younger Thai learners below HSK-1.
 - **Script vs. spoken:** Does the knowledge graph cover character recognition, pinyin, spoken comprehension, and reading as separate but linked skill tracks?
 - **Character prerequisites:** Chinese character learning has strong prerequisite relationships based on component radicals — this could make for a uniquely detailed prerequisite graph.
 - **Thai-Chinese specific challenges:** Are there specific interference patterns or transfer skills from Thai to Chinese that should be modeled as domain-specific edges?

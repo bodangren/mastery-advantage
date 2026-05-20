@@ -53,7 +53,7 @@ All three share the same English knowledge domain in [`english/`](english/). Stu
 | **Science Advantage** | Science | K–12 | Thai national science curriculum | Rose `#fb7185` | Planning |
 | **STEM Advantage** | Integrated STEM | Upper primary / secondary | Cross-domain (Math + Science + Engineering) | Indigo `#818cf8` | Planning |
 | **Zhongwen Advantage** | Chinese language | All ages | HSK framework | Fuchsia `#e879f9` | Planning |
-| **Tutor Advantage** | Cross-domain AI tutoring | All ages | Operates on all domain graphs | Emerald `#34d399` | Planning |
+| **Tutor Advantage** | AI tutoring — all domains | All ages | Operates across all domain graphs; scope expanding | Emerald `#34d399` | Planning |
 
 ---
 
