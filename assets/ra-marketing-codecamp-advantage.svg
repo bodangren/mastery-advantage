@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Codecamp Advantage: From zero to full-stack. One skill at a time. Powered by Mastery Advantage.">
+<title>From zero to full-stack. One skill at a time. · Codecamp Advantage</title>
+<style>
+  .f    { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  .fmono{ font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace; }
+
+  /* 14s loop */
+  /* A 0-18%: terminal cursor blinks, HTML skill node lights */
+  /* B 18-36%: CSS + JS nodes unlock */
+  /* C 36-52%: DOM + Fetch nodes unlock */
+  /* D 52-68%: React node unlocks, mentor review badge fires */
+  /* E 68-82%: Node/API + DB unlock */
+  /* F 82-96%: Deploy node ignites, week progress bar fills */
+  /* G 96-100%: reset */
+
+  /* Blinking cursor */
+  .cursor { animation: cursor 0.7s step-end infinite, curvis 14s ease-in-out infinite; }
+  @keyframes cursor { 0%,100%{opacity:1} 50%{opacity:0} }
+  @keyframes curvis  { 0%,16%{opacity:1} 22%,100%{opacity:0} }
+
+  /* Code lines type in */
+  .line1 { animation: l1 14s ease-in-out infinite; }
+  @keyframes l1 { 0%,4%{opacity:0;transform:translateX(-8px)} 10%,96%{opacity:1;transform:translateX(0)} 100%{opacity:0} }
+  .line2 { animation: l2 14s ease-in-out infinite; }
+  @keyframes l2 { 0%,8%{opacity:0;transform:translateX(-8px)} 14%,96%{opacity:1;transform:translateX(0)} 100%{opacity:0} }
+  .line3 { animation: l3 14s ease-in-out infinite; }
+  @keyframes l3 { 0%,12%{opacity:0;transform:translateX(-8px)} 18%,96%{opacity:1;transform:translateX(0)} 100%{opacity:0} }
+  .line4 { animation: l4 14s ease-in-out infinite; }
+  @keyframes l4 { 0%,28%{opacity:0;transform:translateX(-8px)} 34%,96%{opacity:1;transform:translateX(0)} 100%{opacity:0} }
+  .line5 { animation: l5 14s ease-in-out infinite; }
+  @keyframes l5 { 0%,50%{opacity:0;transform:translateX(-8px)} 56%,96%{opacity:1;transform:translateX(0)} 100%{opacity:0} }
+  .line6 { animation: l6 14s ease-in-out infinite; }
+  @keyframes l6 { 0%,66%{opacity:0;transform:translateX(-8px)} 72%,96%{opacity:1;transform:translateX(0)} 100%{opacity:0} }
+
+  /* Skill nodes — light up in sequence */
+  /* Colors: teal (#2dd4bf) for mastered, amber for ready, dark for locked */
+  .sk-html { animation: sk1 14s ease-in-out infinite; }
+  @keyframes sk1 { 0%,14%{fill:#1a2a2a} 20%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+  .sk-html-r { animation: sk1r 14s ease-in-out infinite; }
+  @keyframes sk1r { 0%,14%{stroke:#2a3a3a} 20%,96%{stroke:#99f6e4} 100%{stroke:#2a3a3a} }
+  .rip1 { animation: rip1 14s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rip1 { 0%,14%{transform:scale(0);opacity:0} 18%{transform:scale(1);opacity:0.8} 28%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  .sk-css { animation: sk2 14s ease-in-out infinite; }
+  @keyframes sk2 { 0%,20%{fill:#1a2a2a} 28%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+  .sk-css-r { animation: sk2r 14s ease-in-out infinite; }
+  @keyframes sk2r { 0%,20%{stroke:#2a3a3a} 28%,96%{stroke:#99f6e4} 100%{stroke:#2a3a3a} }
+  .rip2 { animation: rip2 14s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rip2 { 0%,20%{transform:scale(0);opacity:0} 24%{transform:scale(1);opacity:0.8} 34%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  .sk-js { animation: sk3 14s ease-in-out infinite; }
+  @keyframes sk3 { 0%,28%{fill:#1a2a2a} 36%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+  .sk-js-r { animation: sk3r 14s ease-in-out infinite; }
+  @keyframes sk3r { 0%,28%{stroke:#2a3a3a} 36%,96%{stroke:#99f6e4} 100%{stroke:#2a3a3a} }
+  .rip3 { animation: rip3 14s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rip3 { 0%,28%{transform:scale(0);opacity:0} 32%{transform:scale(1);opacity:0.8} 42%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  .sk-dom { animation: sk4 14s ease-in-out infinite; }
+  @keyframes sk4 { 0%,36%{fill:#1a2a2a} 44%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+  .sk-fetch { animation: sk5 14s ease-in-out infinite; }
+  @keyframes sk5 { 0%,42%{fill:#1a2a2a} 50%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+
+  .sk-react { animation: sk6 14s ease-in-out infinite; }
+  @keyframes sk6 { 0%,50%{fill:#1a2a2a} 58%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+  .rip6 { animation: rip6 14s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rip6 { 0%,50%{transform:scale(0);opacity:0} 54%{transform:scale(1);opacity:0.8} 64%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  .sk-node { animation: sk7 14s ease-in-out infinite; }
+  @keyframes sk7 { 0%,66%{fill:#1a2a2a} 74%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+  .sk-db   { animation: sk8 14s ease-in-out infinite; }
+  @keyframes sk8 { 0%,70%{fill:#1a2a2a} 78%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+
+  .sk-deploy { animation: sk9 14s ease-in-out infinite; }
+  @keyframes sk9 { 0%,80%{fill:#1a2a2a} 88%,96%{fill:#2dd4bf} 100%{fill:#1a2a2a} }
+  .deploy-burst { animation: dburst 14s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes dburst { 0%,80%{transform:scale(0);opacity:0} 84%{transform:scale(1);opacity:0.9} 94%{transform:scale(2.8);opacity:0} 100%{opacity:0} }
+  .rocket { animation: rocket 14s ease-in-out infinite; }
+  @keyframes rocket { 0%,82%{transform:translate(0,0);opacity:0} 86%{transform:translate(0,0);opacity:1} 95%{transform:translate(8px,-18px);opacity:1} 100%{opacity:0} }
+
+  /* Mentor review badge */
+  .mentor-badge { animation: mentor 14s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes mentor { 0%,52%{opacity:0;transform:scale(0.7)} 60%,66%{opacity:1;transform:scale(1)} 74%,100%{opacity:0} }
+
+  /* Week progress bar */
+  .week-bar { animation: wbar 14s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes wbar { 0%,2%{transform:scaleX(0.07)} 86%,94%{transform:scaleX(0.2)} 100%{transform:scaleX(0.07) } }
+
+  /* Edge flows */
+  .ef { stroke-dasharray:6 5; animation: eflw 1.4s linear infinite; }
+  @keyframes eflw { to { stroke-dashoffset:-36; } }
+
+  /* Check icons on mastered nodes */
+  .chk-sk { animation: chksk 14s ease-in-out infinite; }
+  @keyframes chksk { 0%,18%{opacity:0} 24%,96%{opacity:1} 100%{opacity:0} }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgCC" cx="42%" cy="35%" r="72%">
+    <stop offset="0%"   stop-color="#041418"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="gridCC" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsCC" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowCC" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="10" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <symbol id="chkCC" viewBox="0 0 24 24">
+    <path d="M5 12L9.5 17L19 7" fill="none" stroke="currentColor" stroke-width="2.8"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <clipPath id="week-clip">
+    <rect x="384" y="423" width="390" height="10" rx="5"/>
+  </clipPath>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgCC)"/>
+<rect width="800" height="500" fill="url(#gridCC)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">CODECAMP ADVANTAGE · 15 WEEKS</text>
+
+<text class="f" x="44" y="108" font-size="34" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">From zero</text>
+<text class="f" x="44" y="148" font-size="34" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#2dd4bf">to full-stack.</text>
+<text class="f" x="44" y="184" font-size="28" font-weight="800" letter-spacing="-0.02em" fill="rgba(255,255,255,.6)">One skill at a time.</text>
+<rect x="44" y="196" width="236" height="3" rx="1.5" fill="#2dd4bf" opacity=".65"/>
+
+<text class="f" x="44" y="232" font-size="14" fill="rgba(255,255,255,.54)">A 15-week full-stack engineering</text>
+<text class="f" x="44" y="252" font-size="14" fill="rgba(255,255,255,.54)">bootcamp where nothing is skipped.</text>
+<text class="f" x="44" y="272" font-size="14" fill="rgba(255,255,255,.54)">AI tutors for daily guidance. Human</text>
+<text class="f" x="44" y="292" font-size="14" fill="rgba(255,255,255,.54)">mentors for code review. Every skill</text>
+<text class="f" x="44" y="312" font-size="14" fill="rgba(255,255,255,.54)">unlocks the next — until you ship.</text>
+
+<!-- Stack badges -->
+<g transform="translate(44,336)">
+  <text class="f" x="0" y="0" font-size="10" fill="rgba(255,255,255,.28)" letter-spacing="0.08em">FULL STACK</text>
+  <g transform="translate(0,10)">
+    <rect x="0"   y="0" width="52" height="22" rx="4" fill="rgba(45,212,191,.2)" stroke="rgba(45,212,191,.4)" stroke-width="1"/>
+    <text class="fmono" x="26" y="15" text-anchor="middle" font-size="9.5" fill="#2dd4bf">HTML</text>
+    <rect x="58"  y="0" width="48" height="22" rx="4" fill="rgba(45,212,191,.2)" stroke="rgba(45,212,191,.4)" stroke-width="1"/>
+    <text class="fmono" x="82"  y="15" text-anchor="middle" font-size="9.5" fill="#2dd4bf">CSS</text>
+    <rect x="112" y="0" width="44" height="22" rx="4" fill="rgba(45,212,191,.2)" stroke="rgba(45,212,191,.4)" stroke-width="1"/>
+    <text class="fmono" x="134" y="15" text-anchor="middle" font-size="9.5" fill="#2dd4bf">JS</text>
+    <rect x="162" y="0" width="60" height="22" rx="4" fill="rgba(45,212,191,.15)" stroke="rgba(45,212,191,.3)" stroke-width="1"/>
+    <text class="fmono" x="192" y="15" text-anchor="middle" font-size="9.5" fill="#2dd4bf">React</text>
+  </g>
+  <g transform="translate(0,38)">
+    <rect x="0"   y="0" width="56" height="22" rx="4" fill="rgba(45,212,191,.12)" stroke="rgba(45,212,191,.22)" stroke-width="1"/>
+    <text class="fmono" x="28"  y="15" text-anchor="middle" font-size="9.5" fill="rgba(45,212,191,.6)">Node</text>
+    <rect x="62"  y="0" width="56" height="22" rx="4" fill="rgba(45,212,191,.08)" stroke="rgba(45,212,191,.15)" stroke-width="1"/>
+    <text class="fmono" x="90"  y="15" text-anchor="middle" font-size="9.5" fill="rgba(45,212,191,.4)">APIs</text>
+    <rect x="124" y="0" width="56" height="22" rx="4" fill="rgba(45,212,191,.06)" stroke="rgba(45,212,191,.12)" stroke-width="1"/>
+    <text class="fmono" x="152" y="15" text-anchor="middle" font-size="9.5" fill="rgba(45,212,191,.3)">Deploy</text>
+  </g>
+</g>
+
+<text class="f" x="44" y="420" font-size="11" fill="rgba(255,255,255,.28)">AI tutors · human code review · Grades 7–adult</text>
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">Powered by Mastery Advantage™ · web-dev skill graph</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL — Code + Skill Graph -->
+<!-- Terminal / code editor -->
+<rect x="372" y="68" width="280" height="170" rx="10"
+      fill="#0a1014" stroke="rgba(45,212,191,.18)" stroke-width="1"/>
+<!-- Terminal header -->
+<rect x="372" y="68" width="280" height="28" rx="10" fill="#111820"/>
+<rect x="372" y="82" width="280" height="14" fill="#111820"/>
+<circle cx="392" cy="82" r="5" fill="#ef4444" opacity="0.7"/>
+<circle cx="408" cy="82" r="5" fill="#fbbf24" opacity="0.7"/>
+<circle cx="424" cy="82" r="5" fill="#34d399" opacity="0.7"/>
+<text class="fmono" x="512" y="86" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.3)">index.html</text>
+
+<!-- Code lines -->
+<text class="fmono line1" x="384" y="114" font-size="11.5" fill="rgba(45,212,191,.9)">&lt;!DOCTYPE html&gt;</text>
+<text class="fmono line2" xml:space="preserve" x="384" y="130" font-size="11.5"><tspan fill="rgba(251,146,60,.9)">&lt;h1&gt;</tspan><tspan fill="rgba(232,215,180,.75)">Hello World</tspan><tspan fill="rgba(251,146,60,.9)">&lt;/h1&gt;</tspan></text>
+<text class="fmono line3" xml:space="preserve" x="384" y="146" font-size="11.5"><tspan fill="rgba(129,140,248,.8)">&lt;style&gt;</tspan><tspan fill="rgba(232,215,180,.5)"> color: teal; </tspan><tspan fill="rgba(129,140,248,.8)">&lt;/style&gt;</tspan></text>
+<text class="fmono line4" xml:space="preserve" x="384" y="162" font-size="11.5"><tspan fill="rgba(252,211,77,.9)">const</tspan><tspan fill="rgba(232,215,180,.75)"> greet = </tspan><tspan fill="rgba(45,212,191,.9)">()</tspan><tspan fill="rgba(232,215,180,.75)"> =&gt; …</tspan></text>
+<text class="fmono line5" xml:space="preserve" x="384" y="178" font-size="11.5"><tspan fill="rgba(134,239,172,.9)">import</tspan><tspan fill="rgba(232,215,180,.75)"> React </tspan><tspan fill="rgba(134,239,172,.9)">from</tspan><tspan fill="rgba(232,215,180,.6)"> 'react'</tspan></text>
+<text class="fmono line6" x="384" y="194" font-size="11.5" fill="rgba(45,212,191,.6)">$ git push origin main ✓</text>
+<!-- Cursor -->
+<rect class="cursor" x="384" y="200" width="8" height="13" rx="1" fill="#2dd4bf"/>
+
+<!-- SKILL GRAPH (right of terminal) -->
+<!-- Edges first (background) -->
+<line x1="680" y1="112" x2="680" y2="140" stroke="rgba(255,255,255,.07)" stroke-width="1.2"/>
+<line x1="680" y1="162" x2="680" y2="186" stroke="rgba(255,255,255,.07)" stroke-width="1.2"/>
+<line x1="672" y1="208" x2="665" y2="232" stroke="rgba(255,255,255,.07)" stroke-width="1.2"/>
+<line x1="688" y1="208" x2="696" y2="232" stroke="rgba(255,255,255,.07)" stroke-width="1.2"/>
+<line x1="660" y1="254" x2="672" y2="278" stroke="rgba(255,255,255,.07)" stroke-width="1.2"/>
+<line x1="700" y1="254" x2="690" y2="278" stroke="rgba(255,255,255,.07)" stroke-width="1.2"/>
+<line x1="680" y1="300" x2="680" y2="324" stroke="rgba(255,255,255,.07)" stroke-width="1.2"/>
+
+<!-- Active flow edges -->
+<line x1="680" y1="112" x2="680" y2="140" stroke="#2dd4bf" stroke-width="1.5" class="ef" opacity="0.6"/>
+<line x1="680" y1="162" x2="680" y2="186" stroke="#2dd4bf" stroke-width="1.5" class="ef" opacity="0.6"/>
+
+<!-- HTML node -->
+<circle cx="680" cy="100" r="18" class="sk-html" filter="url(#glsCC)"/>
+<circle cx="680" cy="100" r="18" class="sk-html"/>
+<circle cx="680" cy="100" r="24" fill="none" class="sk-html-r"/>
+<circle cx="680" cy="100" r="18" fill="none" stroke="#2dd4bf" stroke-width="2" class="rip1"/>
+<g class="chk-sk"><use href="#chkCC" x="671" y="91" width="18" height="18" fill="#041418" color="#041418"/></g>
+<text class="fmono" x="680" y="103" text-anchor="middle" font-size="9.5" font-weight="700" fill="#041418">HTML</text>
+<text class="f" x="680" y="126" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.35)">HTML</text>
+
+<!-- CSS node -->
+<circle cx="680" cy="150" r="16" class="sk-css" filter="url(#glsCC)"/>
+<circle cx="680" cy="150" r="16" class="sk-css"/>
+<circle cx="680" cy="150" r="21" fill="none" class="sk-css-r"/>
+<circle cx="680" cy="150" r="16" fill="none" stroke="#2dd4bf" stroke-width="2" class="rip2"/>
+<text class="fmono" x="680" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#041418">CSS</text>
+
+<!-- JS node -->
+<circle cx="680" cy="196" r="17" class="sk-js" filter="url(#glsCC)"/>
+<circle cx="680" cy="196" r="17" class="sk-js"/>
+<circle cx="680" cy="196" r="22" fill="none" class="sk-js-r"/>
+<circle cx="680" cy="196" r="17" fill="none" stroke="#2dd4bf" stroke-width="2" class="rip3"/>
+<text class="fmono" x="680" y="200" text-anchor="middle" font-size="9" font-weight="700" fill="#041418">JS</text>
+
+<!-- DOM + Fetch nodes (sibling level) -->
+<circle cx="658" cy="242" r="14" class="sk-dom" filter="url(#glsCC)"/>
+<circle cx="658" cy="242" r="14" class="sk-dom"/>
+<circle cx="658" cy="242" r="18" fill="none" stroke="#99f6e4" stroke-width="1.5"/>
+<text class="fmono" x="658" y="246" text-anchor="middle" font-size="8" fill="#041418">DOM</text>
+
+<circle cx="700" cy="242" r="14" class="sk-fetch" filter="url(#glsCC)"/>
+<circle cx="700" cy="242" r="14" class="sk-fetch"/>
+<circle cx="700" cy="242" r="18" fill="none" stroke="#99f6e4" stroke-width="1.5"/>
+<text class="fmono" x="700" y="246" text-anchor="middle" font-size="8" fill="#041418">Fetch</text>
+
+<!-- React node (highlighted) -->
+<circle cx="680" cy="288" r="20" class="sk-react" filter="url(#glsCC)"/>
+<circle cx="680" cy="288" r="20" class="sk-react"/>
+<circle cx="680" cy="288" r="26" fill="none" stroke="#99f6e4" stroke-width="1.5"/>
+<circle cx="680" cy="288" r="20" fill="none" stroke="#2dd4bf" stroke-width="2.5" class="rip6"/>
+<text class="fmono" x="680" y="292" text-anchor="middle" font-size="9" font-weight="700" fill="#041418">React</text>
+
+<!-- Node + DB (after React) -->
+<circle cx="660" cy="336" r="14" class="sk-node" filter="url(#glsCC)"/>
+<circle cx="660" cy="336" r="14" class="sk-node"/>
+<circle cx="660" cy="336" r="18" fill="none" stroke="#99f6e4" stroke-width="1.2"/>
+<text class="fmono" x="660" y="340" text-anchor="middle" font-size="8" fill="#041418">Node</text>
+
+<circle cx="700" cy="336" r="13" class="sk-db" filter="url(#glsCC)"/>
+<circle cx="700" cy="336" r="13" class="sk-db"/>
+<circle cx="700" cy="336" r="17" fill="none" stroke="#99f6e4" stroke-width="1.2"/>
+<text class="fmono" x="700" y="340" text-anchor="middle" font-size="8" fill="#041418">DB</text>
+
+<!-- Deploy node -->
+<circle cx="680" cy="382" r="20" class="sk-deploy" filter="url(#glsCC)"/>
+<circle cx="680" cy="382" r="20" class="sk-deploy"/>
+<circle cx="680" cy="382" r="26" fill="none" stroke="#99f6e4" stroke-width="1.5"/>
+<circle cx="680" cy="382" r="20" fill="none" stroke="#2dd4bf" stroke-width="2.5" class="deploy-burst"/>
+<g class="rocket">
+  <path d="M680 372 C683.5 376 683.5 385 680 390 C676.5 385 676.5 376 680 372 Z" fill="#041418"/>
+  <path d="M676.6 384 L673 391 L676.6 387.5 Z" fill="#041418"/>
+  <path d="M683.4 384 L687 391 L683.4 387.5 Z" fill="#041418"/>
+  <circle cx="680" cy="380" r="1.8" fill="#2dd4bf"/>
+</g>
+<text class="fmono" x="680" y="389" text-anchor="middle" font-size="8.5" font-weight="700" fill="#041418">Deploy</text>
+
+<!-- Mentor review badge -->
+<g class="mentor-badge" transform="translate(512,288)">
+  <rect x="-90" y="-20" width="180" height="40" rx="8"
+        fill="#0a1f14" stroke="#34d399" stroke-width="1.2"/>
+  <text class="f" x="0" y="-5" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.5)">Mentor review</text>
+  <text class="f" x="0" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="#34d399">Code reviewed ✓ React sealed</text>
+</g>
+
+<!-- Week progress bar -->
+<text class="f" x="384" y="414" font-size="9.5" font-weight="700" letter-spacing="0.1em"
+      fill="rgba(255,255,255,.28)">BOOTCAMP PROGRESS · WEEK 3 OF 15</text>
+<rect x="384" y="423" width="390" height="10" rx="5" fill="rgba(255,255,255,.06)"/>
+<g clip-path="url(#week-clip)">
+  <rect class="week-bar" x="384" y="423" width="390" height="10" fill="#2dd4bf" filter="url(#glsCC)"/>
+</g>
+<text class="f" x="748" y="433" text-anchor="end" font-size="9.5" fill="rgba(45,212,191,.6)">20%</text>
+
+<text class="f" x="579" y="455" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.22)" letter-spacing="0.03em">
+  AI tutors · human code review · ship on week 15
+</text>
+</svg>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Reading Advantage: Read more. Remember everything. Powered by Mastery Advantage.">
+<title>Read more. Remember everything. · Reading Advantage</title>
+<style>
+  .f { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+  /* 12s master loop */
+  /* Phase A 0-25%: word 1 surfaces */
+  /* Phase B 25-50%: word 2 surfaces */
+  /* Phase C 50-72%: word 3 surfaces, review flash */
+  /* Phase D 72-88%: stat badges animate in */
+  /* Phase E 88-100%: hold + reset */
+
+  .word1 { animation: word1 12s ease-in-out infinite; }
+  @keyframes word1 {
+    0%,8%   { fill:#e8e4d8; font-weight:400; }
+    16%,72% { fill:#38bdf8; font-weight:700; }
+    88%     { fill:#38bdf8; opacity:1; }
+    96%,100%{ fill:#e8e4d8; font-weight:400; }
+  }
+  .tag1 { animation: tag1 12s ease-in-out infinite; }
+  @keyframes tag1 {
+    0%,10%  { opacity:0; transform:translateY(4px); }
+    18%,72% { opacity:1; transform:translateY(0); }
+    88%     { opacity:1; }
+    96%,100%{ opacity:0; }
+  }
+
+  .word2 { animation: word2 12s ease-in-out infinite; }
+  @keyframes word2 {
+    0%,26%  { fill:#e8e4d8; font-weight:400; }
+    36%,72% { fill:#38bdf8; font-weight:700; }
+    88%     { fill:#38bdf8; }
+    96%,100%{ fill:#e8e4d8; font-weight:400; }
+  }
+  .tag2 { animation: tag2 12s ease-in-out infinite; }
+  @keyframes tag2 {
+    0%,28%  { opacity:0; transform:translateY(4px); }
+    38%,72% { opacity:1; transform:translateY(0); }
+    88%     { opacity:1; }
+    96%,100%{ opacity:0; }
+  }
+
+  .word3 { animation: word3 12s ease-in-out infinite; }
+  @keyframes word3 {
+    0%,50%  { fill:#e8e4d8; font-weight:400; }
+    60%,72% { fill:#38bdf8; font-weight:700; }
+    88%     { fill:#38bdf8; }
+    96%,100%{ fill:#e8e4d8; font-weight:400; }
+  }
+  .tag3 { animation: tag3 12s ease-in-out infinite; }
+  @keyframes tag3 {
+    0%,52%  { opacity:0; transform:translateY(4px); }
+    62%,72% { opacity:1; transform:translateY(0); }
+    88%     { opacity:1; }
+    96%,100%{ opacity:0; }
+  }
+
+  /* Retention bar */
+  .ret-bar {
+    fill:#38bdf8;
+    transform-origin:0% 50%;
+    transform-box:fill-box;
+    animation: ret-bar 12s ease-in-out infinite;
+  }
+  @keyframes ret-bar {
+    0%,6%   { transform:scaleX(0.05); }
+    20%     { transform:scaleX(0.28); }
+    40%     { transform:scaleX(0.54); }
+    65%     { transform:scaleX(0.82); }
+    72%,88% { transform:scaleX(0.92); }
+    96%,100%{ transform:scaleX(0.05); }
+  }
+
+  /* Review flash — amber forgetting curve pulse at ~60% then blue snap */
+  .forget-flash { animation: forget-flash 12s ease-in-out infinite; }
+  @keyframes forget-flash {
+    0%,52%  { opacity:0; }
+    56%     { opacity:0.8; }
+    62%     { opacity:0; }
+    100%    { opacity:0; }
+  }
+
+  /* Word count badge */
+  .wcount-0  { animation: wc0  12s ease-in-out infinite; }
+  .wcount-4  { animation: wc4  12s ease-in-out infinite; }
+  .wcount-9  { animation: wc9  12s ease-in-out infinite; }
+  .wcount-14 { animation: wc14 12s ease-in-out infinite; }
+  @keyframes wc0  { 0%,6%{opacity:1}  16%,100%{opacity:0} }
+  @keyframes wc4  { 0%,14%{opacity:0} 20%,34%{opacity:1} 44%,100%{opacity:0} }
+  @keyframes wc9  { 0%,38%{opacity:0} 44%,58%{opacity:1} 68%,100%{opacity:0} }
+  @keyframes wc14 { 0%,62%{opacity:0} 68%,88%{opacity:1} 96%,100%{opacity:0} }
+
+  /* Stat badges */
+  .stat-gram { animation: stat-gram 12s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes stat-gram {
+    0%,70%  { opacity:0; transform:scale(0.7); }
+    78%,88% { opacity:1; transform:scale(1); }
+    96%,100%{ opacity:0; transform:scale(0.7); }
+  }
+  .stat-vocab { animation: stat-vocab 12s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes stat-vocab {
+    0%,74%  { opacity:0; transform:scale(0.7); }
+    82%,88% { opacity:1; transform:scale(1); }
+    96%,100%{ opacity:0; transform:scale(0.7); }
+  }
+
+  /* Passage card fade in */
+  .passage-card { animation: passage-in 12s ease-in-out infinite; }
+  @keyframes passage-in {
+    0%,4%  { opacity:0; }
+    12%,88%{ opacity:1; }
+    96%,100%{ opacity:0.3; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgRA" cx="42%" cy="35%" r="72%">
+    <stop offset="0%"   stop-color="#131c30"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="gridRA" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsRA" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowRA" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="8" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <clipPath id="ret-clip">
+    <rect x="386" y="388" width="390" height="12" rx="6"/>
+  </clipPath>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgRA)"/>
+<rect width="800" height="500" fill="url(#gridRA)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">READING ADVANTAGE · SECONDARY</text>
+
+<text class="f" x="44" y="104" font-size="36" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">Read more.</text>
+<text class="f" x="44" y="146" font-size="36" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#38bdf8">Remember</text>
+<text class="f" x="44" y="186" font-size="36" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#38bdf8">everything.</text>
+<rect x="44" y="201" width="208" height="3" rx="1.5" fill="#38bdf8" opacity=".65"/>
+
+<text class="f" x="44" y="236" font-size="13.5" fill="rgba(255,255,255,.54)">Extensive reading sessions that build real</text>
+<text class="f" x="44" y="256" font-size="13.5" fill="rgba(255,255,255,.54)">vocabulary. Every unknown word is tracked,</text>
+<text class="f" x="44" y="276" font-size="13.5" fill="rgba(255,255,255,.54)">reviewed the moment before it fades, and</text>
+<text class="f" x="44" y="296" font-size="13.5" fill="rgba(255,255,255,.54)">cemented through spaced repetition.</text>
+
+<!-- Outcome badges -->
+<g transform="translate(44,324)">
+  <rect x="0" y="0" width="136" height="48" rx="8" fill="rgba(56,189,248,.12)" stroke="rgba(56,189,248,.25)" stroke-width="1"/>
+  <text class="f" x="68" y="19" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">grammar gains</text>
+  <text class="f" x="68" y="39" text-anchor="middle" font-size="22" font-weight="800" fill="#38bdf8">+50%</text>
+</g>
+<g transform="translate(192,324)">
+  <rect x="0" y="0" width="118" height="48" rx="8" fill="rgba(56,189,248,.12)" stroke="rgba(56,189,248,.25)" stroke-width="1"/>
+  <text class="f" x="59" y="19" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">vocabulary</text>
+  <text class="f" x="59" y="39" text-anchor="middle" font-size="22" font-weight="800" fill="#38bdf8">2× growth</text>
+</g>
+
+<text class="f" x="44" y="420" font-size="11" fill="rgba(255,255,255,.28)">vs. direct instruction · independent research</text>
+
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">Powered by Mastery Advantage™ · spaced repetition</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL -->
+<text class="f" x="581" y="56" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.13em"
+      fill="rgba(255,255,255,.35)">VOCABULARY IN CONTEXT</text>
+
+<!-- Passage card -->
+<g class="passage-card">
+  <rect x="376" y="68" width="410" height="290" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+
+  <!-- Line 1 of passage — mostly placeholder rects + word 1 -->
+  <rect x="396" y="92" width="52" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="456" y="92" width="38" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="502" y="92" width="60" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="570" y="92" width="44" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="622" y="92" width="55" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="685" y="92" width="36" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="729" y="92" width="48" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+
+  <!-- Line 2 with word 1 highlighted -->
+  <rect x="396" y="132" width="40" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="444" y="132" width="30" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <text class="f word1" x="482" y="142" font-size="13" font-weight="700">significant</text>
+  <rect x="578" y="132" width="50" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="636" y="132" width="42" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="686" y="132" width="60" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <!-- GSE tag 1 -->
+  <g class="tag1" style="transform-origin:482px 118px">
+    <rect x="478" y="112" width="58" height="16" rx="4" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <text class="f" x="507" y="124" text-anchor="middle" font-size="9.5" font-weight="700" fill="#38bdf8">GSE 52</text>
+  </g>
+
+  <!-- Line 3 -->
+  <rect x="396" y="172" width="66" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="470" y="172" width="42" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="520" y="172" width="55" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="583" y="172" width="38" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="629" y="172" width="70" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="707" y="172" width="44" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+
+  <!-- Line 4 with word 2 -->
+  <rect x="396" y="212" width="55" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <text class="f word2" x="459" y="222" font-size="13">nevertheless</text>
+  <rect x="569" y="212" width="44" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="621" y="212" width="60" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="689" y="212" width="40" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <!-- GSE tag 2 -->
+  <g class="tag2" style="transform-origin:456px 198px">
+    <rect x="452" y="196" width="66" height="16" rx="4" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <text class="f" x="485" y="208" text-anchor="middle" font-size="9.5" font-weight="700" fill="#38bdf8">GSE 61</text>
+  </g>
+
+  <!-- Line 5 -->
+  <rect x="396" y="252" width="48" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="452" y="252" width="62" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="522" y="252" width="38" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="568" y="252" width="55" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="631" y="252" width="44" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="683" y="252" width="66" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+
+  <!-- Line 6 with word 3 -->
+  <rect x="396" y="292" width="62" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="466" y="292" width="42" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <text class="f word3" x="516" y="302" font-size="13">paradoxically</text>
+  <rect x="660" y="292" width="50" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <rect x="718" y="292" width="38" height="10" rx="3" fill="rgba(255,255,255,.12)"/>
+  <!-- GSE tag 3 -->
+  <g class="tag3" style="transform-origin:514px 278px">
+    <rect x="510" y="276" width="66" height="16" rx="4" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <text class="f" x="543" y="288" text-anchor="middle" font-size="9.5" font-weight="700" fill="#38bdf8">GSE 72</text>
+  </g>
+
+  <!-- Amber forgetting flash under word 3 -->
+  <rect class="forget-flash" x="514" y="304" width="82" height="3" rx="1.5" fill="#d97706"/>
+</g>
+
+<!-- Retention bar -->
+<text class="f" x="386" y="380" font-size="10" font-weight="700" letter-spacing="0.1em"
+      fill="rgba(255,255,255,.3)">WORDS RETAINED THIS WEEK</text>
+<g transform="translate(776,380)">
+  <text class="f wcount-0"  text-anchor="end" font-size="11" font-weight="700" fill="rgba(255,255,255,.3)">0 retained</text>
+  <text class="f wcount-4"  text-anchor="end" font-size="11" font-weight="700" fill="#38bdf8">4 retained</text>
+  <text class="f wcount-9"  text-anchor="end" font-size="11" font-weight="700" fill="#38bdf8">9 retained</text>
+  <text class="f wcount-14" text-anchor="end" font-size="11" font-weight="700" fill="#38bdf8">14 retained</text>
+</g>
+<rect x="386" y="388" width="390" height="12" rx="6" fill="rgba(255,255,255,.06)"/>
+<g clip-path="url(#ret-clip)">
+  <rect class="ret-bar" x="386" y="388" width="390" height="12" filter="url(#glsRA)"/>
+</g>
+
+<!-- Stat badges (animate in at end) -->
+<g class="stat-gram" transform="translate(386,414)">
+  <rect x="0" y="0" width="190" height="44" rx="8" fill="rgba(56,189,248,.15)" stroke="rgba(56,189,248,.4)" stroke-width="1.5"/>
+  <text class="f" x="95" y="18" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.55)">vs. direct instruction</text>
+  <text class="f" x="95" y="37" text-anchor="middle" font-size="15" font-weight="800" fill="#38bdf8">+50% grammar gains</text>
+</g>
+<g class="stat-vocab" transform="translate(586,414)">
+  <rect x="0" y="0" width="190" height="44" rx="8" fill="rgba(56,189,248,.15)" stroke="rgba(56,189,248,.4)" stroke-width="1.5"/>
+  <text class="f" x="95" y="18" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.55)">vs. drills</text>
+  <text class="f" x="95" y="37" text-anchor="middle" font-size="15" font-weight="800" fill="#38bdf8">2× vocabulary growth</text>
+</g>
+
+</svg>

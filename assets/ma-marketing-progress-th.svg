@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Mastery Advantage: ติดตามทุกทักษะ — เห็นการอ่านของคุณเติบโตทีละระดับตามหลักสูตร CEFR เต็มรูปแบบ">
+<title>ติดตามทุกทักษะ ทีละระดับ · Mastery Advantage</title>
+<style>
+  .f { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+  /* ── 11 s master loop ── */
+  /* Timeline: bars fill sequentially, then hold, then reset */
+  /* A1  fills: 4–15% */
+  /* A2  fills: 15–26% */
+  /* B1  fills: 26–37% */
+  /* B2  fills: 37–47% */
+  /* Hold: 47–82% */
+  /* Reset/fade: 82–100% */
+
+  /* Bar fills — scaleX animation from 0 → target */
+  .bar-a1 {
+    fill: #38bdf8;
+    transform-origin: 0% 50%;
+    transform-box: fill-box;
+    animation: bar-a1 11s ease-in-out infinite;
+  }
+  @keyframes bar-a1 {
+    0%,3%   { transform:scaleX(0); opacity:0; }
+    15%,80% { transform:scaleX(1);   opacity:1; }
+    92%     { transform:scaleX(1);   opacity:0; }
+    95%,100%{ transform:scaleX(0);   opacity:0; }
+  }
+
+  .bar-a2 {
+    fill: #38bdf8;
+    transform-origin: 0% 50%;
+    transform-box: fill-box;
+    animation: bar-a2 11s ease-in-out infinite;
+  }
+  @keyframes bar-a2 {
+    0%,14%  { transform:scaleX(0);    opacity:0; }
+    26%,80% { transform:scaleX(1);    opacity:1; }
+    92%     { transform:scaleX(1);    opacity:0; }
+    95%,100%{ transform:scaleX(0);    opacity:0; }
+  }
+
+  .bar-b1 {
+    fill: #38bdf8;
+    transform-origin: 0% 50%;
+    transform-box: fill-box;
+    animation: bar-b1 11s ease-in-out infinite;
+  }
+  @keyframes bar-b1 {
+    0%,25%  { transform:scaleX(0);    opacity:0; }
+    37%,80% { transform:scaleX(0.62); opacity:1; }
+    92%     { transform:scaleX(0.62); opacity:0; }
+    95%,100%{ transform:scaleX(0);    opacity:0; }
+  }
+  /* B1 current segment (remaining 38%) */
+  .bar-b1-current {
+    fill: #ffffff;
+    opacity: 0.18;
+    transform-origin: 0% 50%;
+    transform-box: fill-box;
+    animation: bar-b1-cur 11s ease-in-out infinite;
+  }
+  @keyframes bar-b1-cur {
+    0%,37%  { transform:scaleX(0); opacity:0; }
+    45%,80% { transform:scaleX(1); opacity:0.16; }
+    92%     { opacity:0; }
+    95%,100%{ transform:scaleX(0); opacity:0; }
+  }
+
+  .bar-b2 {
+    fill: #f5b942;
+    transform-origin: 0% 50%;
+    transform-box: fill-box;
+    animation: bar-b2 11s ease-in-out infinite;
+  }
+  @keyframes bar-b2 {
+    0%,36%  { transform:scaleX(0);    opacity:0; }
+    47%,80% { transform:scaleX(0.09); opacity:0.8; }
+    92%     { transform:scaleX(0.09); opacity:0; }
+    95%,100%{ transform:scaleX(0);    opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+  /* Mastery count badge */
+  .count-0  { animation: count-0  11s ease-in-out infinite; }
+  .count-18 { animation: count-18 11s ease-in-out infinite; }
+  .count-36 { animation: count-36 11s ease-in-out infinite; }
+  .count-47 { animation: count-47 11s ease-in-out infinite; }
+
+  @keyframes count-0  { 0%,3%  {opacity:1} 15%,100%{opacity:0} }
+  @keyframes count-18 { 0%,14% {opacity:0} 18%,25% {opacity:1} 27%,100%{opacity:0} }
+  @keyframes count-36 { 0%,26% {opacity:0} 30%,36% {opacity:1} 38%,100%{opacity:0} }
+  @keyframes count-47 { 0%,46% {opacity:0} 50%,80% {opacity:1} 90%,100%{opacity:0} }
+
+  /* "You are here" indicator pulses */
+  .yah-pulse {
+    animation: yah-pulse 2s ease-in-out infinite, yah-vis 11s ease-in-out infinite;
+    transform-origin: center; transform-box: fill-box;
+  }
+  @keyframes yah-pulse  { 0%,100%{opacity:.6} 50%{opacity:1} }
+  @keyframes yah-vis    { 0%,36%{opacity:0} 44%,80%{opacity:1} 90%{opacity:0} 100%{opacity:0} }
+
+  /* Skill dots — light up as the bar for their level fills */
+  /* A1 dots: all 5 light up */
+  .dot-a1 { animation: dot-a1 11s ease-in-out infinite; }
+  @keyframes dot-a1 {
+    0%,3%   { fill:#1e3048; }
+    14%,82% { fill:#38bdf8; }
+    92%     { fill:#38bdf8; opacity:0; }
+    95%,100%{ fill:#1e3048; opacity:1; }
+  }
+  .dot-a1-d2 { animation-delay: 0.15s; }
+  .dot-a1-d3 { animation-delay: 0.3s; }
+  .dot-a1-d4 { animation-delay: 0.45s; }
+  .dot-a1-d5 { animation-delay: 0.6s; }
+
+  /* A2 dots */
+  .dot-a2 { animation: dot-a2 11s ease-in-out infinite; }
+  @keyframes dot-a2 {
+    0%,14%  { fill:#1e3048; }
+    25%,82% { fill:#38bdf8; }
+    92%     { fill:#38bdf8; opacity:0; }
+    95%,100%{ fill:#1e3048; opacity:1; }
+  }
+  .dot-a2-d2 { animation-delay: 0.15s; }
+  .dot-a2-d3 { animation-delay: 0.3s; }
+  .dot-a2-d4 { animation-delay: 0.45s; }
+  .dot-a2-d5 { animation-delay: 0.6s; }
+
+  /* B1 dots (3 mastered, 1 current, 1 ready) */
+  .dot-b1-m { animation: dot-b1-m 11s ease-in-out infinite; }
+  @keyframes dot-b1-m {
+    0%,25%  { fill:#1e3048; }
+    36%,82% { fill:#38bdf8; }
+    92%     { fill:#38bdf8; opacity:0; }
+    95%,100%{ fill:#1e3048; opacity:1; }
+  }
+  .dot-b1-c { animation: dot-b1-c 11s ease-in-out infinite; }
+  @keyframes dot-b1-c {
+    0%,35%  { fill:#1e3048; }
+    44%,82% { fill:#ffffff; }
+    92%     { fill:#ffffff; opacity:0; }
+    95%,100%{ fill:#1e3048; opacity:1; }
+  }
+  .dot-b1-r { animation: dot-b1-r 11s ease-in-out infinite; }
+  @keyframes dot-b1-r {
+    0%,35%  { fill:#1e3048; }
+    44%,82% { fill:#f5b942; }
+    92%     { fill:#f5b942; opacity:0; }
+    95%,100%{ fill:#1e3048; opacity:1; }
+  }
+
+  /* B2 dot (first one turns amber) */
+  .dot-b2-1 { animation: dot-b2-1 11s ease-in-out infinite; }
+  @keyframes dot-b2-1 {
+    0%,36%  { fill:#1e3048; }
+    46%,82% { fill:#f5b942; }
+    92%     { fill:#f5b942; opacity:0; }
+    95%,100%{ fill:#1e3048; opacity:1; }
+  }
+
+  /* Level label brightness (A1/A2 bright when mastered) */
+  .lbl-mastered { animation: lbl-mastered 11s ease-in-out infinite; }
+  @keyframes lbl-mastered { 0%,13%{opacity:.5} 20%,82%{opacity:1} 92%,100%{opacity:.5} }
+  .lbl-a2-mastered { animation: lbl-a2 11s ease-in-out infinite; }
+  @keyframes lbl-a2 { 0%,25%{opacity:.5} 32%,82%{opacity:1} 92%,100%{opacity:.5} }
+
+  /* Section shine effect on bar */
+  @keyframes bar-shine {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+  }
+  .bar-shine {
+    animation: bar-shine 2.5s ease-in-out infinite;
+  }
+</style>
+
+<defs>
+  <radialGradient id="bg3" cx="40%" cy="35%" r="70%">
+    <stop offset="0%"   stop-color="#131c30"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="grid3" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="gls3" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="4" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glst3" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="8" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <!-- Shine gradient for bar highlight -->
+  <linearGradient id="shine-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%"   stop-color="rgba(255,255,255,0)"/>
+    <stop offset="50%"  stop-color="rgba(255,255,255,0.25)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+  </linearGradient>
+  <clipPath id="bar-a1-clip"><rect x="436" y="102" width="278" height="14" rx="7"/></clipPath>
+  <clipPath id="bar-a2-clip"><rect x="436" y="160" width="278" height="14" rx="7"/></clipPath>
+  <clipPath id="bar-b1-clip"><rect x="436" y="218" width="278" height="14" rx="7"/></clipPath>
+  <clipPath id="bar-b2-clip"><rect x="436" y="276" width="278" height="14" rx="7"/></clipPath>
+</defs>
+
+<!-- Background -->
+<rect width="800" height="500" fill="url(#bg3)"/>
+<rect width="800" height="500" fill="url(#grid3)"/>
+
+<!-- ── LEFT PANEL ── -->
+<text class="f" x="44" y="66"
+      font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">MASTERY ADVANTAGE · ติดตามความก้าวหน้า</text>
+
+<text class="f" x="44" y="114"
+      font-size="38" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">ทุกทักษะ,</text>
+<text class="f" x="44" y="159"
+      font-size="38" font-weight="800" letter-spacing="-0.03em" font-style="italic"
+      fill="#38bdf8">ถูกติดตามและ</text>
+<text class="f" x="44" y="204"
+      font-size="38" font-weight="800" letter-spacing="-0.03em" font-style="italic"
+      fill="#38bdf8">มองเห็นได้ชัดเจน</text>
+
+<rect x="44" y="218" width="146" height="3" rx="1.5" fill="#38bdf8" opacity=".65"/>
+
+<text class="f" x="44" y="256" font-size="14" fill="rgba(255,255,255,.54)">ทุกทักษะถูกจัดวางตามหลักสูตร CEFR</text>
+<text class="f" x="44" y="276" font-size="14" fill="rgba(255,255,255,.54)">เต็มรูปแบบ — ระดับ A1 ถึง C2 นักเรียน</text>
+<text class="f" x="44" y="296" font-size="14" fill="rgba(255,255,255,.54)">และครูเห็นชัดเจนว่าทักษะใดชำนาญแล้ว</text>
+<text class="f" x="44" y="316" font-size="14" fill="rgba(255,255,255,.54)">กำลังเรียนอะไร และต้องเรียนอะไรต่อ</text>
+<text class="f" x="44" y="336" font-size="14" fill="rgba(255,255,255,.54)">ทำให้ความก้าวหน้าเป็นสิ่งที่ปฏิเสธไม่ได้</text>
+
+<!-- Mastery counter badge -->
+<g transform="translate(44,374)">
+  <rect x="0" y="0" width="282" height="52" rx="10"
+        fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <!-- Counter: animates through values -->
+  <text class="f count-0"  x="24" y="32" font-size="28" font-weight="800"
+        letter-spacing="-0.04em" fill="rgba(255,255,255,.35)">0</text>
+  <text class="f count-18" x="24" y="32" font-size="28" font-weight="800"
+        letter-spacing="-0.04em" fill="#38bdf8">18</text>
+  <text class="f count-36" x="24" y="32" font-size="28" font-weight="800"
+        letter-spacing="-0.04em" fill="#38bdf8">36</text>
+  <text class="f count-47" x="24" y="32" font-size="28" font-weight="800"
+        letter-spacing="-0.04em" fill="#38bdf8">47</text>
+  <text class="f" x="76" y="24" font-size="12" font-weight="700"
+        fill="rgba(255,255,255,.5)">ทักษะที่ชำนาญแล้ว</text>
+  <text class="f" x="76" y="42" font-size="12"
+        fill="rgba(255,255,255,.35)">ปัจจุบันอยู่ในระดับ B1 · ระดับกลาง</text>
+</g>
+
+<text class="f" x="44" y="454"
+      font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">A1 → C2 · ครอบคลุม CEFR ทุกประเภททักษะ</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- ── RIGHT PANEL — CEFR Progress Bars ── -->
+<text class="f" x="582" y="66"
+      text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.13em"
+      fill="rgba(255,255,255,.35)">ระดับการอ่าน CEFR</text>
+
+<!-- Column headers -->
+<text class="f" x="436" y="85" font-size="9.5" font-weight="700" letter-spacing="0.06em"
+      fill="rgba(255,255,255,.22)">ความชำนาญ</text>
+<text class="f" x="726" y="85" text-anchor="middle" font-size="9.5" font-weight="700"
+      letter-spacing="0.06em" fill="rgba(255,255,255,.22)">ทักษะ</text>
+
+<!-- ── ROW A1 (y=109) ── -->
+<text class="f lbl-mastered" x="430" y="120" text-anchor="end"
+      font-size="13" font-weight="800" fill="#38bdf8">A1</text>
+<text class="f" x="430" y="132" text-anchor="end"
+      font-size="8.5" font-weight="600" letter-spacing="0.06em"
+      fill="rgba(56,189,248,.55)">เสร็จแล้ว</text>
+
+<!-- Bar track A1 -->
+<rect x="436" y="102" width="278" height="14" rx="7" fill="rgba(255,255,255,.06)"/>
+<!-- Bar fill A1 -->
+<g clip-path="url(#bar-a1-clip)">
+  <rect class="bar-a1" x="436" y="102" width="278" height="14" rx="7" filter="url(#gls3)"/>
+</g>
+
+<!-- A1 skill dots -->
+<circle class="dot-a1"    cx="726" cy="109" r="5"/>
+<circle class="dot-a1 dot-a1-d2" cx="742" cy="109" r="5"/>
+<circle class="dot-a1 dot-a1-d3" cx="758" cy="109" r="5"/>
+<circle class="dot-a1 dot-a1-d4" cx="742" cy="123" r="5"/>
+<circle class="dot-a1 dot-a1-d5" cx="758" cy="123" r="5"/>
+
+<!-- ── ROW A2 (y=167) ── -->
+<text class="f lbl-a2-mastered" x="430" y="178" text-anchor="end"
+      font-size="13" font-weight="800" fill="#38bdf8">A2</text>
+<text class="f" x="430" y="190" text-anchor="end"
+      font-size="8.5" font-weight="600" letter-spacing="0.06em"
+      fill="rgba(56,189,248,.55)">เสร็จแล้ว</text>
+
+<rect x="436" y="160" width="278" height="14" rx="7" fill="rgba(255,255,255,.06)"/>
+<g clip-path="url(#bar-a2-clip)">
+  <rect class="bar-a2" x="436" y="160" width="278" height="14" rx="7" filter="url(#gls3)"/>
+</g>
+
+<circle class="dot-a2"    cx="726" cy="167" r="5"/>
+<circle class="dot-a2 dot-a2-d2" cx="742" cy="167" r="5"/>
+<circle class="dot-a2 dot-a2-d3" cx="758" cy="167" r="5"/>
+<circle class="dot-a2 dot-a2-d4" cx="742" cy="181" r="5"/>
+<circle class="dot-a2 dot-a2-d5" cx="758" cy="181" r="5"/>
+
+<!-- ── ROW B1 (y=225) — current level ── -->
+<text class="f" x="430" y="236" text-anchor="end"
+      font-size="13" font-weight="800" fill="#e8e4d8">B1</text>
+<text class="f" x="430" y="248" text-anchor="end"
+      font-size="8.5" font-weight="600" letter-spacing="0.06em"
+      fill="rgba(255,255,255,.38)">กำลังเรียน</text>
+
+<rect x="436" y="218" width="278" height="14" rx="7" fill="rgba(255,255,255,.06)"/>
+<g clip-path="url(#bar-b1-clip)">
+  <!-- Remaining (locked) dim fill -->
+  <rect class="bar-b1-current" x="436" y="218" width="278" height="14"/>
+  <!-- Mastered fill (62%) -->
+  <rect class="bar-b1" x="436" y="218" width="278" height="14" filter="url(#gls3)"/>
+</g>
+
+<circle class="dot-b1-m"    cx="726" cy="225" r="5"/>
+<circle class="dot-b1-m"    cx="742" cy="225" r="5"/>
+<circle class="dot-b1-m"    cx="758" cy="225" r="5"/>
+<circle class="dot-b1-c"    cx="742" cy="239" r="5"/>
+<circle class="dot-b1-r"    cx="758" cy="239" r="5"/>
+
+<!-- "You are here" arrow -->
+<g class="yah-pulse">
+  <line x1="605" y1="214" x2="605" y2="206" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="605,200 601,208 609,208" fill="#38bdf8"/>
+  <text class="f" x="605" y="197" text-anchor="middle"
+        font-size="9.5" font-weight="700" fill="#38bdf8">คุณอยู่ที่นี่</text>
+</g>
+
+<!-- 62% label -->
+<text class="f" x="780" y="228" font-size="11" font-weight="700"
+      fill="rgba(56,189,248,.7)">62%</text>
+
+<!-- ── ROW B2 (y=283) ── -->
+<text class="f" x="430" y="294" text-anchor="end"
+      font-size="13" font-weight="800" fill="rgba(255,255,255,.45)">B2</text>
+<text class="f" x="430" y="306" text-anchor="end"
+      font-size="8.5" font-weight="600" letter-spacing="0.06em"
+      fill="rgba(255,255,255,.2)">เริ่มต้น</text>
+
+<rect x="436" y="276" width="278" height="14" rx="7" fill="rgba(255,255,255,.06)"/>
+<g clip-path="url(#bar-b2-clip)">
+  <rect class="bar-b2" x="436" y="276" width="278" height="14"/>
+</g>
+
+<circle class="dot-b2-1"    cx="726" cy="283" r="5"/>
+<circle cx="742" cy="283" r="5" fill="#1e3048"/>
+<circle cx="758" cy="283" r="5" fill="#1e3048"/>
+<circle cx="742" cy="297" r="5" fill="#1e3048"/>
+<circle cx="758" cy="297" r="5" fill="#1e3048"/>
+
+<!-- ── ROW C1 (y=341) ── -->
+<text class="f" x="430" y="352" text-anchor="end"
+      font-size="13" font-weight="800" fill="rgba(255,255,255,.22)">C1</text>
+<text class="f" x="430" y="364" text-anchor="end"
+      font-size="8.5" font-weight="600" letter-spacing="0.06em"
+      fill="rgba(255,255,255,.12)">ล็อก</text>
+
+<rect x="436" y="334" width="278" height="14" rx="7" fill="rgba(255,255,255,.04)"/>
+
+<circle cx="726" cy="341" r="5" fill="#1e3048"/>
+<circle cx="742" cy="341" r="5" fill="#1e3048"/>
+<circle cx="758" cy="341" r="5" fill="#1e3048"/>
+<circle cx="742" cy="355" r="5" fill="#1e3048"/>
+<circle cx="758" cy="355" r="5" fill="#1e3048"/>
+
+<!-- ── ROW C2 (y=399) ── -->
+<text class="f" x="430" y="410" text-anchor="end"
+      font-size="13" font-weight="800" fill="rgba(255,255,255,.16)">C2</text>
+<text class="f" x="430" y="422" text-anchor="end"
+      font-size="8.5" font-weight="600" letter-spacing="0.06em"
+      fill="rgba(255,255,255,.1)">ล็อก</text>
+
+<rect x="436" y="392" width="278" height="14" rx="7" fill="rgba(255,255,255,.03)"/>
+
+<circle cx="726" cy="399" r="5" fill="#161f34"/>
+<circle cx="742" cy="399" r="5" fill="#161f34"/>
+<circle cx="758" cy="399" r="5" fill="#161f34"/>
+<circle cx="742" cy="413" r="5" fill="#161f34"/>
+<circle cx="758" cy="413" r="5" fill="#161f34"/>
+
+<!-- ── Bottom info row ── -->
+<rect x="436" y="444" width="278" height="28" rx="6" fill="rgba(255,255,255,.04)"/>
+<text class="f" x="575" y="463" text-anchor="middle"
+      font-size="11.5" font-weight="600" fill="rgba(255,255,255,.35)" letter-spacing="0.03em">
+  A1 → C2 · 6 ระดับ · ติดตาม 100+ ทักษะ
+</text>
+
+</svg>
