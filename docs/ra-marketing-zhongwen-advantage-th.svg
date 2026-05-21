@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Zhongwen Advantage: ทุกตัวอักษร ในจังหวะที่ถูกต้อง. ขับเคลื่อนโดย Mastery Advantage.">
+<title>ทุกตัวอักษร ในจังหวะที่ถูกต้อง. · Zhongwen Advantage</title>
+<style>
+  .f  { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  .fc { font-family: 'Noto Serif CJK SC', 'Source Han Serif SC', 'STSong', 'SimSun', serif; }
+
+  /* 12s loop */
+  /* A 0-22%: strokes draw in one by one on central character 明 */
+  /* B 22-40%: 明 node fills fuchsia, radical breakdown shows */
+  /* C 40-62%: 3 vocabulary nodes unlock */
+  /* D 62-78%: Thai gloss tooltips appear */
+  /* E 78-94%: HSK level badge fires */
+  /* F 94-100%: reset */
+
+  /* Stroke draw animations (3 strokes) */
+  .stroke1 { stroke-dasharray:60; animation: s1 12s ease-in-out infinite; }
+  @keyframes s1 { 0%,4%{stroke-dashoffset:60} 10%,100%{stroke-dashoffset:0} }
+  .stroke2 { stroke-dasharray:50; animation: s2 12s ease-in-out infinite; }
+  @keyframes s2 { 0%,8%{stroke-dashoffset:50} 15%,100%{stroke-dashoffset:0} }
+  .stroke3 { stroke-dasharray:70; animation: s3 12s ease-in-out infinite; }
+  @keyframes s3 { 0%,13%{stroke-dashoffset:70} 20%,100%{stroke-dashoffset:0} }
+  .stroke4 { stroke-dasharray:40; animation: s4 12s ease-in-out infinite; }
+  @keyframes s4 { 0%,17%{stroke-dashoffset:40} 24%,100%{stroke-dashoffset:0} }
+
+  /* Fade of stroke guide to fuchsia fill */
+  .char-guide { animation: cg 12s ease-in-out infinite; }
+  @keyframes cg { 0%,20%{opacity:0.3} 28%,92%{opacity:0} 100%{opacity:0} }
+  .char-fill { animation: cf 12s ease-in-out infinite; }
+  @keyframes cf  { 0%,20%{opacity:0} 28%,92%{opacity:1} 98%,100%{opacity:0} }
+
+  /* Central node fill */
+  .cn-fill { animation: cnf 12s ease-in-out infinite; }
+  @keyframes cnf { 0%,20%{fill:#2a1a40} 28%,92%{fill:#e879f9} 98%,100%{fill:#2a1a40} }
+  .cn-ring { animation: cnr 12s ease-in-out infinite; }
+  @keyframes cnr { 0%,20%{stroke:#4a2a70} 28%,92%{stroke:#f0abfc} 98%{stroke:#4a2a70} }
+
+  /* Radical nodes (日 and 月) */
+  .rad-sun { animation: rsun 12s ease-in-out infinite; }
+  @keyframes rsun { 0%,22%{opacity:0;transform:scale(0.5)} 30%,90%{opacity:1;transform:scale(1)} 98%,100%{opacity:0} }
+  .rad-moon { animation: rmoon 12s ease-in-out infinite; }
+  @keyframes rmoon { 0%,26%{opacity:0;transform:scale(0.5)} 34%,90%{opacity:1;transform:scale(1)} 98%,100%{opacity:0} }
+
+  /* Vocab node unlocks */
+  .voc1 { animation: voc1 12s ease-in-out infinite; }
+  @keyframes voc1 { 0%,40%{fill:#2a1a40} 48%,90%{fill:#e879f9} 98%,100%{fill:#2a1a40} }
+  .voc1r { animation: voc1r 12s ease-in-out infinite; }
+  @keyframes voc1r { 0%,40%{stroke:#4a2a70} 48%,90%{stroke:#f0abfc} 98%{stroke:#4a2a70} }
+  .rip1 { animation: rip1 12s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rip1 { 0%,40%{transform:scale(0);opacity:0} 44%{transform:scale(1);opacity:0.8} 54%{transform:scale(2.4);opacity:0} 100%{opacity:0} }
+
+  .voc2 { animation: voc2 12s ease-in-out infinite; }
+  @keyframes voc2 { 0%,46%{fill:#2a1a40} 54%,90%{fill:#e879f9} 98%,100%{fill:#2a1a40} }
+  .voc2r { animation: voc2r 12s ease-in-out infinite; }
+  @keyframes voc2r { 0%,46%{stroke:#4a2a70} 54%,90%{stroke:#f0abfc} 98%{stroke:#4a2a70} }
+  .rip2 { animation: rip2 12s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rip2 { 0%,46%{transform:scale(0);opacity:0} 50%{transform:scale(1);opacity:0.8} 60%{transform:scale(2.4);opacity:0} 100%{opacity:0} }
+
+  .voc3 { animation: voc3 12s ease-in-out infinite; }
+  @keyframes voc3 { 0%,52%{fill:#2a1a40} 60%,90%{fill:#e879f9} 98%,100%{fill:#2a1a40} }
+  .voc3r { animation: voc3r 12s ease-in-out infinite; }
+  @keyframes voc3r { 0%,52%{stroke:#4a2a70} 60%,90%{stroke:#f0abfc} 98%{stroke:#4a2a70} }
+  .rip3 { animation: rip3 12s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rip3 { 0%,52%{transform:scale(0);opacity:0} 56%{transform:scale(1);opacity:0.8} 66%{transform:scale(2.4);opacity:0} 100%{opacity:0} }
+
+  /* Thai gloss */
+  .thai-tip { animation: tt 12s ease-in-out infinite; }
+  @keyframes tt { 0%,60%{opacity:0;transform:translateY(5px)} 70%,78%{opacity:1;transform:translateY(0)} 86%,100%{opacity:0} }
+
+  /* HSK badge */
+  .hsk-badge { animation: hsk 12s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes hsk { 0%,76%{opacity:0;transform:scale(0.7)} 84%,92%{opacity:1;transform:scale(1)} 100%{opacity:0} }
+
+  /* SRS strip */
+  .srs-bar { animation: srsb 12s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes srsb { 0%,26%{transform:scaleX(0.1);opacity:0} 36%,88%{transform:scaleX(1);opacity:1} 96%,100%{transform:scaleX(0.1);opacity:0} }
+  .srs-marker { animation: srsm 12s ease-in-out infinite; }
+  @keyframes srsm { 0%,62%{transform:translateX(60px);opacity:0.4} 74%,88%{transform:translateX(180px);opacity:1} 96%,100%{opacity:0} }
+
+  /* Edge flow */
+  .ef { stroke-dasharray:7 5; animation: efm 1.5s linear infinite, efv 12s ease-in-out infinite; }
+  @keyframes efm { to { stroke-dashoffset:-36; } }
+  @keyframes efv  { 0%,38%{opacity:0} 46%,88%{opacity:1} 96%,100%{opacity:0} }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgZH" cx="42%" cy="35%" r="72%">
+    <stop offset="0%"   stop-color="#160a20"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="gridZH" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsZH" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowZH" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="10" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <clipPath id="srs-clip-zh">
+    <rect x="390" y="420" width="386" height="10" rx="5"/>
+  </clipPath>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgZH)"/>
+<rect width="800" height="500" fill="url(#gridZH)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">ZHONGWEN ADVANTAGE · HSK 1–9</text>
+
+<text class="f" x="44" y="108" font-size="36" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">每个字，</text>
+<text class="f" x="44" y="150" font-size="36" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#e879f9">都在正确的时机。</text>
+<rect x="44" y="165" width="275" height="3" rx="1.5" fill="#e879f9" opacity=".65"/>
+<text class="f" x="44" y="190" font-size="13.5" fill="rgba(255,255,255,.38)">ทุกตัวอักษร ในจังหวะที่ถูกต้อง.</text>
+
+<text class="f" x="44" y="228" font-size="14" fill="rgba(255,255,255,.54)">ตัวอักษรสร้างจากส่วนประกอบรากอักษร</text>
+<text class="f" x="44" y="248" font-size="14" fill="rgba(255,255,255,.54)">เรียน 日 (พระอาทิตย์) + 月 (พระจันทร์) แล้ว 明</text>
+<text class="f" x="44" y="268" font-size="14" fill="rgba(255,255,255,.54)">(สว่าง) ก็สมเหตุสมผล จากนั้น 明白, 聪明,</text>
+<text class="f" x="44" y="288" font-size="14" fill="rgba(255,255,255,.54)">明天 ปลดล็อก — เป็นภาษาไทย ตามลำดับ</text>
+
+<!-- HSK levels -->
+<g transform="translate(44,316)">
+  <text class="f" x="0" y="0" font-size="10" fill="rgba(255,255,255,.28)" letter-spacing="0.08em">ระดับ HSK</text>
+  <g transform="translate(0,10)">
+    <rect x="0"   y="0" width="32" height="24" rx="4" fill="rgba(232,121,249,.2)" stroke="rgba(232,121,249,.4)" stroke-width="1"/>
+    <text class="f" x="16" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e879f9">1</text>
+    <rect x="36"  y="0" width="32" height="24" rx="4" fill="rgba(232,121,249,.2)" stroke="rgba(232,121,249,.4)" stroke-width="1"/>
+    <text class="f" x="52" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e879f9">2</text>
+    <rect x="72"  y="0" width="32" height="24" rx="4" fill="rgba(232,121,249,.15)" stroke="rgba(232,121,249,.3)" stroke-width="1"/>
+    <text class="f" x="88" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e879f9">3</text>
+    <rect x="108" y="0" width="32" height="24" rx="4" fill="rgba(232,121,249,.08)" stroke="rgba(232,121,249,.15)" stroke-width="1"/>
+    <text class="f" x="124" y="16" text-anchor="middle" font-size="10.5" fill="rgba(232,121,249,.4)">4</text>
+    <text class="f" x="158" y="16" font-size="10" fill="rgba(255,255,255,.22)">… 9</text>
+  </g>
+</g>
+
+<g transform="translate(44,372)">
+  <rect x="0" y="0" width="96" height="24" rx="5" fill="rgba(232,121,249,.12)" stroke="rgba(232,121,249,.25)" stroke-width="1"/>
+  <text class="f" x="48" y="16" text-anchor="middle" font-size="10" fill="#e879f9">นักเรียนไทย</text>
+  <rect x="106" y="0" width="110" height="24" rx="5" fill="rgba(232,121,249,.12)" stroke="rgba(232,121,249,.25)" stroke-width="1"/>
+  <text class="f" x="161" y="16" text-anchor="middle" font-size="10" fill="#e879f9">สนับสนุนสองภาษา</text>
+</g>
+
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">ขับเคลื่อนโดย Mastery Advantage™ · กราฟรากอักษรก่อน</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL -->
+<text class="f" x="581" y="56" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.13em"
+      fill="rgba(255,255,255,.35)">กราฟความรู้ตัวอักษร</text>
+
+<!-- Central character display box -->
+<rect x="490" y="100" width="140" height="140" rx="14"
+      fill="rgba(255,255,255,.04)" stroke="rgba(232,121,249,.15)" stroke-width="1.5"/>
+
+<!-- Character guide (faint) -->
+<g class="char-guide">
+  <text class="fc" x="560" y="200" text-anchor="middle" font-size="100" fill="rgba(232,121,249,.15)">明</text>
+</g>
+<!-- Character fill (solid, after strokes drawn) -->
+<g class="char-fill">
+  <text class="fc" x="560" y="200" text-anchor="middle" font-size="100" fill="#e879f9" filter="url(#glsZH)">明</text>
+  <text class="fc" x="560" y="200" text-anchor="middle" font-size="100" fill="#e879f9">明</text>
+</g>
+
+<!-- Animated strokes (SVG paths approximating 明 strokes, drawn in sequence) -->
+<g transform="translate(498,108)" class="char-guide" opacity="1">
+  <!-- Stroke 1: left vertical component of 日 -->
+  <path class="stroke1" d="M18 14 L18 60" fill="none" stroke="#e879f9" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Stroke 2: top of 日 -->
+  <path class="stroke2" d="M18 14 L44 14" fill="none" stroke="#e879f9" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Stroke 3: right of 日 + top of 月 -->
+  <path class="stroke3" d="M44 14 L44 60 M68 14 L92 14 L92 62" fill="none" stroke="#e879f9" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Stroke 4: cross-bars -->
+  <path class="stroke4" d="M18 36 L44 36 M68 36 L92 36" fill="none" stroke="#e879f9" stroke-width="3.5" stroke-linecap="round"/>
+</g>
+
+<!-- Pinyin + meaning -->
+<text class="f" x="560" y="256" text-anchor="middle" font-size="11.5" fill="rgba(255,255,255,.5)">míng · สว่าง / เข้าใจ</text>
+
+<!-- Central node ring (around the character box) -->
+<rect x="488" y="98" width="144" height="144" rx="15" fill="none" class="cn-ring" stroke-width="2"/>
+
+<!-- Radical breakdown (日 and 月 float in) -->
+<g class="rad-sun" style="transform-origin:435px 148px">
+  <rect x="385" y="120" width="80" height="56" rx="10" fill="#1a0a2e" stroke="#e879f9" stroke-width="1.2"/>
+  <text class="fc" x="425" y="162" text-anchor="middle" font-size="44" fill="#e879f9">日</text>
+  <text class="f" x="425" y="188" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.4)">rì · พระอาทิตย์/วัน</text>
+  <!-- arrow → center -->
+  <line x1="465" y1="148" x2="490" y2="162" stroke="#e879f9" stroke-width="1.2" stroke-dasharray="3 3"/>
+</g>
+
+<g class="rad-moon" style="transform-origin:710px 148px">
+  <rect x="670" y="120" width="80" height="56" rx="10" fill="#1a0a2e" stroke="#e879f9" stroke-width="1.2"/>
+  <text class="fc" x="710" y="162" text-anchor="middle" font-size="44" fill="#e879f9">月</text>
+  <text class="f" x="710" y="188" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.4)">yuè · พระจันทร์/เดือน</text>
+  <line x1="672" y1="148" x2="634" y2="162" stroke="#e879f9" stroke-width="1.2" stroke-dasharray="3 3"/>
+</g>
+
+<!-- Vocab node edges -->
+<path class="ef" d="M560 242 Q540 284 512 306" fill="none" stroke="#e879f9" stroke-width="1.8" stroke-linecap="round"/>
+<path class="ef" d="M560 242 Q560 290 560 310" fill="none" stroke="#e879f9" stroke-width="1.8" stroke-linecap="round"/>
+<path class="ef" d="M560 242 Q580 284 608 306" fill="none" stroke="#e879f9" stroke-width="1.8" stroke-linecap="round"/>
+
+<!-- Vocab node 1: 明白 -->
+<circle cx="504" cy="318" r="24" class="voc1" filter="url(#glsZH)"/>
+<circle cx="504" cy="318" r="24" class="voc1"/>
+<circle cx="504" cy="318" r="30" fill="none" class="voc1r"/>
+<circle cx="504" cy="318" r="24" fill="none" stroke="#e879f9" stroke-width="2" class="rip1"/>
+<text class="fc" x="504" y="315" text-anchor="middle" font-size="18" fill="#160a20">明白</text>
+<text class="f" x="504" y="330" text-anchor="middle" font-size="8" fill="rgba(10,5,20,.8)">เข้าใจ</text>
+<text class="f" x="504" y="350" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.35)">HSK 2</text>
+
+<!-- Vocab node 2: 聪明 -->
+<circle cx="560" cy="322" r="22" class="voc2" filter="url(#glsZH)"/>
+<circle cx="560" cy="322" r="22" class="voc2"/>
+<circle cx="560" cy="322" r="28" fill="none" class="voc2r"/>
+<circle cx="560" cy="322" r="22" fill="none" stroke="#e879f9" stroke-width="2" class="rip2"/>
+<text class="fc" x="560" y="319" text-anchor="middle" font-size="16" fill="#160a20">聪明</text>
+<text class="f" x="560" y="333" text-anchor="middle" font-size="8" fill="rgba(10,5,20,.8)">ฉลาด</text>
+<text class="f" x="560" y="352" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.35)">HSK 3</text>
+
+<!-- Vocab node 3: 明天 -->
+<circle cx="616" cy="318" r="22" class="voc3" filter="url(#glsZH)"/>
+<circle cx="616" cy="318" r="22" class="voc3"/>
+<circle cx="616" cy="318" r="28" fill="none" class="voc3r"/>
+<circle cx="616" cy="318" r="22" fill="none" stroke="#e879f9" stroke-width="2" class="rip3"/>
+<text class="fc" x="616" y="315" text-anchor="middle" font-size="16" fill="#160a20">明天</text>
+<text class="f" x="616" y="329" text-anchor="middle" font-size="8" fill="rgba(10,5,20,.8)">พรุ่งนี้</text>
+<text class="f" x="616" y="348" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.35)">HSK 2</text>
+
+<!-- Thai gloss tooltip (below vocab nodes) -->
+<g class="thai-tip" transform="translate(556,372)">
+  <rect x="-104" y="0" width="208" height="30" rx="7" fill="#0f0028" stroke="#c084fc" stroke-width="1"/>
+  <text class="f" x="0" y="11" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.4)">โครงสร้างสองภาษา</text>
+  <text class="f" x="0" y="25" text-anchor="middle" font-size="11.5" font-weight="600" fill="#c084fc">明天 = พรุ่งนี้ · tomorrow</text>
+</g>
+
+<!-- HSK level badge (right side, clear of vocab nodes) -->
+<g class="hsk-badge" transform="translate(710,300)">
+  <rect x="-56" y="-19" width="112" height="38" rx="8"
+        fill="rgba(232,121,249,.2)" stroke="#e879f9" stroke-width="1.5"/>
+  <text class="f" x="0" y="-3" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.5)">เลื่อนระดับ</text>
+  <text class="f" x="0" y="13" text-anchor="middle" font-size="12.5" font-weight="800" fill="#e879f9">HSK 2 → HSK 3</text>
+</g>
+
+<!-- SRS timeline -->
+<text class="f" x="390" y="412" font-size="9.5" font-weight="700" letter-spacing="0.1em"
+      fill="rgba(255,255,255,.28)">ทบทวนครั้งถัดไปสำหรับ 明</text>
+<rect x="390" y="420" width="386" height="10" rx="5" fill="rgba(255,255,255,.06)"/>
+<g clip-path="url(#srs-clip-zh)">
+  <rect class="srs-bar" x="390" y="420" width="386" height="10" fill="#e879f9" filter="url(#glsZH)"/>
+</g>
+<g class="srs-marker">
+  <line x1="390" y1="414" x2="390" y2="433" stroke="#e879f9" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <polygon points="390,437 386,431 394,431" fill="#e879f9"/>
+</g>
+
+<text class="f" x="583" y="462" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.22)" letter-spacing="0.03em">
+  รากอักษรก่อน · ตัวอักษรถัดไป · คำศัพท์เสมอ
+</text>
+</svg>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Tutor Advantage: The tutor that already knows what you need. Powered by Mastery Advantage.">
+<title>The tutor that already knows what you need. · Tutor Advantage</title>
+<style>
+  .f { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+  /* 13s loop — split view: graph left, chat right */
+  /* A 0-18%: outer fringe nodes pulse (amber) */
+  /* B 18-36%: AI sends first question (targeted to outer fringe) */
+  /* C 36-52%: student replies */
+  /* D 52-68%: AI follow-up (deeper scaffolding) */
+  /* E 68-82%: outer fringe node fills emerald (mastered) */
+  /* F 82-96%: next node activates */
+  /* G 96-100%: reset */
+
+  /* Fringe pulse */
+  .fringe-pulse { animation: fpulse 2s ease-in-out infinite, fpvis 13s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes fpulse { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.12);opacity:0.9} }
+  @keyframes fpvis  { 0%,14%{opacity:1} 22%,100%{opacity:0} }
+
+  /* Mastered node animates to emerald */
+  .node-masters { animation: nm 13s ease-in-out infinite; }
+  @keyframes nm { 0%,66%{fill:#f5b942} 74%,96%{fill:#34d399} 100%{fill:#f5b942} }
+  .node-masters-ring { animation: nmr 13s ease-in-out infinite; }
+  @keyframes nmr { 0%,66%{stroke:#ffd27a} 74%,96%{stroke:#6ee7b7} 100%{stroke:#ffd27a} }
+  .master-burst { animation: mburst 13s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes mburst { 0%,67%{transform:scale(1);opacity:0} 70%{transform:scale(1);opacity:0.9} 80%{transform:scale(2.6);opacity:0} 100%{opacity:0} }
+
+  /* Next fringe node activates */
+  .next-fringe { animation: nf 13s ease-in-out infinite; }
+  @keyframes nf { 0%,80%{fill:#2a3552} 88%,96%{fill:#f5b942} 100%{fill:#2a3552} }
+  .next-fringe-ring { animation: nfr 13s ease-in-out infinite; }
+  @keyframes nfr { 0%,80%{stroke:#3a4870} 88%,96%{stroke:#ffd27a} 100%{stroke:#3a4870} }
+
+  /* Chat messages fade in sequentially */
+  .msg1 { animation: msg1 13s ease-in-out infinite; }
+  @keyframes msg1 { 0%,16%{opacity:0;transform:translateY(6px)} 22%,96%{opacity:1;transform:translateY(0)} 100%{opacity:0} }
+  .msg2 { animation: msg2 13s ease-in-out infinite; }
+  @keyframes msg2 { 0%,34%{opacity:0;transform:translateY(6px)} 40%,96%{opacity:1;transform:translateY(0)} 100%{opacity:0} }
+  .msg3 { animation: msg3 13s ease-in-out infinite; }
+  @keyframes msg3 { 0%,50%{opacity:0;transform:translateY(6px)} 56%,96%{opacity:1;transform:translateY(0)} 100%{opacity:0} }
+  .msg4 { animation: msg4 13s ease-in-out infinite; }
+  @keyframes msg4 { 0%,66%{opacity:0;transform:translateY(6px)} 72%,96%{opacity:1;transform:translateY(0)} 100%{opacity:0} }
+
+  /* Typing indicator */
+  .typing { animation: typing 13s ease-in-out infinite; }
+  @keyframes typing { 0%,18%{opacity:1} 30%,100%{opacity:0} }
+  .typing2 { animation: typing2 13s ease-in-out infinite; }
+  @keyframes typing2 { 0%,36%{opacity:0} 40%{opacity:1} 52%,100%{opacity:0} }
+  .dot-bounce { animation: db 0.9s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes db { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+  .dot-b2 { animation-delay:0.15s; }
+  .dot-b3 { animation-delay:0.3s; }
+
+  /* "Targeting outer fringe" badge */
+  .target-badge { animation: tb 13s ease-in-out infinite; }
+  @keyframes tb { 0%,18%{opacity:1} 28%,100%{opacity:0} }
+
+  /* "Session adapted" badge */
+  .adapted-badge { animation: ab 13s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes ab { 0%,68%{opacity:0;transform:scale(0.7)} 76%,88%{opacity:1;transform:scale(1)} 96%,100%{opacity:0} }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgTA" cx="42%" cy="35%" r="72%">
+    <stop offset="0%"   stop-color="#041a10"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="gridTA" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsTA" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowTA" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="10" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <symbol id="chkTA" viewBox="0 0 24 24">
+    <path d="M5 12L9.5 17L19 7" fill="none" stroke="currentColor" stroke-width="2.8"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgTA)"/>
+<rect width="800" height="500" fill="url(#gridTA)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">TUTOR ADVANTAGE · ALL AGES</text>
+
+<text class="f" x="44" y="108" font-size="34" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">The tutor that</text>
+<text class="f" x="44" y="148" font-size="34" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#34d399">already knows</text>
+<text class="f" x="44" y="188" font-size="34" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">what you need.</text>
+<rect x="44" y="200" width="266" height="3" rx="1.5" fill="#34d399" opacity=".65"/>
+
+<text class="f" x="44" y="236" font-size="14" fill="rgba(255,255,255,.54)">AI tutoring that reads your knowledge</text>
+<text class="f" x="44" y="256" font-size="14" fill="rgba(255,255,255,.54)">graph before asking the first question.</text>
+<text class="f" x="44" y="276" font-size="14" fill="rgba(255,255,255,.54)">Every prompt targets the exact skill at</text>
+<text class="f" x="44" y="296" font-size="14" fill="rgba(255,255,255,.54)">your outer fringe — not too easy, not</text>
+<text class="f" x="44" y="316" font-size="14" fill="rgba(255,255,255,.54)">too hard. The session adapts in real time.</text>
+
+<!-- Legend -->
+<g transform="translate(44,342)">
+  <circle cx="7" cy="7"  r="6" fill="#34d399"/>
+  <text class="f" x="20" y="12" font-size="13" fill="rgba(255,255,255,.65)">Mastered this session</text>
+  <circle cx="7" cy="31" r="6" fill="#f5b942"/>
+  <text class="f" x="20" y="36" font-size="13" fill="rgba(255,255,255,.65)">Outer fringe — ready to learn</text>
+  <circle cx="7" cy="55" r="6" fill="#2a3552" stroke="#3a4870" stroke-width="1.5"/>
+  <text class="f" x="20" y="60" font-size="13" fill="rgba(255,255,255,.65)">Not yet unlocked</text>
+</g>
+
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">Powered by Mastery Advantage™ · outer fringe targeting</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL — split: mini graph left, chat right -->
+<!-- Sub-divider -->
+<line x1="530" y1="68" x2="530" y2="468" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+
+<!-- MINI GRAPH (left half of right panel) -->
+<text class="f" x="443" y="84" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="0.1em"
+      fill="rgba(255,255,255,.28)">KNOWLEDGE STATE</text>
+
+<!-- Mastered nodes (3) -->
+<g transform="translate(390,145)">
+  <circle r="16" fill="#34d399" filter="url(#glsTA)"/>
+  <circle r="16" fill="#34d399"/>
+  <circle r="21" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
+  <use href="#chkTA" x="-8" y="-8" width="16" height="16" fill="#041a10"/>
+</g>
+<g transform="translate(422,198)">
+  <circle r="14" fill="#34d399"/>
+  <circle r="18" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
+  <use href="#chkTA" x="-7" y="-7" width="14" height="14" fill="#041a10"/>
+</g>
+<g transform="translate(388,252)">
+  <circle r="13" fill="#34d399"/>
+  <circle r="17" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
+  <use href="#chkTA" x="-6" y="-6" width="13" height="13" fill="#041a10"/>
+</g>
+
+<!-- Edges -->
+<line x1="400" y1="162" x2="418" y2="186" stroke="rgba(255,255,255,.08)" stroke-width="1.2"/>
+<line x1="416" y1="212" x2="400" y2="240" stroke="rgba(255,255,255,.08)" stroke-width="1.2"/>
+<line x1="400" y1="252" x2="456" y2="288" stroke="rgba(255,255,255,.08)" stroke-width="1.2"/>
+<line x1="432" y1="200" x2="458" y2="286" stroke="rgba(255,255,255,.08)" stroke-width="1.2"/>
+<line x1="406" y1="145" x2="462" y2="176" stroke="rgba(255,255,255,.08)" stroke-width="1.2"/>
+
+<!-- OUTER FRINGE node (amber) — being targeted -->
+<circle cx="464" cy="176" r="22" fill="#f5b942" opacity="0.2" filter="url(#glowTA)"/>
+<circle cx="464" cy="176" r="18" class="node-masters"/>
+<circle cx="464" cy="176" r="24" fill="none" class="node-masters-ring"/>
+<circle cx="464" cy="176" r="28" fill="none" stroke="#ffd27a" stroke-width="2" class="fringe-pulse"/>
+<circle cx="464" cy="176" r="18" fill="none" stroke="#34d399" stroke-width="2" class="master-burst"/>
+<use href="#chkTA" x="455" y="167" width="18" height="18" fill="#1a0f00" class="node-masters" style="animation:nm 13s ease-in-out infinite"/>
+
+<!-- Target badge -->
+<g class="target-badge" transform="translate(464,138)">
+  <rect x="-50" y="-16" width="100" height="22" rx="5" fill="#1a2a10" stroke="#f5b942" stroke-width="1"/>
+  <text class="f" x="0" y="-2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f5b942">← targeting this</text>
+</g>
+
+<!-- Outer fringe node 2 (locked → unlocks after mastery) -->
+<circle cx="460" cy="290" r="16" class="next-fringe" filter="url(#glsTA)"/>
+<circle cx="460" cy="290" r="16" class="next-fringe"/>
+<circle cx="460" cy="290" r="21" fill="none" class="next-fringe-ring"/>
+<text class="f" x="460" y="314" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.3)">next up</text>
+
+<!-- Locked nodes -->
+<g transform="translate(484,338)">
+  <circle r="12" fill="#1e2840"/>
+  <circle r="16" fill="none" stroke="#2a3552" stroke-width="1.2"/>
+</g>
+<g transform="translate(432,344)">
+  <circle r="11" fill="#1e2840"/>
+  <circle r="15" fill="none" stroke="#2a3552" stroke-width="1.2"/>
+</g>
+
+<!-- Session progress badge -->
+<g class="adapted-badge" transform="translate(443,380)">
+  <rect x="-80" y="-18" width="160" height="36" rx="8" fill="rgba(52,211,153,.15)" stroke="#34d399" stroke-width="1.2"/>
+  <text class="f" x="0" y="-4" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.5)">session adapted</text>
+  <text class="f" x="0" y="12" text-anchor="middle" font-size="12" font-weight="700" fill="#34d399">1 skill mastered ✓</text>
+</g>
+
+<!-- CHAT PANEL (right half of right panel) -->
+<text class="f" x="665" y="84" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="0.1em"
+      fill="rgba(255,255,255,.28)">AI TUTOR SESSION</text>
+
+<!-- Message 1: AI question (emerald bubble left) -->
+<g class="msg1">
+  <rect x="538" y="98" width="220" height="52" rx="10" fill="rgba(52,211,153,.15)" stroke="rgba(52,211,153,.25)" stroke-width="1"/>
+  <text class="f" x="552" y="116" font-size="9.5" font-weight="700" fill="#34d399">AI Tutor</text>
+  <text class="f" x="552" y="132" font-size="10.5" fill="rgba(255,255,255,.75)">Read this passage — what is</text>
+  <text class="f" x="552" y="146" font-size="10.5" fill="rgba(255,255,255,.75)">the writer's main argument?</text>
+</g>
+
+<!-- Typing indicator (before message 2) -->
+<g class="typing">
+  <rect x="538" y="162" width="80" height="28" rx="10" fill="rgba(52,211,153,.1)" stroke="rgba(52,211,153,.15)" stroke-width="1"/>
+  <circle class="dot-bounce"    cx="557" cy="176" r="4" fill="#34d399"/>
+  <circle class="dot-bounce dot-b2" cx="569" cy="176" r="4" fill="#34d399"/>
+  <circle class="dot-bounce dot-b3" cx="581" cy="176" r="4" fill="#34d399"/>
+</g>
+
+<!-- Message 2: Student reply (white bubble right) -->
+<g class="msg2">
+  <rect x="538" y="162" width="220" height="44" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+  <text class="f" x="552" y="180" font-size="9.5" font-weight="700" fill="rgba(255,255,255,.5)">Student</text>
+  <text class="f" x="552" y="196" font-size="10.5" fill="rgba(255,255,255,.7)">"Technology helps people…"</text>
+</g>
+
+<!-- Typing 2 -->
+<g class="typing2">
+  <rect x="538" y="218" width="80" height="28" rx="10" fill="rgba(52,211,153,.1)" stroke="rgba(52,211,153,.15)" stroke-width="1"/>
+  <circle class="dot-bounce"    cx="557" cy="232" r="4" fill="#34d399"/>
+  <circle class="dot-bounce dot-b2" cx="569" cy="232" r="4" fill="#34d399"/>
+  <circle class="dot-bounce dot-b3" cx="581" cy="232" r="4" fill="#34d399"/>
+</g>
+
+<!-- Message 3: AI scaffolding -->
+<g class="msg3">
+  <rect x="538" y="218" width="220" height="64" rx="10" fill="rgba(52,211,153,.15)" stroke="rgba(52,211,153,.25)" stroke-width="1"/>
+  <text class="f" x="552" y="236" font-size="9.5" font-weight="700" fill="#34d399">AI Tutor</text>
+  <text class="f" x="552" y="252" font-size="10.5" fill="rgba(255,255,255,.75)">Good start. What evidence</text>
+  <text class="f" x="552" y="266" font-size="10.5" fill="rgba(255,255,255,.75)">does the writer use to support</text>
+  <text class="f" x="552" y="280" font-size="10.5" fill="rgba(255,255,255,.75)">that claim?</text>
+</g>
+
+<!-- Message 4: mastery confirmed -->
+<g class="msg4">
+  <rect x="538" y="294" width="220" height="54" rx="10" fill="rgba(52,211,153,.18)" stroke="#34d399" stroke-width="1.2"/>
+  <text class="f" x="552" y="312" font-size="9.5" font-weight="700" fill="#34d399">AI Tutor</text>
+  <text class="f" x="552" y="328" font-size="10.5" fill="rgba(255,255,255,.8)">Exactly right. ✓ Skill mastered.</text>
+  <text class="f" x="552" y="342" font-size="10.5" fill="#6ee7b7">Let's try the next concept…</text>
+</g>
+
+<!-- Domain tag at bottom -->
+<g transform="translate(538,380)">
+  <rect x="0" y="0" width="96" height="22" rx="5" fill="rgba(52,211,153,.12)" stroke="rgba(52,211,153,.25)" stroke-width="1"/>
+  <text class="f" x="48" y="15" text-anchor="middle" font-size="9.5" fill="#34d399">English · B1</text>
+  <rect x="106" y="0" width="116" height="22" rx="5" fill="rgba(52,211,153,.08)" stroke="rgba(52,211,153,.15)" stroke-width="1"/>
+  <text class="f" x="164" y="15" text-anchor="middle" font-size="9.5" fill="rgba(52,211,153,.6)">cross-domain capable</text>
+</g>
+
+<text class="f" x="650" y="458" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.22)" letter-spacing="0.03em">
+  Every question targets your exact next skill
+</text>
+</svg>

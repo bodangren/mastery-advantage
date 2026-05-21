@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Math Advantage: ทุกทักษะอยู่ในที่ของมัน. ขับเคลื่อนโดย Mastery Advantage.">
+<title>ทุกทักษะอยู่ในที่ของมัน. · Math Advantage</title>
+<style>
+  .f { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  .fm { font-family: 'Georgia', serif; }
+
+  /* 11s loop — skill staircase */
+  /* A 0-18%: fractions step lights up */
+  /* B 18-38%: fractions mastered → ratios + decimals unlock */
+  /* C 38-58%: formative feedback badge fires on one step */
+  /* D 58-78%: student advances up the stair */
+  /* E 78-100%: algebra unlocks, hold, reset */
+
+  /* Step fills — scaleX from 0 → 1 sequentially */
+  .step-counting { animation: step-c 11s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes step-c { 0%,2%{transform:scaleX(0)} 12%,100%{transform:scaleX(1)} }
+  .step-addition  { animation: step-a 11s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes step-a { 0%,2%{transform:scaleX(0)} 12%,100%{transform:scaleX(1)} }
+  .step-mult      { animation: step-m 11s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes step-m { 0%,2%{transform:scaleX(0)} 12%,100%{transform:scaleX(1)} }
+  .step-fractions { animation: step-f 11s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes step-f {
+    0%,2%   { transform:scaleX(0); }
+    12%     { transform:scaleX(1); }
+    100%    { transform:scaleX(1); }
+  }
+
+  /* Fractions block active glow */
+  .frac-active { animation: frac-active 11s ease-in-out infinite; }
+  @keyframes frac-active { 0%,10%{opacity:0} 16%,38%{opacity:1} 46%,100%{opacity:0} }
+
+  /* Ratios unlocks at 22% */
+  .step-ratios { animation: step-r 11s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes step-r {
+    0%,20%  { transform:scaleX(0); }
+    32%,100%{ transform:scaleX(1); }
+  }
+  .step-dec { animation: step-d 11s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes step-d {
+    0%,26%  { transform:scaleX(0); }
+    38%,100%{ transform:scaleX(1); }
+  }
+
+  /* Ripple bursts on unlock */
+  .ripple-r { animation: rr 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rr { 0%,20%{transform:scale(0);opacity:0} 24%{transform:scale(1);opacity:0.8} 34%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+  .ripple-d { animation: rd 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rd { 0%,26%{transform:scale(0);opacity:0} 30%{transform:scale(1);opacity:0.8} 40%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  /* Formative feedback badge */
+  .ff-badge { animation: ff-badge 11s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes ff-badge {
+    0%,36%  { opacity:0; transform:translateY(6px); }
+    44%,58% { opacity:1; transform:translateY(0); }
+    66%,100%{ opacity:0; transform:translateY(-4px); }
+  }
+
+  /* Algebra block unlocks at 78% */
+  .step-algebra { animation: step-alg 11s ease-in-out infinite; transform-origin:0% 50%; transform-box:fill-box; }
+  @keyframes step-alg {
+    0%,76%  { transform:scaleX(0); }
+    88%,100%{ transform:scaleX(1); }
+  }
+  .alg-ripple { animation: algrip 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes algrip { 0%,77%{transform:scale(0);opacity:0} 82%{transform:scale(1);opacity:0.8} 92%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  /* Student dot climbs the stair */
+  .student-dot { animation: stdot 11s ease-in-out infinite; }
+  @keyframes stdot {
+    0%,10%  { cx:425; cy:345; }
+    20%     { cx:476; cy:305; }
+    36%     { cx:527; cy:265; }
+    58%     { cx:527; cy:265; }
+    70%,100%{ cx:578; cy:225; }
+  }
+
+  /* Label opacity on mastered steps */
+  .lbl-bright { animation: lbl-bright 11s ease-in-out infinite; }
+  @keyframes lbl-bright { 0%,2%{opacity:0.3} 12%,100%{opacity:1} }
+
+  /* Curriculum badges */
+  .curr-badge { animation: curr 11s ease-in-out infinite; }
+  @keyframes curr { 0%,74%{opacity:0} 82%,90%{opacity:1} 98%,100%{opacity:0} }
+
+  /* Caption */
+  .cap1 { animation: cap1 11s ease-in-out infinite; }
+  .cap2 { animation: cap2 11s ease-in-out infinite; }
+  .cap3 { animation: cap3 11s ease-in-out infinite; }
+  @keyframes cap1 { 0%,12%{opacity:1} 22%,100%{opacity:0} }
+  @keyframes cap2 { 0%,22%{opacity:0} 30%,56%{opacity:1} 64%,100%{opacity:0} }
+  @keyframes cap3 { 0%,74%{opacity:0} 82%,92%{opacity:1} 100%{opacity:0} }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgMA" cx="42%" cy="35%" r="72%">
+    <stop offset="0%"   stop-color="#1a100a"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="gridMA" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsMA" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowMA" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="10" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <!-- Stair clip areas -->
+  <clipPath id="stair1"><rect x="390" y="350" width="70" height="30"/></clipPath>
+  <clipPath id="stair2"><rect x="440" y="310" width="70" height="30"/></clipPath>
+  <clipPath id="stair3"><rect x="490" y="270" width="70" height="30"/></clipPath>
+  <clipPath id="stair4"><rect x="540" y="230" width="70" height="30"/></clipPath>
+  <clipPath id="stair5"><rect x="590" y="190" width="70" height="30"/></clipPath>
+  <clipPath id="stair6"><rect x="640" y="150" width="70" height="30"/></clipPath>
+  <clipPath id="stair7"><rect x="690" y="110" width="70" height="30"/></clipPath>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgMA)"/>
+<rect width="800" height="500" fill="url(#gridMA)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">MATH ADVANTAGE · อ.1–ม.6</text>
+
+<text class="f" x="44" y="114" font-size="38" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">ทุกทักษะ</text>
+<text class="f" x="44" y="159" font-size="38" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#fb923c">อยู่ในที่ของมัน.</text>
+<rect x="44" y="174" width="176" height="3" rx="1.5" fill="#fb923c" opacity=".65"/>
+
+<text class="f" x="44" y="212" font-size="14" fill="rgba(255,255,255,.54)">ไม่ข้ามขั้นตอน ไม่มีช่องว่างที่ซ่อนอยู่ ชำนาญ</text>
+<text class="f" x="44" y="232" font-size="14" fill="rgba(255,255,255,.54)">เศษส่วนและอัตราส่วนปลดล็อก ข้อมูลย้อนกลับ</text>
+<text class="f" x="44" y="252" font-size="14" fill="rgba(255,255,255,.54)">จับจุดที่คุณต้องกลับไปก่อนจะก้าวต่อ</text>
+<text class="f" x="44" y="272" font-size="14" fill="rgba(255,255,255,.54)">พีชคณิตเปิดเมื่อคุณพร้อมเท่านั้น</text>
+
+<!-- Skill progression preview -->
+<g transform="translate(44,318)">
+  <text class="f" x="0" y="0" font-size="11" fill="rgba(255,255,255,.28)" letter-spacing="0.06em">เส้นทางตัวอย่าง</text>
+  <text class="fm" x="0" y="22" font-size="13" fill="rgba(255,255,255,.5)">นับจำนวน → บวก → คูณ</text>
+  <text class="fm" x="0" y="40" font-size="13" fill="rgba(255,255,255,.5)">→ เศษส่วน → อัตราส่วน → พีชคณิต</text>
+</g>
+
+<g transform="translate(44,380)">
+  <rect x="0" y="0" width="72" height="24" rx="5" fill="rgba(251,146,60,.15)" stroke="rgba(251,146,60,.3)" stroke-width="1"/>
+  <text class="f" x="36" y="16" text-anchor="middle" font-size="9.5" fill="#fb923c">ศธ. ไทย</text>
+
+  <rect x="82" y="0" width="68" height="24" rx="5" fill="rgba(251,146,60,.15)" stroke="rgba(251,146,60,.3)" stroke-width="1"/>
+  <text class="f" x="116" y="16" text-anchor="middle" font-size="9.5" fill="#fb923c">CCSS</text>
+
+  <rect x="160" y="0" width="100" height="24" rx="5" fill="rgba(251,146,60,.1)" stroke="rgba(251,146,60,.2)" stroke-width="1"/>
+  <text class="f" x="210" y="16" text-anchor="middle" font-size="9.5" fill="rgba(251,146,60,.6)">IPST สสวท</text>
+</g>
+
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">ขับเคลื่อนโดย Mastery Advantage™ · ข้อมูลย้อนกลับ</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL — Skill Staircase -->
+<text class="f" x="581" y="56" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.13em"
+      fill="rgba(255,255,255,.35)">บันไดทักษะ</text>
+
+<!-- Staircase body (solid silhouette — overlapping blocks form one connected stair) -->
+<g>
+  <rect x="390" y="350" width="70" height="42"  fill="#161f30"/>
+  <rect x="440" y="310" width="70" height="82"  fill="#161f30"/>
+  <rect x="490" y="270" width="70" height="122" fill="#161f30"/>
+  <rect x="540" y="230" width="70" height="162" fill="#161f30"/>
+  <rect x="590" y="190" width="70" height="202" fill="#161f30"/>
+  <rect x="640" y="150" width="70" height="242" fill="#161f30"/>
+  <rect x="690" y="110" width="70" height="282" fill="#161f30"/>
+</g>
+<!-- Ground line -->
+<line x1="376" y1="392" x2="784" y2="392" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
+
+<!-- Stair treads (background tracks — unfilled step surfaces) -->
+<rect x="390" y="350" width="70" height="30" fill="rgba(255,255,255,.06)"/>
+<rect x="440" y="310" width="70" height="30" fill="rgba(255,255,255,.06)"/>
+<rect x="490" y="270" width="70" height="30" fill="rgba(255,255,255,.06)"/>
+<rect x="540" y="230" width="70" height="30" fill="rgba(255,255,255,.06)"/>
+<rect x="590" y="190" width="70" height="30" fill="rgba(255,255,255,.06)"/>
+<rect x="640" y="150" width="70" height="30" fill="rgba(255,255,255,.06)"/>
+<rect x="690" y="110" width="70" height="30" fill="rgba(255,255,255,.05)"/>
+
+<!-- Stair fills (orange, animated scaleX) -->
+<g clip-path="url(#stair1)">
+  <rect class="step-counting" x="390" y="350" width="70" height="30" fill="#fb923c"/>
+</g>
+<g clip-path="url(#stair2)">
+  <rect class="step-addition" x="440" y="310" width="70" height="30" fill="#fb923c"/>
+</g>
+<g clip-path="url(#stair3)">
+  <rect class="step-mult" x="490" y="270" width="70" height="30" fill="#fb923c"/>
+</g>
+<g clip-path="url(#stair4)">
+  <rect class="step-fractions" x="540" y="230" width="70" height="30" fill="#fb923c"/>
+</g>
+<g clip-path="url(#stair5)">
+  <rect class="step-ratios" x="590" y="190" width="70" height="30" fill="#fb923c"/>
+</g>
+<g clip-path="url(#stair6)">
+  <rect class="step-dec" x="640" y="150" width="70" height="30" fill="#fb923c"/>
+</g>
+<g clip-path="url(#stair7)">
+  <rect class="step-algebra" x="690" y="110" width="70" height="30" fill="#fb923c"/>
+</g>
+
+<!-- Tread top-edge highlights (step definition) -->
+<rect x="390" y="349" width="70" height="2" fill="rgba(255,255,255,.14)"/>
+<rect x="440" y="309" width="70" height="2" fill="rgba(255,255,255,.14)"/>
+<rect x="490" y="269" width="70" height="2" fill="rgba(255,255,255,.14)"/>
+<rect x="540" y="229" width="70" height="2" fill="rgba(255,255,255,.14)"/>
+<rect x="590" y="189" width="70" height="2" fill="rgba(255,255,255,.14)"/>
+<rect x="640" y="149" width="70" height="2" fill="rgba(255,255,255,.14)"/>
+<rect x="690" y="109" width="70" height="2" fill="rgba(255,255,255,.14)"/>
+
+<!-- Fractions active glow -->
+<rect class="frac-active" x="537" y="227" width="76" height="36" rx="4"
+      fill="none" stroke="#fb923c" stroke-width="2.5" opacity="0.7"/>
+
+<!-- Stair labels -->
+<text class="f lbl-bright" x="425" y="369" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1a0a00">นับจำนวน</text>
+<text class="f lbl-bright" x="475" y="329" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1a0a00">บวก</text>
+<text class="f lbl-bright" x="525" y="289" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1a0a00">คูณ</text>
+<text class="f lbl-bright" x="575" y="249" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1a0a00">เศษส่วน</text>
+<text class="f" x="625" y="209" text-anchor="middle" font-size="9.5" font-weight="700" fill="rgba(26,10,0,.9)">อัตราส่วน</text>
+<text class="f" x="675" y="169" text-anchor="middle" font-size="9.5" font-weight="700" fill="rgba(26,10,0,.85)">ทศนิยม</text>
+<text class="f" x="725" y="129" text-anchor="middle" font-size="9.5" font-weight="700" fill="rgba(255,255,255,.45)">พีชคณิต</text>
+
+<!-- Unlock ripples -->
+<circle cx="625" cy="205" r="16" fill="none" stroke="#fb923c" stroke-width="2.5" class="ripple-r"/>
+<circle cx="675" cy="165" r="14" fill="none" stroke="#fb923c" stroke-width="2.5" class="ripple-d"/>
+<circle cx="725" cy="125" r="14" fill="none" stroke="#fb923c" stroke-width="2.5" class="alg-ripple"/>
+
+<!-- Formative feedback badge (floating callout, top-left of panel) -->
+<line x1="500" y1="160" x2="558" y2="226" stroke="rgba(251,146,60,.35)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<g class="ff-badge" transform="translate(488,138)">
+  <rect x="-106" y="-22" width="212" height="44" rx="8"
+        fill="#1a0a00" stroke="#fb923c" stroke-width="1.2"/>
+  <text class="f" x="0" y="-4" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.5)">ข้อมูลย้อนกลับ</text>
+  <text class="f" x="0" y="13" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fb923c">ทบทวนตัวเศษ → แล้วอัตราส่วน</text>
+</g>
+
+<!-- Caption -->
+<g transform="translate(376,432)">
+  <rect x="0" y="0" width="400" height="32" rx="7" fill="rgba(255,255,255,.04)"/>
+  <text class="f cap1" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fdba74">ชำนาญแต่ละขั้น — ขั้นถัดไปเปิด</text>
+  <text class="f cap2" x="200" y="21" text-anchor="middle" font-size="12" font-weight="700" fill="#34d399">เศษส่วนชำนาญ — อัตราส่วน + ทศนิยมปลดล็อก</text>
+  <text class="f cap3" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fdba74">พีชคณิตปลดล็อก — คุณพร้อมแล้ว</text>
+</g>
+</svg>

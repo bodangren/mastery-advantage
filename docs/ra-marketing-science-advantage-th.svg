@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Science Advantage: ความอยากรู้, ที่มีโครงสร้าง. ขับเคลื่อนโดย Mastery Advantage.">
+<title>ความอยากรู้, ที่มีโครงสร้าง. · Science Advantage</title>
+<style>
+  .f { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+  /* 11s loop */
+  /* A 0-20%: central node pulses — student studying photosynthesis */
+  /* B 20-40%: central node masters → 3 children unlock in cascade */
+  /* C 40-60%: cross-discipline edge fires (physics link) */
+  /* D 60-80%: reading-level badge appears */
+  /* E 80-100%: hold + fade */
+
+  /* Central node (photosynthesis) */
+  .cn-studying { animation: cn-study 11s ease-in-out infinite; }
+  @keyframes cn-study {
+    0%,18%  { fill:#ffffff; }
+    28%,100%{ fill:#fb7185; }
+  }
+  .cn-ring { animation: cn-ring 11s ease-in-out infinite; }
+  @keyframes cn-ring {
+    0%,18%  { stroke:#fda4af; stroke-width:3; }
+    28%,100%{ stroke:#fb7185; stroke-width:2; }
+  }
+  .cn-pulse { animation: cn-pulse 2s ease-in-out infinite, cn-pvis 11s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes cn-pulse { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.1);opacity:0.9} }
+  @keyframes cn-pvis  { 0%,16%{opacity:1} 26%,100%{opacity:0} }
+
+  /* Master burst ring */
+  .cn-burst { animation: cn-burst 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes cn-burst {
+    0%,19%  { transform:scale(1); opacity:0; }
+    23%     { transform:scale(1); opacity:0.9; }
+    34%     { transform:scale(2.4); opacity:0; }
+    100%    { opacity:0; }
+  }
+
+  /* Child nodes unlock in cascade */
+  .child1 { animation: child1 11s ease-in-out infinite; }
+  @keyframes child1 { 0%,22%{fill:#2a3552} 32%,90%{fill:#fb7185} 98%,100%{fill:#2a3552} }
+  .child1-ring { animation: child1r 11s ease-in-out infinite; }
+  @keyframes child1r { 0%,22%{stroke:#3a4870;stroke-width:1.5} 32%,90%{stroke:#fda4af;stroke-width:2} 98%{stroke:#3a4870;stroke-width:1.5} }
+  .ripple1 { animation: ripple1 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes ripple1 { 0%,22%{transform:scale(0);opacity:0} 27%{transform:scale(1);opacity:0.8} 38%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  .child2 { animation: child2 11s ease-in-out infinite; }
+  @keyframes child2 { 0%,28%{fill:#2a3552} 38%,90%{fill:#fb7185} 98%,100%{fill:#2a3552} }
+  .child2-ring { animation: child2r 11s ease-in-out infinite; }
+  @keyframes child2r { 0%,28%{stroke:#3a4870;stroke-width:1.5} 38%,90%{stroke:#fda4af;stroke-width:2} 98%{stroke:#3a4870;stroke-width:1.5} }
+  .ripple2 { animation: ripple2 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes ripple2 { 0%,28%{transform:scale(0);opacity:0} 33%{transform:scale(1);opacity:0.8} 44%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  .child3 { animation: child3 11s ease-in-out infinite; }
+  @keyframes child3 { 0%,34%{fill:#2a3552} 44%,90%{fill:#fb7185} 98%,100%{fill:#2a3552} }
+  .child3-ring { animation: child3r 11s ease-in-out infinite; }
+  @keyframes child3r { 0%,34%{stroke:#3a4870;stroke-width:1.5} 44%,90%{stroke:#fda4af;stroke-width:2} 98%{stroke:#3a4870;stroke-width:1.5} }
+  .ripple3 { animation: ripple3 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes ripple3 { 0%,34%{transform:scale(0);opacity:0} 39%{transform:scale(1);opacity:0.8} 50%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  /* Cross-discipline edge glow */
+  .cross-edge { animation: cross-edge 11s ease-in-out infinite; }
+  @keyframes cross-edge { 0%,40%{stroke:rgba(255,255,255,.06)} 50%,72%{stroke:#fb7185;opacity:0.8} 80%,100%{stroke:rgba(255,255,255,.06)} }
+  .cross-node { animation: cross-node 11s ease-in-out infinite; }
+  @keyframes cross-node { 0%,42%{fill:#2a3552} 52%,72%{fill:#fb7185} 80%,100%{fill:#2a3552} }
+
+  /* Reading-level badge */
+  .read-badge { animation: read-badge 11s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes read-badge {
+    0%,58%  { opacity:0; transform:scale(0.7); }
+    68%,80% { opacity:1; transform:scale(1); }
+    90%,100%{ opacity:0; }
+  }
+
+  /* Edge flow on active paths */
+  .edge-flow { stroke-dasharray:8 6; animation: eflow 1.6s linear infinite, evis 11s ease-in-out infinite; }
+  @keyframes eflow { to { stroke-dashoffset:-42; } }
+  @keyframes evis  { 0%,20%{opacity:0} 30%,88%{opacity:1} 96%,100%{opacity:0} }
+
+  /* Caption */
+  .cap1 { animation: cap1 11s ease-in-out infinite; }
+  .cap2 { animation: cap2 11s ease-in-out infinite; }
+  .cap3 { animation: cap3 11s ease-in-out infinite; }
+  @keyframes cap1 { 0%,14%{opacity:1} 24%,100%{opacity:0} }
+  @keyframes cap2 { 0%,26%{opacity:0} 35%,56%{opacity:1} 65%,100%{opacity:0} }
+  @keyframes cap3 { 0%,58%{opacity:0} 68%,80%{opacity:1} 90%,100%{opacity:0} }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgSC" cx="42%" cy="35%" r="72%">
+    <stop offset="0%"   stop-color="#1a0d14"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="gridSC" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsSC" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowSC" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="10" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <symbol id="chkSC" viewBox="0 0 24 24">
+    <path d="M5 12L9.5 17L19 7" fill="none" stroke="currentColor" stroke-width="2.8"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgSC)"/>
+<rect width="800" height="500" fill="url(#gridSC)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">SCIENCE ADVANTAGE · ป.3–ม.6</text>
+
+<text class="f" x="44" y="114" font-size="38" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">ความอยากรู้,</text>
+<text class="f" x="44" y="159" font-size="38" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#fb7185">ที่มีโครงสร้าง.</text>
+<rect x="44" y="174" width="160" height="3" rx="1.5" fill="#fb7185" opacity=".65"/>
+
+<text class="f" x="44" y="212" font-size="14" fill="rgba(255,255,255,.54)">ทุกแนวคิดต่อยอดจากแนวคิดก่อน หน้า</text>
+<text class="f" x="44" y="232" font-size="14" fill="rgba(255,255,255,.54)">การสังเคราะห์ด้วยแสงและหายใจระดับเซลล์</text>
+<text class="f" x="44" y="252" font-size="14" fill="rgba(255,255,255,.54)">ปลดล็อก หน้าพลังงานและการถ่ายโอน</text>
+<text class="f" x="44" y="272" font-size="14" fill="rgba(255,255,255,.54)">แนวคิดฟิสิกส์เปิดกว้าง การสืบเสาะตาม</text>
+<text class="f" x="44" y="292" font-size="14" fill="rgba(255,255,255,.54)">มาตรฐานที่สามระดับการอ่าน</text>
+
+<!-- Discipline badges -->
+<g transform="translate(44,320)">
+  <rect x="0" y="0" width="70" height="24" rx="5" fill="rgba(251,113,133,.15)" stroke="rgba(251,113,133,.3)" stroke-width="1"/>
+  <text class="f" x="35" y="16" text-anchor="middle" font-size="10.5" fill="#fb7185">ชีววิทยา</text>
+
+  <rect x="80" y="0" width="70" height="24" rx="5" fill="rgba(251,113,133,.15)" stroke="rgba(251,113,133,.3)" stroke-width="1"/>
+  <text class="f" x="115" y="16" text-anchor="middle" font-size="10.5" fill="#fb7185">เคมี</text>
+
+  <rect x="160" y="0" width="70" height="24" rx="5" fill="rgba(251,113,133,.15)" stroke="rgba(251,113,133,.3)" stroke-width="1"/>
+  <text class="f" x="195" y="16" text-anchor="middle" font-size="10.5" fill="#fb7185">ฟิสิกส์</text>
+
+  <rect x="0" y="32" width="100" height="24" rx="5" fill="rgba(251,113,133,.15)" stroke="rgba(251,113,133,.3)" stroke-width="1"/>
+  <text class="f" x="50" y="48" text-anchor="middle" font-size="10.5" fill="#fb7185">วิทยาศาสตร์โลก</text>
+
+  <rect x="108" y="32" width="84" height="24" rx="5" fill="rgba(251,113,133,.15)" stroke="rgba(251,113,133,.3)" stroke-width="1"/>
+  <text class="f" x="150" y="48" text-anchor="middle" font-size="10.5" fill="#fb7185">ตามมาตรฐาน NGSS</text>
+</g>
+
+<text class="f" x="44" y="420" font-size="11" fill="rgba(255,255,255,.28)">หลักสูตรชาติไทย · เทียบมาตรฐานสากล</text>
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">ขับเคลื่อนโดย Mastery Advantage™ · กราฟแนวคิด</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL — Concept web -->
+<text class="f" x="581" y="56" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.13em"
+      fill="rgba(255,255,255,.35)">กราฟแนวคิดวิทยาศาสตร์</text>
+
+<!-- Background discipline zone hints -->
+<ellipse cx="560" cy="260" rx="88" ry="72" fill="rgba(251,113,133,.03)" stroke="rgba(251,113,133,.08)" stroke-dasharray="3 5"/>
+<text class="f" x="560" y="170" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="0.12em"
+      fill="rgba(251,113,133,.3)">ชีววิทยา</text>
+
+<ellipse cx="710" cy="230" rx="62" ry="50" fill="rgba(251,113,133,.02)" stroke="rgba(251,113,133,.06)" stroke-dasharray="3 5"/>
+<text class="f" x="710" y="172" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="0.12em"
+      fill="rgba(251,113,133,.22)">ฟิสิกส์</text>
+
+<!-- Static mastered prerequisite nodes -->
+<!-- Sunlight (GSE 38) -->
+<g transform="translate(420,215)">
+  <circle r="16" fill="#fb7185" filter="url(#glsSC)"/>
+  <circle r="16" fill="#fb7185"/>
+  <circle r="21" fill="none" stroke="#fda4af" stroke-width="1.5"/>
+  <use href="#chkSC" x="-8" y="-8" width="16" height="16" fill="#3a0010"/>
+  <text class="f" x="0" y="32" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.5)">แสงแดด</text>
+</g>
+
+<!-- CO₂ (GSE 40) -->
+<g transform="translate(418,305)">
+  <circle r="15" fill="#fb7185"/>
+  <circle r="20" fill="none" stroke="#fda4af" stroke-width="1.5"/>
+  <use href="#chkSC" x="-7" y="-7" width="14" height="14" fill="#3a0010"/>
+  <text class="f" x="0" y="30" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.5)">CO₂</text>
+</g>
+
+<!-- Water/H₂O (GSE 42) -->
+<g transform="translate(468,348)">
+  <circle r="14" fill="#fb7185"/>
+  <circle r="18" fill="none" stroke="#fda4af" stroke-width="1.5"/>
+  <use href="#chkSC" x="-7" y="-7" width="14" height="14" fill="#3a0010"/>
+  <text class="f" x="0" y="29" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.5)">H₂O</text>
+</g>
+
+<!-- Edges to central node -->
+<line x1="436" y1="224" x2="536" y2="248" stroke="rgba(255,255,255,.1)" stroke-width="1.2"/>
+<line x1="432" y1="305" x2="535" y2="262" stroke="rgba(255,255,255,.1)" stroke-width="1.2"/>
+<line x1="480" y1="336" x2="538" y2="272" stroke="rgba(255,255,255,.1)" stroke-width="1.2"/>
+
+<!-- Central node: Photosynthesis -->
+<circle cx="558" cy="258" r="36" fill="#fb7185" opacity="0.12" filter="url(#glowSC)"/>
+<circle cx="558" cy="258" r="28" class="cn-studying"/>
+<circle cx="558" cy="258" r="36" fill="none" class="cn-ring"/>
+<circle cx="558" cy="258" r="42" fill="none" stroke="#fda4af" stroke-width="2" class="cn-pulse"/>
+<circle cx="558" cy="258" r="36" fill="none" stroke="#fb7185" stroke-width="2.5" class="cn-burst"/>
+<text class="f" x="558" y="253" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0a0f1e">การสังเคราะห์</text>
+<text class="f" x="558" y="266" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0a0f1e">ด้วยแสง</text>
+<text class="f" x="558" y="305" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.4)">GSE 48</text>
+
+<!-- Child edges (flow) -->
+<path class="edge-flow" d="M584 240 Q616 218 636 210" fill="none" stroke="#fb7185" stroke-width="2" stroke-linecap="round"/>
+<path class="edge-flow" d="M586 255 Q626 252 644 252" fill="none" stroke="#fb7185" stroke-width="2" stroke-linecap="round"/>
+<path class="edge-flow" d="M582 274 Q616 290 636 294" fill="none" stroke="#fb7185" stroke-width="2" stroke-linecap="round"/>
+
+<!-- Child 1: Cellular Respiration -->
+<circle cx="648" cy="208" r="16" class="child1" filter="url(#glsSC)"/>
+<circle cx="648" cy="208" r="16" class="child1"/>
+<circle cx="648" cy="208" r="21" fill="none" class="child1-ring"/>
+<circle cx="648" cy="208" r="16" fill="none" stroke="#fb7185" stroke-width="2.5" class="ripple1"/>
+<text class="f" x="648" y="204" text-anchor="middle" font-size="7.5" fill="rgba(10,10,20,.9)">หายใจระดับ</text>
+<text class="f" x="648" y="215" text-anchor="middle" font-size="7.5" fill="rgba(10,10,20,.9)">เซลล์</text>
+<text class="f" x="648" y="232" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.4)">GSE 52</text>
+
+<!-- Child 2: Food Chains -->
+<circle cx="652" cy="252" r="15" class="child2" filter="url(#glsSC)"/>
+<circle cx="652" cy="252" r="15" class="child2"/>
+<circle cx="652" cy="252" r="20" fill="none" class="child2-ring"/>
+<circle cx="652" cy="252" r="15" fill="none" stroke="#fb7185" stroke-width="2.5" class="ripple2"/>
+<text class="f" x="652" y="248" text-anchor="middle" font-size="8" fill="rgba(10,10,20,.9)">ห่วงโซ่</text>
+<text class="f" x="652" y="259" text-anchor="middle" font-size="8" fill="rgba(10,10,20,.9)">อาหาร</text>
+<text class="f" x="652" y="276" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.4)">GSE 50</text>
+
+<!-- Child 3: Carbon Cycle -->
+<circle cx="648" cy="294" r="14" class="child3" filter="url(#glsSC)"/>
+<circle cx="648" cy="294" r="14" class="child3"/>
+<circle cx="648" cy="294" r="19" fill="none" class="child3-ring"/>
+<circle cx="648" cy="294" r="14" fill="none" stroke="#fb7185" stroke-width="2.5" class="ripple3"/>
+<text class="f" x="648" y="290" text-anchor="middle" font-size="8" fill="rgba(10,10,20,.9)">วัฏจักร</text>
+<text class="f" x="648" y="301" text-anchor="middle" font-size="8" fill="rgba(10,10,20,.9)">คาร์บอน</text>
+<text class="f" x="648" y="316" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.4)">GSE 54</text>
+
+<!-- Cross-discipline edge to physics node -->
+<path class="cross-edge" d="M664 208 Q690 208 706 218" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="4 4"/>
+<g transform="translate(714,224)">
+  <circle r="16" class="cross-node"/>
+  <circle r="21" fill="none" stroke="#fda4af" stroke-width="1.5" class="child1-ring"/>
+  <text class="f" x="0" y="-3" text-anchor="middle" font-size="7.5" fill="rgba(10,10,20,.9)">การถ่ายโอน</text>
+  <text class="f" x="0" y="8" text-anchor="middle" font-size="7.5" fill="rgba(10,10,20,.9)">พลังงาน</text>
+  <text class="f" x="0" y="34" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.35)">ฟิสิกส์</text>
+</g>
+
+<!-- Reading-level badge (clear of all nodes, above caption) -->
+<g class="read-badge" transform="translate(612,388)">
+  <rect x="-112" y="-19" width="224" height="38" rx="8" fill="rgba(251,113,133,.15)" stroke="#fb7185" stroke-width="1.2"/>
+  <text class="f" x="0" y="-4" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.5)">ชำนาญการสังเคราะห์ด้วยแสง →</text>
+  <text class="f" x="0" y="11" text-anchor="middle" font-size="11" font-weight="700" fill="#fb7185">ปลดล็อก 3 บทความในระดับของคุณ</text>
+</g>
+
+<!-- Caption strip -->
+<g transform="translate(376,432)">
+  <rect x="0" y="0" width="400" height="32" rx="7" fill="rgba(255,255,255,.04)"/>
+  <text class="f cap1" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fda4af" letter-spacing="0.02em">ชำนาญแนวคิดหนึ่ง — แนวคิดถัดไปปลดล็อก</text>
+  <text class="f cap2" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#34d399" letter-spacing="0.02em">ชีววิทยาเชื่อมกับฟิสิกส์ — อัตโนมัติ</text>
+  <text class="f cap3" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fda4af" letter-spacing="0.02em">บทความใหม่ในระดับของคุณพอดี พร้อมแล้ว</text>
+</g>
+</svg>

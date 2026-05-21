@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 1000"
+  preserveAspectRatio="xMidYMid meet"
+  role="img"
+  aria-labelledby="ma-title ma-desc"
+  class="mastery-advantage-graph"
+  data-domain="reading"
+>
+  <title id="ma-title">Mastery Advantage Knowledge Graph</title>
+  <desc id="ma-desc">A visual map of the CEFR reading skill domain showing mastered, ready-to-learn, and locked nodes connected by prerequisite relationships.</desc>
+
+  <!-- ============================================================
+       THEME — override these CSS variables to rebrand or theme per app
+       ============================================================ -->
+  <style>
+    .mastery-advantage-graph {
+      /* Core palette */
+      --ma-bg:              #0b1220;
+      --ma-bg-soft:         #131c30;
+      --ma-grid:            rgba(255,255,255,0.04);
+
+      /* Node states */
+      --ma-node-locked:     #2a3552;
+      --ma-node-locked-ring:#3a4870;
+      --ma-node-ready:      #f5b942;
+      --ma-node-ready-ring: #ffd27a;
+      --ma-node-mastered:   #38bdf8;
+      --ma-node-mastered-ring:#7dd3fc;
+      --ma-node-current:    #ffffff;
+      --ma-node-current-ring:#bae6fd;
+
+      /* Edges */
+      --ma-edge:            rgba(255,255,255,0.08);
+      --ma-edge-active:     #7dd3fc;
+
+      /* Clusters */
+      --ma-cluster-fill:    rgba(255,255,255,0.025);
+      --ma-cluster-stroke:  rgba(255,255,255,0.08);
+
+      /* Type */
+      --ma-label:           rgba(255,255,255,0.85);
+      --ma-label-muted:     rgba(255,255,255,0.45);
+      --ma-cluster-label:   rgba(255,255,255,0.55);
+
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    /* Light theme override example:
+       .mastery-advantage-graph[data-theme="light"] {
+         --ma-bg: #fafaf7; --ma-bg-soft: #ffffff;
+         --ma-grid: rgba(0,0,0,0.04);
+         --ma-edge: rgba(0,0,0,0.12);
+         --ma-label: rgba(0,0,0,0.85);
+         --ma-label-muted: rgba(0,0,0,0.45);
+         --ma-cluster-label: rgba(0,0,0,0.5);
+         --ma-cluster-fill: rgba(0,0,0,0.025);
+         --ma-cluster-stroke: rgba(0,0,0,0.08);
+         --ma-node-locked: #d4dae8;
+         --ma-node-locked-ring: #b8c1d4;
+       }
+    */
+
+    /* Per-app domain themes — set data-domain="<value>" on the root element
+       reading  (Reading Advantage)   sky:     --ma-node-mastered:#38bdf8; --ma-edge-active:#7dd3fc;  (default)
+       primary  (Primary Advantage)   cyan:    --ma-node-mastered:#22d3ee; --ma-edge-active:#67e8f9;
+       storytime(Storytime Advantage) amber:   --ma-node-mastered:#fbbf24; --ma-edge-active:#fcd34d;
+       math     (Math Advantage)      orange:  --ma-node-mastered:#fb923c; --ma-edge-active:#fdba74;
+       science  (Science Advantage)   rose:    --ma-node-mastered:#fb7185; --ma-edge-active:#fda4af;
+       stem     (STEM Advantage)      indigo:  --ma-node-mastered:#818cf8; --ma-edge-active:#a5b4fc;
+       zhongwen (Zhongwen Advantage)  fuchsia: --ma-node-mastered:#e879f9; --ma-edge-active:#f0abfc;
+       tutor    (Tutor Advantage)     emerald: --ma-node-mastered:#34d399; --ma-edge-active:#6ee7b7;
+    */
+
+    /* Layer toggles — hide by adding data-hide-* attrs on the root */
+    .mastery-advantage-graph[data-hide-background] #ma-layer-background { display: none; }
+    .mastery-advantage-graph[data-hide-clusters]   #ma-layer-clusters   { display: none; }
+    .mastery-advantage-graph[data-hide-labels]     #ma-layer-labels,
+    .mastery-advantage-graph[data-hide-labels]     #ma-layer-cluster-labels { display: none; }
+    .mastery-advantage-graph[data-hide-edges]      #ma-layer-edges      { display: none; }
+    .mastery-advantage-graph[data-hide-path]       #ma-layer-active-path{ display: none; }
+
+    /* Node base styling driven by data-state */
+    .ma-node circle.ma-node-fill { fill: var(--ma-node-locked); transition: fill .5s ease; }
+    .ma-node circle.ma-node-ring { fill: none; stroke: var(--ma-node-locked-ring); stroke-width: 1.5; transition: stroke .5s ease, stroke-width .5s ease; }
+    .ma-node .ma-node-icon       { fill: var(--ma-label-muted); transition: fill .5s ease, opacity .5s ease; opacity: 0.6; }
+
+    .ma-node[data-state="ready"] circle.ma-node-fill    { fill: var(--ma-node-ready); }
+    .ma-node[data-state="ready"] circle.ma-node-ring    { stroke: var(--ma-node-ready-ring); stroke-width: 2; }
+    .ma-node[data-state="ready"] .ma-node-icon          { fill: #1a1208; opacity: 1; }
+
+    .ma-node[data-state="mastered"] circle.ma-node-fill { fill: var(--ma-node-mastered); }
+    .ma-node[data-state="mastered"] circle.ma-node-ring { stroke: var(--ma-node-mastered-ring); stroke-width: 2; }
+    .ma-node[data-state="mastered"] .ma-node-icon      { fill: #0a2018; opacity: 1; }
+
+    .ma-node[data-state="current"] circle.ma-node-fill { fill: var(--ma-node-current); }
+    .ma-node[data-state="current"] circle.ma-node-ring { stroke: var(--ma-node-current-ring); stroke-width: 3; }
+    .ma-node[data-state="current"] .ma-node-icon      { fill: #0b1220; opacity: 1; }
+
+    /* Labels */
+    .ma-node-label { fill: var(--ma-label); font-size: 13px; font-weight: 500; letter-spacing: 0.01em; }
+    .ma-cluster-label { fill: var(--ma-cluster-label); font-size: 18px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* Edges */
+    .ma-edge { stroke: var(--ma-edge); stroke-width: 1.25; fill: none; }
+    .ma-edge-active-line {
+      stroke: var(--ma-edge-active);
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      filter: url(#ma-glow-soft);
+    }
+
+    /* Animations — opt-in via data-animate="true" */
+    .mastery-advantage-graph[data-animate="true"] .ma-node[data-state="ready"] circle.ma-node-ring {
+      animation: ma-pulse 2.4s ease-in-out infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .mastery-advantage-graph[data-animate="true"] .ma-node[data-state="current"] circle.ma-node-ring {
+      animation: ma-pulse-strong 1.8s ease-in-out infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .mastery-advantage-graph[data-animate="true"] .ma-edge-active-line {
+      stroke-dasharray: 8 6;
+      animation: ma-flow 1.8s linear infinite;
+    }
+
+    @keyframes ma-pulse {
+      0%, 100% { stroke-opacity: 0.6; stroke-width: 2; }
+      50%      { stroke-opacity: 1;   stroke-width: 3.5; }
+    }
+    @keyframes ma-pulse-strong {
+      0%, 100% { stroke-opacity: 0.8; stroke-width: 3; }
+      50%      { stroke-opacity: 1;   stroke-width: 5; }
+    }
+    @keyframes ma-flow {
+      to { stroke-dashoffset: -28; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mastery-advantage-graph[data-animate="true"] * { animation: none !important; }
+    }
+  </style>
+
+  <!-- ============================================================
+       REUSABLE DEFS
+       ============================================================ -->
+  <defs>
+    <!-- Background gradient -->
+    <radialGradient id="ma-bg-gradient" cx="50%" cy="40%" r="70%">
+      <stop offset="0%"  stop-color="var(--ma-bg-soft)"/>
+      <stop offset="100%" stop-color="var(--ma-bg)"/>
+    </radialGradient>
+
+    <!-- Subtle grid pattern -->
+    <pattern id="ma-grid-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--ma-grid)" stroke-width="1"/>
+    </pattern>
+
+    <!-- Soft glow filter for active elements -->
+    <filter id="ma-glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Strong glow for the current node -->
+    <filter id="ma-glow-strong" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Arrowhead marker for directional edges -->
+    <marker id="ma-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--ma-edge)"/>
+    </marker>
+
+    <!-- Active path gradient -->
+    <linearGradient id="ma-active-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="var(--ma-node-mastered)"/>
+      <stop offset="100%" stop-color="var(--ma-node-current-ring)"/>
+    </linearGradient>
+
+    <!-- Reusable node symbol — 1 instance, infinite uses -->
+    <!-- (We use inline groups below for full per-node state control,
+         but this symbol is here for simpler/satellite use cases.) -->
+    <symbol id="ma-node-symbol" viewBox="-20 -20 40 40">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="18"/>
+    </symbol>
+
+    <!-- Checkmark icon (for mastered nodes) -->
+    <symbol id="ma-icon-check" viewBox="0 0 20 20">
+      <path d="M5 10.5 L8.5 14 L15 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Star icon (for ready/current nodes) -->
+    <symbol id="ma-icon-spark" viewBox="0 0 20 20">
+      <path d="M10 3 L11.5 8.5 L17 10 L11.5 11.5 L10 17 L8.5 11.5 L3 10 L8.5 8.5 Z" fill="currentColor"/>
+    </symbol>
+
+    <!-- Lock icon (for locked nodes) -->
+    <symbol id="ma-icon-lock" viewBox="0 0 20 20">
+      <rect x="6" y="9" width="8" height="7" rx="1.2" fill="currentColor"/>
+      <path d="M7.5 9 V7 a2.5 2.5 0 0 1 5 0 V9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+  </defs>
+
+  <!-- ============================================================
+       LAYER 1 — BACKGROUND
+       ============================================================ -->
+  <g id="ma-layer-background">
+    <rect width="1000" height="1000" fill="url(#ma-bg-gradient)"/>
+    <rect width="1000" height="1000" fill="url(#ma-grid-pattern)"/>
+  </g>
+
+  <!-- ============================================================
+       LAYER 2 — CLUSTER REGIONS (A1 → C2)
+       ============================================================ -->
+  <g id="ma-layer-clusters">
+    <!-- A1 cluster -->
+    <ellipse cx="170" cy="780" rx="140" ry="120"
+             fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
+    <!-- A2 cluster -->
+    <ellipse cx="320" cy="560" rx="150" ry="130"
+             fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
+    <!-- B1 cluster -->
+    <ellipse cx="500" cy="380" rx="160" ry="135"
+             fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
+    <!-- B2 cluster -->
+    <ellipse cx="720" cy="430" rx="150" ry="125"
+             fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
+    <!-- C1 cluster -->
+    <ellipse cx="830" cy="660" rx="130" ry="115"
+             fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
+    <!-- C2 cluster -->
+    <ellipse cx="700" cy="850" rx="120" ry="100"
+             fill="var(--ma-cluster-fill)" stroke="var(--ma-cluster-stroke)" stroke-dasharray="3 5"/>
+  </g>
+
+  <!-- ============================================================
+       LAYER 3 — CLUSTER LABELS
+       ============================================================ -->
+  <g id="ma-layer-cluster-labels">
+    <text class="ma-cluster-label" x="170" y="895" text-anchor="middle">A1 · Beginner</text>
+    <text class="ma-cluster-label" x="320" y="430" text-anchor="middle">A2 · Elementary</text>
+    <text class="ma-cluster-label" x="500" y="240" text-anchor="middle">B1 · Intermediate</text>
+    <text class="ma-cluster-label" x="720" y="295" text-anchor="middle">B2 · Upper-Int.</text>
+    <text class="ma-cluster-label" x="830" y="780" text-anchor="middle">C1 · Advanced</text>
+    <text class="ma-cluster-label" x="700" y="960" text-anchor="middle">C2 · Proficient</text>
+  </g>
+
+  <!-- ============================================================
+       LAYER 4 — EDGES (prerequisite connections)
+       Group by relationship type for selective highlight
+       ============================================================ -->
+  <g id="ma-layer-edges">
+    <g id="ma-edges-prerequisite" class="ma-edge-group">
+      <!-- A1 → A2 -->
+      <path class="ma-edge" d="M 200 720 Q 270 660 290 600"/>
+      <path class="ma-edge" d="M 140 740 Q 200 640 280 580"/>
+      <path class="ma-edge" d="M 220 820 Q 290 720 340 620"/>
+      <!-- A2 → B1 -->
+      <path class="ma-edge" d="M 360 510 Q 420 440 460 380"/>
+      <path class="ma-edge" d="M 300 500 Q 380 420 470 360"/>
+      <path class="ma-edge" d="M 380 610 Q 440 500 500 420"/>
+      <!-- B1 → B2 -->
+      <path class="ma-edge" d="M 560 360 Q 620 380 680 400"/>
+      <path class="ma-edge" d="M 540 420 Q 620 430 700 440"/>
+      <path class="ma-edge" d="M 520 320 Q 620 350 720 380"/>
+      <!-- B2 → C1 -->
+      <path class="ma-edge" d="M 760 480 Q 800 560 820 620"/>
+      <path class="ma-edge" d="M 720 500 Q 780 580 830 640"/>
+      <!-- C1 → C2 -->
+      <path class="ma-edge" d="M 800 720 Q 760 790 720 830"/>
+      <path class="ma-edge" d="M 830 730 Q 780 820 730 860"/>
+      <!-- A2 → A2 lateral -->
+      <path class="ma-edge" d="M 280 540 Q 320 530 360 560"/>
+      <!-- B1 → B1 lateral -->
+      <path class="ma-edge" d="M 470 350 Q 500 370 540 380"/>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       LAYER 5 — ACTIVE PATH (the student's journey highlight)
+       Animatable: stroke-dasharray + stroke-dashoffset
+       ============================================================ -->
+  <g id="ma-layer-active-path">
+    <path
+      id="ma-active-path-line"
+      class="ma-edge-active-line"
+      d="M 170 800
+         Q 240 700 290 600
+         Q 360 500 460 380
+         Q 540 360 680 400"
+      stroke="url(#ma-active-gradient)"
+    />
+  </g>
+
+  <!-- ============================================================
+       LAYER 6 — NODES
+       Each node has data-state and data-domain — drive visuals from data
+       ============================================================ -->
+  <g id="ma-layer-nodes">
+
+    <!-- ===== A1 Cluster — mastered ===== -->
+    <g class="ma-node" data-state="mastered" data-domain="reading-vocab" data-cefr="a1" transform="translate(170 800)">
+      <circle class="ma-node-fill" r="18"/>
+      <circle class="ma-node-ring" r="22"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="mastered" data-domain="reading-vocab" data-cefr="a1" transform="translate(100 740)">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="20"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="mastered" data-domain="reading-grammar" data-cefr="a1" transform="translate(230 720)">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="20"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="mastered" data-domain="reading-comprehension" data-cefr="a1" transform="translate(160 870)">
+      <circle class="ma-node-fill" r="15"/>
+      <circle class="ma-node-ring" r="19"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+
+    <!-- ===== A2 Cluster — mostly mastered ===== -->
+    <g class="ma-node" data-state="mastered" data-domain="reading-vocab" data-cefr="a2" transform="translate(290 600)">
+      <circle class="ma-node-fill" r="18"/>
+      <circle class="ma-node-ring" r="22"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="mastered" data-domain="reading-comprehension" data-cefr="a2" transform="translate(370 560)">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="20"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="mastered" data-domain="reading-grammar" data-cefr="a2" transform="translate(260 510)">
+      <circle class="ma-node-fill" r="15"/>
+      <circle class="ma-node-ring" r="19"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="mastered" data-domain="reading-vocab" data-cefr="a2" transform="translate(380 620)">
+      <circle class="ma-node-fill" r="14"/>
+      <circle class="ma-node-ring" r="18"/>
+      <use href="#ma-icon-check" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+
+    <!-- ===== B1 Cluster — current + ready ===== -->
+    <!-- Current focus node — the student is HERE -->
+    <g class="ma-node" data-state="current" data-domain="reading-comprehension" data-cefr="b1" transform="translate(460 380)" filter="url(#ma-glow-strong)">
+      <circle class="ma-node-fill" r="22"/>
+      <circle class="ma-node-ring" r="28"/>
+      <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="ready" data-domain="reading-vocab" data-cefr="b1" transform="translate(540 340)">
+      <circle class="ma-node-fill" r="17"/>
+      <circle class="ma-node-ring" r="21"/>
+      <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="ready" data-domain="reading-grammar" data-cefr="b1" transform="translate(500 460)">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="20"/>
+      <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-inference" data-cefr="b1" transform="translate(430 310)">
+      <circle class="ma-node-fill" r="14"/>
+      <circle class="ma-node-ring" r="18"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+
+    <!-- ===== B2 Cluster — one ready, rest locked ===== -->
+    <g class="ma-node" data-state="ready" data-domain="reading-comprehension" data-cefr="b2" transform="translate(680 400)">
+      <circle class="ma-node-fill" r="18"/>
+      <circle class="ma-node-ring" r="22"/>
+      <use href="#ma-icon-spark" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-vocab" data-cefr="b2" transform="translate(760 440)">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="20"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-inference" data-cefr="b2" transform="translate(720 480)">
+      <circle class="ma-node-fill" r="15"/>
+      <circle class="ma-node-ring" r="19"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-grammar" data-cefr="b2" transform="translate(740 370)">
+      <circle class="ma-node-fill" r="14"/>
+      <circle class="ma-node-ring" r="18"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+
+    <!-- ===== C1 Cluster — all locked ===== -->
+    <g class="ma-node" data-state="locked" data-domain="reading-inference" data-cefr="c1" transform="translate(820 640)">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="20"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-critical" data-cefr="c1" transform="translate(870 680)">
+      <circle class="ma-node-fill" r="15"/>
+      <circle class="ma-node-ring" r="19"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-comprehension" data-cefr="c1" transform="translate(790 720)">
+      <circle class="ma-node-fill" r="14"/>
+      <circle class="ma-node-ring" r="18"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+
+    <!-- ===== C2 Cluster — all locked ===== -->
+    <g class="ma-node" data-state="locked" data-domain="reading-critical" data-cefr="c2" transform="translate(700 850)">
+      <circle class="ma-node-fill" r="16"/>
+      <circle class="ma-node-ring" r="20"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-inference" data-cefr="c2" transform="translate(660 890)">
+      <circle class="ma-node-fill" r="14"/>
+      <circle class="ma-node-ring" r="18"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+    <g class="ma-node" data-state="locked" data-domain="reading-critical" data-cefr="c2" transform="translate(740 820)">
+      <circle class="ma-node-fill" r="13"/>
+      <circle class="ma-node-ring" r="17"/>
+      <use href="#ma-icon-lock" x="-10" y="-10" width="20" height="20" class="ma-node-icon"/>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       LAYER 7 — NODE LABELS (toggle separately for UI vs marketing)
+       ============================================================ -->
+  <g id="ma-layer-labels">
+    <text class="ma-node-label" x="460" y="345" text-anchor="middle">You are here</text>
+  </g>
+
+</svg>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="Storytime Advantage: Where readers are born. Powered by Mastery Advantage.">
+<title>Where readers are born. · Storytime Advantage</title>
+<style>
+  .f { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+  /* 12s loop — sound out, then form the word */
+  /* A 0-16%:  three letter tiles slide in, spread apart */
+  /* B 16-34%: sound each letter — phonemes + waveforms */
+  /* C 34-50%: tiles slide together and lock into the word CAT */
+  /* D 54-82%: CAT read inside a sentence */
+  /* E 82-94%: parent report */
+
+  /* Tile C — in from left, then converges right */
+  .tile-c { animation: tile-c 12s ease-in-out infinite; }
+  @keyframes tile-c {
+    0%,5%    { transform:translateX(-60px); opacity:0; }
+    14%,32%  { transform:translateX(0);     opacity:1; }
+    46%,86%  { transform:translateX(46px);  opacity:1; }
+    92%,100% { transform:translateX(46px);  opacity:0; }
+  }
+  /* Tile T — in from right, then converges left */
+  .tile-t { animation: tile-t 12s ease-in-out infinite; }
+  @keyframes tile-t {
+    0%,5%    { transform:translateX(60px);  opacity:0; }
+    16%,32%  { transform:translateX(0);     opacity:1; }
+    46%,86%  { transform:translateX(-46px); opacity:1; }
+    92%,100% { transform:translateX(-46px); opacity:0; }
+  }
+  /* Tile A — centre, scales in and holds */
+  .tile-a { animation: tile-a 12s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+  @keyframes tile-a {
+    0%,8%    { transform:scale(0.5); opacity:0; }
+    18%,86%  { transform:scale(1);   opacity:1; }
+    92%,100% { transform:scale(1);   opacity:0; }
+  }
+
+  /* Tile face — dark while sounding out, amber once the word forms */
+  .tile-face { animation: tile-face 12s ease-in-out infinite; }
+  @keyframes tile-face {
+    0%,42%   { fill:#1a1000; }
+    52%,86%  { fill:#fbbf24; }
+    92%,100% { fill:#1a1000; }
+  }
+  /* Tile letter — amber on dark tile, dark on amber tile */
+  .tile-letter { animation: tile-letter 12s ease-in-out infinite; }
+  @keyframes tile-letter {
+    0%,42%   { fill:#fbbf24; }
+    52%,86%  { fill:#1a1000; }
+    92%,100% { fill:#fbbf24; }
+  }
+
+  /* Phoneme labels — sounding out */
+  .phoneme { animation: phoneme 12s ease-in-out infinite; }
+  @keyframes phoneme { 0%,10%{opacity:0} 18%,32%{opacity:1} 40%,100%{opacity:0} }
+
+  /* Phoneme waveforms */
+  .wave1 { animation: wbar1 .5s ease-in-out infinite, wvis 12s ease-in-out infinite;
+           transform-box:fill-box; transform-origin:bottom; }
+  .wave2 { animation: wbar2 .6s ease-in-out infinite, wvis 12s ease-in-out infinite;
+           transform-box:fill-box; transform-origin:bottom; }
+  .wave3 { animation: wbar3 .55s ease-in-out infinite, wvis 12s ease-in-out infinite;
+           transform-box:fill-box; transform-origin:bottom; }
+  @keyframes wbar1 { 0%,100%{transform:scaleY(1)}   50%{transform:scaleY(1.6)} }
+  @keyframes wbar2 { 0%,100%{transform:scaleY(0.8)} 50%{transform:scaleY(1.5)} }
+  @keyframes wbar3 { 0%,100%{transform:scaleY(1)}   50%{transform:scaleY(1.7)} }
+  @keyframes wvis  { 0%,14%{opacity:0} 20%,32%{opacity:1} 40%,100%{opacity:0} }
+
+  /* Caption — appears once the word is formed */
+  .cap-word { animation: cap-word 12s ease-in-out infinite; }
+  @keyframes cap-word { 0%,48%{opacity:0} 56%,82%{opacity:1} 88%,100%{opacity:0} }
+
+  /* Cat illustration pop */
+  .cat-pop { animation: catpop 12s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes catpop {
+    0%,46%   { transform:scale(0);   opacity:0; }
+    53%      { transform:scale(1.2); opacity:1; }
+    59%,82%  { transform:scale(1);   opacity:1; }
+    88%,100% { transform:scale(0);   opacity:0; }
+  }
+
+  /* Story sentence */
+  .story-word { animation: sword 12s ease-in-out infinite; }
+  @keyframes sword { 0%,54%{opacity:0} 62%,82%{opacity:1} 88%,100%{opacity:0} }
+
+  /* Parent badge */
+  .badge-count { animation: bcount 12s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+  @keyframes bcount { 0%,74%{opacity:0;transform:scale(0.7)} 82%,92%{opacity:1;transform:scale(1)} 98%,100%{opacity:0} }
+
+  /* Progress milestone dots */
+  .dot1 { animation: dot1 12s ease-in-out infinite; }
+  @keyframes dot1 { 0%,6%{fill:#2a1a06}  16%,90%{fill:#fbbf24} 96%,100%{fill:#2a1a06} }
+  .dot2 { animation: dot2 12s ease-in-out infinite; }
+  @keyframes dot2 { 0%,20%{fill:#2a1a06} 30%,90%{fill:#fbbf24} 96%,100%{fill:#2a1a06} }
+  .dot3 { animation: dot3 12s ease-in-out infinite; }
+  @keyframes dot3 { 0%,46%{fill:#2a1a06} 56%,90%{fill:#fbbf24} 96%,100%{fill:#2a1a06} }
+  .dot4 { animation: dot4 12s ease-in-out infinite; }
+  @keyframes dot4 { 0%,64%{fill:#2a1a06} 72%,90%{fill:#fbbf24} 96%,100%{fill:#2a1a06} }
+
+  /* Book page turn */
+  .page { animation: page 3s ease-in-out infinite, pvis 12s ease-in-out infinite; transform-origin:left center; transform-box:fill-box; }
+  @keyframes page { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(0.8)} }
+  @keyframes pvis  { 0%,56%{opacity:0} 64%,82%{opacity:1} 88%,100%{opacity:0} }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgST" cx="42%" cy="40%" r="72%">
+    <stop offset="0%"   stop-color="#1a1000"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <radialGradient id="warmGlow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%"   stop-color="#fbbf24" stop-opacity="0.18"/>
+    <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="gridST" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.028)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsST" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowST" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="12" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgST)"/>
+<rect width="800" height="500" fill="url(#gridST)"/>
+<!-- Warm central glow -->
+<ellipse cx="580" cy="260" rx="200" ry="160" fill="url(#warmGlow)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">STORYTIME ADVANTAGE · AGES 5–8</text>
+
+<text class="f" x="44" y="114" font-size="38" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">Where readers</text>
+<text class="f" x="44" y="159" font-size="38" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#fbbf24">are born.</text>
+<rect x="44" y="174" width="150" height="3" rx="1.5" fill="#fbbf24" opacity=".65"/>
+
+<text class="f" x="44" y="212" font-size="14" fill="rgba(255,255,255,.54)">Every sound unlocks the next word.</text>
+<text class="f" x="44" y="232" font-size="14" fill="rgba(255,255,255,.54)">Phonics, phonemic awareness, and</text>
+<text class="f" x="44" y="252" font-size="14" fill="rgba(255,255,255,.54)">guided read-alouds — sequenced so</text>
+<text class="f" x="44" y="272" font-size="14" fill="rgba(255,255,255,.54)">that each new skill builds on the last.</text>
+<text class="f" x="44" y="292" font-size="14" fill="rgba(255,255,255,.54)">Parents and teachers see every step.</text>
+
+<!-- Skill ladder -->
+<g transform="translate(44,318)">
+  <text class="f" x="0" y="0" font-size="10" fill="rgba(255,255,255,.28)" letter-spacing="0.08em">PHONICS PATH</text>
+  <text class="f" x="0" y="20" font-size="12.5" fill="rgba(255,255,255,.45)">Letter sounds → Blending → Sight words</text>
+  <text class="f" x="0" y="40" font-size="12.5" fill="rgba(255,255,255,.45)">→ Simple sentences → Stories</text>
+</g>
+
+<g transform="translate(44,374)">
+  <rect x="0"   y="0" width="110" height="24" rx="5" fill="rgba(251,191,36,.15)" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
+  <text class="f" x="55" y="16" text-anchor="middle" font-size="10" fill="#fbbf24">K–2 · Ages 5–8</text>
+  <rect x="120" y="0" width="130" height="24" rx="5" fill="rgba(251,191,36,.15)" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
+  <text class="f" x="185" y="16" text-anchor="middle" font-size="10" fill="#fbbf24">Parent/teacher reports</text>
+</g>
+
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">Powered by Mastery Advantage™ · phonics-first path</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL -->
+<text class="f" x="581" y="56" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.13em"
+      fill="rgba(255,255,255,.35)">LEARN TO READ</text>
+
+<!-- === Letter tiles: spread apart, then slide together to spell CAT === -->
+<g class="tile-c">
+  <rect class="tile-face" x="376" y="162" width="68" height="68" rx="14" fill="#1a1000" stroke="#fbbf24" stroke-width="2.5"/>
+  <text class="f tile-letter" x="410" y="214" text-anchor="middle" font-size="50" font-weight="800" fill="#fbbf24">C</text>
+</g>
+<g class="tile-a">
+  <rect class="tile-face" x="490" y="162" width="68" height="68" rx="14" fill="#1a1000" stroke="#fbbf24" stroke-width="2.5"/>
+  <text class="f tile-letter" x="524" y="214" text-anchor="middle" font-size="50" font-weight="800" fill="#fbbf24">A</text>
+</g>
+<g class="tile-t">
+  <rect class="tile-face" x="604" y="162" width="68" height="68" rx="14" fill="#1a1000" stroke="#fbbf24" stroke-width="2.5"/>
+  <text class="f tile-letter" x="638" y="214" text-anchor="middle" font-size="50" font-weight="800" fill="#fbbf24">T</text>
+</g>
+
+<!-- Phoneme labels (sounding out) -->
+<g class="phoneme">
+  <text class="f" x="410" y="150" text-anchor="middle" font-size="12" font-weight="600" fill="rgba(251,191,36,.75)">/k/</text>
+  <text class="f" x="524" y="150" text-anchor="middle" font-size="12" font-weight="600" fill="rgba(251,191,36,.75)">/æ/</text>
+  <text class="f" x="638" y="150" text-anchor="middle" font-size="12" font-weight="600" fill="rgba(251,191,36,.75)">/t/</text>
+</g>
+
+<!-- Phoneme waveforms (under each letter while sounding out) -->
+<g class="wave1">
+  <rect x="396" y="246" width="4" height="12" rx="2" fill="#fbbf24"/>
+  <rect x="403" y="240" width="4" height="18" rx="2" fill="#fbbf24" opacity="0.8"/>
+  <rect x="410" y="244" width="4" height="14" rx="2" fill="#fbbf24"/>
+  <rect x="417" y="238" width="4" height="20" rx="2" fill="#fbbf24" opacity="0.8"/>
+  <rect x="424" y="246" width="4" height="12" rx="2" fill="#fbbf24"/>
+</g>
+<g class="wave2">
+  <rect x="510" y="246" width="4" height="12" rx="2" fill="#fbbf24"/>
+  <rect x="517" y="240" width="4" height="18" rx="2" fill="#fbbf24" opacity="0.8"/>
+  <rect x="524" y="236" width="4" height="22" rx="2" fill="#fbbf24"/>
+  <rect x="531" y="240" width="4" height="18" rx="2" fill="#fbbf24" opacity="0.8"/>
+  <rect x="538" y="246" width="4" height="12" rx="2" fill="#fbbf24"/>
+</g>
+<g class="wave3">
+  <rect x="624" y="246" width="4" height="12" rx="2" fill="#fbbf24"/>
+  <rect x="631" y="240" width="4" height="18" rx="2" fill="#fbbf24" opacity="0.8"/>
+  <rect x="638" y="244" width="4" height="14" rx="2" fill="#fbbf24"/>
+  <rect x="645" y="238" width="4" height="20" rx="2" fill="#fbbf24" opacity="0.8"/>
+  <rect x="652" y="246" width="4" height="12" rx="2" fill="#fbbf24"/>
+</g>
+
+<!-- Caption — appears when the word is formed -->
+<text class="f cap-word" x="524" y="272" text-anchor="middle" font-size="14" font-weight="800" fill="#fbbf24">C-A-T spells &#8220;cat&#8221;!</text>
+
+<!-- Simple cat illustration (pops up once the word is formed) -->
+<g class="cat-pop" transform="translate(690,196)">
+  <!-- Cat body -->
+  <ellipse cx="0" cy="20" rx="22" ry="16" fill="#fbbf24"/>
+  <!-- Cat head -->
+  <circle cx="0" cy="-4" r="16" fill="#fbbf24"/>
+  <!-- Ears -->
+  <polygon points="-12,-16 -18,-28 -6,-18" fill="#fbbf24"/>
+  <polygon points="12,-16 18,-28 6,-18" fill="#fbbf24"/>
+  <polygon points="-10,-18 -16,-27 -7,-20" fill="#e69a10"/>
+  <polygon points="10,-18 16,-27 7,-20" fill="#e69a10"/>
+  <!-- Eyes -->
+  <ellipse cx="-6" cy="-6" rx="3" ry="3.5" fill="#0a0800"/>
+  <ellipse cx="6"  cy="-6" rx="3" ry="3.5" fill="#0a0800"/>
+  <!-- Nose + whiskers -->
+  <ellipse cx="0" cy="-1" rx="2" ry="1.5" fill="#e69a10"/>
+  <line x1="-12" y1="-1" x2="-4" y2="-1" stroke="#0a0800" stroke-width="0.8"/>
+  <line x1="4"   y1="-1" x2="12" y2="-1" stroke="#0a0800" stroke-width="0.8"/>
+  <!-- Tail -->
+  <path d="M22 28 Q36 10 30 -8" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+</g>
+
+<!-- === PHASE D: Story sentence === -->
+<g class="story-word">
+  <rect x="390" y="282" width="374" height="60" rx="10"
+        fill="rgba(255,255,255,.04)" stroke="rgba(251,191,36,.15)" stroke-width="1"/>
+  <!-- simulated sentence -->
+  <text class="f" x="410" y="308" font-size="14" fill="rgba(255,255,255,.45)">The</text>
+  <!-- highlighted word -->
+  <rect x="442" y="292" width="44" height="24" rx="5" fill="rgba(251,191,36,.2)"/>
+  <text class="f" x="464" y="308" text-anchor="middle" font-size="14" font-weight="700" fill="#fbbf24">cat</text>
+  <text class="f" x="494" y="308" font-size="14" fill="rgba(255,255,255,.45)">sat on the mat.</text>
+  <!-- page of book icon -->
+  <rect class="page" x="690" y="290" width="60" height="44" rx="6"
+        fill="#2a1800" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
+  <line x1="700" y1="302" x2="742" y2="302" stroke="rgba(251,191,36,.25)" stroke-width="1.2"/>
+  <line x1="700" y1="310" x2="738" y2="310" stroke="rgba(251,191,36,.25)" stroke-width="1.2"/>
+  <line x1="700" y1="318" x2="740" y2="318" stroke="rgba(251,191,36,.25)" stroke-width="1.2"/>
+</g>
+
+<!-- === PHASE E: Parent/teacher badge === -->
+<g class="badge-count" transform="translate(581,360)">
+  <rect x="-110" y="-20" width="220" height="44" rx="10"
+        fill="#150c00" stroke="#fbbf24" stroke-width="1.5"/>
+  <text class="f" x="0" y="-4" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="0.1em" fill="rgba(255,255,255,.5)">PARENT REPORT</text>
+  <text class="f" x="0" y="14" text-anchor="middle" font-size="13" font-weight="700" fill="#fbbf24">14 words decoded today ✓</text>
+</g>
+
+<!-- Progress milestone strip -->
+<g transform="translate(390,420)">
+  <text class="f" x="0" y="-7" font-size="9.5" font-weight="700" letter-spacing="0.08em"
+        fill="rgba(255,255,255,.28)">PHONICS MILESTONES</text>
+  <rect x="0" y="0" width="386" height="6" rx="3" fill="rgba(255,255,255,.05)"/>
+  <circle class="dot1" cx="20"  cy="3" r="5"/>
+  <circle class="dot2" cx="60"  cy="3" r="5"/>
+  <circle class="dot3" cx="100" cy="3" r="5"/>
+  <circle class="dot4" cx="140" cy="3" r="5"/>
+  <circle cx="180" cy="3" r="5" fill="#2a1a06"/>
+  <circle cx="220" cy="3" r="5" fill="#2a1a06"/>
+</g>
+
+<text class="f" x="576" y="458" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.22)" letter-spacing="0.03em">
+  Phonics · sight words · guided read-alouds · reports
+</text>
+</svg>

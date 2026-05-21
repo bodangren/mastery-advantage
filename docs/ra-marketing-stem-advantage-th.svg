@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"
+     role="img" aria-label="STEM Advantage: สร้างมัน. เข้าใจว่าทำไม. ขับเคลื่อนโดย Mastery Advantage.">
+<title>สร้างมัน. เข้าใจว่าทำไม. · STEM Advantage</title>
+<style>
+  .f { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  .fmono { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
+
+  /* 11s loop */
+  /* A 0-20%: challenge card glows, prerequisite nodes assessed */
+  /* B 20-42%: math cluster lights up (flow rates mastered) */
+  /* C 42-62%: science cluster lights up (filtration mastered) */
+  /* D 62-80%: engineering cluster lights up, cross-domain edges glow */
+  /* E 80-95%: challenge card unlocks */
+  /* F 95-100%: reset */
+
+  /* Challenge card pulse */
+  .challenge-card { animation: ccard 11s ease-in-out infinite; }
+  @keyframes ccard {
+    0%,14%  { stroke:#818cf8; stroke-width:2; }
+    22%,78% { stroke:#a5b4fc; stroke-width:2; }
+    84%,94% { stroke:#a5b4fc; stroke-width:3; filter:drop-shadow(0 0 8px #818cf8); }
+    100%    { stroke:#818cf8; stroke-width:2; }
+  }
+  .challenge-unlock { animation: cunlock 11s ease-in-out infinite; }
+  @keyframes cunlock { 0%,78%{opacity:0} 84%,94%{opacity:1} 100%{opacity:0} }
+
+  /* Math cluster (orange) nodes */
+  .mn1 { animation: mn1 11s ease-in-out infinite; }
+  @keyframes mn1 { 0%,18%{fill:#2a1a10} 26%,100%{fill:#fb923c} }
+  .mn1r { animation: mn1r 11s ease-in-out infinite; }
+  @keyframes mn1r { 0%,18%{stroke:#3a2a18} 26%,100%{stroke:#fdba74} }
+  .mn2 { animation: mn2 11s ease-in-out infinite; }
+  @keyframes mn2 { 0%,22%{fill:#2a1a10} 30%,100%{fill:#fb923c} }
+  .mn2r { animation: mn2r 11s ease-in-out infinite; }
+  @keyframes mn2r { 0%,22%{stroke:#3a2a18} 30%,100%{stroke:#fdba74} }
+  .math-edge { stroke-dasharray:7 5; animation: mef 1.4s linear infinite, mev 11s ease-in-out infinite; }
+  @keyframes mef { to{stroke-dashoffset:-36} }
+  @keyframes mev  { 0%,18%{opacity:0} 28%,94%{opacity:1} 100%{opacity:0} }
+
+  /* Science cluster (rose) nodes */
+  .sn1 { animation: sn1 11s ease-in-out infinite; }
+  @keyframes sn1 { 0%,40%{fill:#1a0a10} 48%,100%{fill:#fb7185} }
+  .sn1r { animation: sn1r 11s ease-in-out infinite; }
+  @keyframes sn1r { 0%,40%{stroke:#3a1820} 48%,100%{stroke:#fda4af} }
+  .sn2 { animation: sn2 11s ease-in-out infinite; }
+  @keyframes sn2 { 0%,44%{fill:#1a0a10} 52%,100%{fill:#fb7185} }
+  .sn2r { animation: sn2r 11s ease-in-out infinite; }
+  @keyframes sn2r { 0%,44%{stroke:#3a1820} 52%,100%{stroke:#fda4af} }
+  .sci-edge { stroke-dasharray:7 5; animation: sef 1.4s linear infinite, sev 11s ease-in-out infinite; }
+  @keyframes sef { to{stroke-dashoffset:-36} }
+  @keyframes sev  { 0%,40%{opacity:0} 50%,94%{opacity:1} 100%{opacity:0} }
+
+  /* Engineering cluster (indigo) nodes */
+  .en1 { animation: en1 11s ease-in-out infinite; }
+  @keyframes en1 { 0%,60%{fill:#10102a} 68%,100%{fill:#818cf8} }
+  .en1r { animation: en1r 11s ease-in-out infinite; }
+  @keyframes en1r { 0%,60%{stroke:#202045} 68%,100%{stroke:#a5b4fc} }
+  .eng-edge { stroke-dasharray:7 5; animation: eef 1.4s linear infinite, eev 11s ease-in-out infinite; }
+  @keyframes eef { to{stroke-dashoffset:-36} }
+  @keyframes eev  { 0%,60%{opacity:0} 70%,94%{opacity:1} 100%{opacity:0} }
+
+  /* Cross-domain edges glow when engineering lights up */
+  .cross-glow { animation: cross-glow 11s ease-in-out infinite; }
+  @keyframes cross-glow { 0%,64%{stroke:rgba(255,255,255,.06);opacity:0.5} 72%,80%{stroke:#a5b4fc;opacity:1} 88%,100%{stroke:rgba(255,255,255,.06);opacity:0.5} }
+
+  /* Ripple bursts on node unlocks */
+  .rip-m { animation: ripm 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes ripm { 0%,18%{transform:scale(0);opacity:0} 22%{transform:scale(1);opacity:0.8} 32%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+  .rip-s { animation: rips 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes rips { 0%,40%{transform:scale(0);opacity:0} 44%{transform:scale(1);opacity:0.8} 54%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+  .rip-e { animation: ripe 11s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+  @keyframes ripe { 0%,60%{transform:scale(0);opacity:0} 64%{transform:scale(1);opacity:0.8} 74%{transform:scale(2.5);opacity:0} 100%{opacity:0} }
+
+  /* Caption */
+  .cap1 { animation: cap1 11s ease-in-out infinite; }
+  .cap2 { animation: cap2 11s ease-in-out infinite; }
+  .cap3 { animation: cap3 11s ease-in-out infinite; }
+  @keyframes cap1 { 0%,12%{opacity:1} 22%,100%{opacity:0} }
+  @keyframes cap2 { 0%,40%{opacity:0} 50%,68%{opacity:1} 78%,100%{opacity:0} }
+  @keyframes cap3 { 0%,78%{opacity:0} 86%,94%{opacity:1} 100%{opacity:0} }
+
+  /* Check icons on mastered nodes */
+  .chk-math { animation: chkm 11s ease-in-out infinite; }
+  @keyframes chkm { 0%,22%{opacity:0} 30%,100%{opacity:1} }
+  .chk-sci  { animation: chks 11s ease-in-out infinite; }
+  @keyframes chks { 0%,44%{opacity:0} 52%,100%{opacity:1} }
+  .chk-eng  { animation: chke 11s ease-in-out infinite; }
+  @keyframes chke { 0%,62%{opacity:0} 70%,100%{opacity:1} }
+
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+
+<defs>
+  <radialGradient id="bgSTEM" cx="42%" cy="35%" r="72%">
+    <stop offset="0%"   stop-color="#0e0e1e"/>
+    <stop offset="100%" stop-color="#0a0f1e"/>
+  </radialGradient>
+  <pattern id="gridSTEM" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.034)" stroke-width="1"/>
+  </pattern>
+  <filter id="glsSTEM" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowSTEM" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="10" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <symbol id="chkSTEM" viewBox="0 0 24 24">
+    <path d="M5 12L9.5 17L19 7" fill="none" stroke="currentColor" stroke-width="2.8"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</defs>
+
+<rect width="800" height="500" fill="url(#bgSTEM)"/>
+<rect width="800" height="500" fill="url(#gridSTEM)"/>
+
+<!-- LEFT PANEL -->
+<text class="f" x="44" y="66" font-size="10.5" font-weight="700" letter-spacing="0.15em"
+      fill="rgba(255,255,255,.38)">STEM ADVANTAGE · ป.4–ม.6</text>
+
+<text class="f" x="44" y="114" font-size="38" font-weight="800" letter-spacing="-0.03em" fill="#e8e4d8">สร้างมัน.</text>
+<text class="f" x="44" y="159" font-size="38" font-weight="800" letter-spacing="-0.03em" font-style="italic" fill="#818cf8">เข้าใจว่าทำไม.</text>
+<rect x="44" y="174" width="226" height="3" rx="1.5" fill="#818cf8" opacity=".65"/>
+
+<text class="f" x="44" y="212" font-size="14" fill="rgba(255,255,255,.54)">ทุกโปรเจกต์เผยให้เห็นชัดเจนว่า</text>
+<text class="f" x="44" y="232" font-size="14" fill="rgba(255,255,255,.54)">ต้องใช้ทักษะคณิตศาสตร์ วิทยาศาสตร์ และวิศวกรรม</text>
+<text class="f" x="44" y="252" font-size="14" fill="rgba(255,255,255,.54)">อะไรบ้าง — และตามลำดับใด</text>
+<text class="f" x="44" y="272" font-size="14" fill="rgba(255,255,255,.54)">การเชื่อมโยงข้ามสาขาปรากฏ</text>
+<text class="f" x="44" y="292" font-size="14" fill="rgba(255,255,255,.54)">อัตโนมัติขณะคุณสร้าง</text>
+
+<!-- Domain cluster legend -->
+<g transform="translate(44,320)">
+  <circle cx="7" cy="7"  r="6" fill="#fb923c"/>
+  <text class="f" x="20" y="12" font-size="13" fill="rgba(255,255,255,.65)">ทักษะคณิตศาสตร์</text>
+  <circle cx="7" cy="31" r="6" fill="#fb7185"/>
+  <text class="f" x="20" y="36" font-size="13" fill="rgba(255,255,255,.65)">ทักษะวิทยาศาสตร์</text>
+  <circle cx="7" cy="55" r="6" fill="#818cf8"/>
+  <text class="f" x="20" y="60" font-size="13" fill="rgba(255,255,255,.65)">ทักษะวิศวกรรม</text>
+  <rect x="1" y="73" width="12" height="12" rx="2" fill="rgba(129,140,248,.15)" stroke="#818cf8" stroke-width="1.2"/>
+  <text class="f" x="20" y="84" font-size="13" fill="rgba(255,255,255,.65)">โปรเจกต์</text>
+</g>
+
+<text class="f" x="44" y="420" font-size="11" fill="rgba(255,255,255,.28)">โปรเจกต์เบส · สตูดิโอเขียนโค้ด AI · ป.4–ม.6</text>
+<text class="f" x="44" y="454" font-size="11.5" font-weight="600" letter-spacing="0.04em"
+      fill="rgba(255,255,255,.22)">ขับเคลื่อนโดย Mastery Advantage™ · กราฟข้ามสาขา</text>
+
+<!-- Divider -->
+<line x1="356" y1="28" x2="356" y2="472" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+<!-- RIGHT PANEL — Project graph -->
+<text class="f" x="581" y="56" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="0.13em"
+      fill="rgba(255,255,255,.35)">แผนที่สิ่งที่ต้องเรียนก่อนสำหรับโปรเจกต์</text>
+
+<!-- Challenge card (center) -->
+<rect x="476" y="198" width="172" height="84" rx="12"
+      fill="rgba(129,140,248,.1)" class="challenge-card"/>
+<text class="f" x="562" y="228" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="0.08em"
+      fill="rgba(255,255,255,.5)">โปรเจกต์</text>
+<text class="f" x="562" y="246" text-anchor="middle" font-size="11" font-weight="700" fill="#a5b4fc">ระบบกรองน้ำ</text>
+<text class="f" x="562" y="262" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.4)">ออกแบบระบบ</text>
+<!-- Unlock overlay (opaque — fully replaces the challenge description) -->
+<g class="challenge-unlock">
+  <rect x="476" y="198" width="172" height="84" rx="12" fill="#151a32" stroke="#818cf8" stroke-width="2"/>
+  <text class="f" x="562" y="234" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="0.1em" fill="rgba(255,255,255,.5)">โปรเจกต์สำเร็จ</text>
+  <text class="f" x="562" y="256" text-anchor="middle" font-size="15" font-weight="800" fill="#a5b4fc">ปลดล็อกโปรเจกต์ ✓</text>
+</g>
+
+<!-- MATH CLUSTER (top-left) -->
+<ellipse cx="434" cy="148" rx="62" ry="44" fill="rgba(251,146,60,.04)" stroke="rgba(251,146,60,.12)" stroke-dasharray="3 5"/>
+<text class="f" x="434" y="98" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="0.1em" fill="rgba(251,146,60,.35)">คณิตศาสตร์</text>
+
+<!-- Math node 1: Flow rates -->
+<circle cx="406" cy="142" r="22" class="mn1" filter="url(#glsSTEM)"/>
+<circle cx="406" cy="142" r="22" class="mn1"/>
+<circle cx="406" cy="142" r="28" fill="none" class="mn1r"/>
+<circle cx="406" cy="142" r="22" fill="none" stroke="#fb923c" stroke-width="2.5" class="rip-m"/>
+<g class="chk-math"><use href="#chkSTEM" x="395" y="131" width="22" height="22" fill="#1a0800" color="#1a0800"/></g>
+<text class="f" x="406" y="138" text-anchor="middle" font-size="8" fill="rgba(10,5,0,.85)">อัตราการ</text>
+<text class="f" x="406" y="149" text-anchor="middle" font-size="8" fill="rgba(10,5,0,.85)">ไหล</text>
+<text class="f" x="406" y="172" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.35)">คณิตศาสตร์</text>
+
+<!-- Math node 2: Volume -->
+<circle cx="460" cy="128" r="18" class="mn2" filter="url(#glsSTEM)"/>
+<circle cx="460" cy="128" r="18" class="mn2"/>
+<circle cx="460" cy="128" r="23" fill="none" class="mn2r"/>
+<circle cx="460" cy="128" r="18" fill="none" stroke="#fb923c" stroke-width="2" class="rip-m"/>
+<g class="chk-math"><use href="#chkSTEM" x="451" y="119" width="18" height="18" fill="#1a0800" color="#1a0800"/></g>
+<text class="f" x="460" y="126" text-anchor="middle" font-size="8" fill="rgba(10,5,0,.8)">ปริมาตร</text>
+<text class="f" x="460" y="148" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.35)">คณิตศาสตร์</text>
+
+<!-- Math edges to challenge -->
+<path class="math-edge" d="M428 148 Q450 188 476 222"
+      fill="none" stroke="#fb923c" stroke-width="1.8" stroke-linecap="round"/>
+<path class="math-edge" d="M476 134 Q480 170 480 198"
+      fill="none" stroke="#fb923c" stroke-width="1.6" stroke-linecap="round"/>
+
+<!-- SCIENCE CLUSTER (bottom-left) -->
+<ellipse cx="428" cy="326" rx="60" ry="44" fill="rgba(251,113,133,.04)" stroke="rgba(251,113,133,.12)" stroke-dasharray="3 5"/>
+<text class="f" x="428" y="378" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="0.1em" fill="rgba(251,113,133,.35)">วิทยาศาสตร์</text>
+
+<!-- Science node 1: Particle filtration -->
+<circle cx="400" cy="322" r="22" class="sn1" filter="url(#glsSTEM)"/>
+<circle cx="400" cy="322" r="22" class="sn1"/>
+<circle cx="400" cy="322" r="28" fill="none" class="sn1r"/>
+<circle cx="400" cy="322" r="22" fill="none" stroke="#fb7185" stroke-width="2.5" class="rip-s"/>
+<g class="chk-sci"><use href="#chkSTEM" x="389" y="311" width="22" height="22" fill="#1a0008" color="#1a0008"/></g>
+<text class="f" x="400" y="318" text-anchor="middle" font-size="7.5" fill="rgba(10,0,5,.85)">การกรอง</text>
+<text class="f" x="400" y="329" text-anchor="middle" font-size="7.5" fill="rgba(10,0,5,.85)">อนุภาค</text>
+<text class="f" x="400" y="352" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.35)">วิทยาศาสตร์</text>
+
+<!-- Science node 2: Contamination -->
+<circle cx="456" cy="338" r="17" class="sn2" filter="url(#glsSTEM)"/>
+<circle cx="456" cy="338" r="17" class="sn2"/>
+<circle cx="456" cy="338" r="22" fill="none" class="sn2r"/>
+<circle cx="456" cy="338" r="17" fill="none" stroke="#fb7185" stroke-width="2" class="rip-s"/>
+<g class="chk-sci"><use href="#chkSTEM" x="447" y="329" width="18" height="18" fill="#1a0008" color="#1a0008"/></g>
+<text class="f" x="456" y="336" text-anchor="middle" font-size="7.5" fill="rgba(10,0,5,.8)">มลพิษ</text>
+<text class="f" x="456" y="358" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.35)">วิทยาศาสตร์</text>
+
+<!-- Science edges to challenge -->
+<path class="sci-edge" d="M422 316 Q448 284 476 260"
+      fill="none" stroke="#fb7185" stroke-width="1.8" stroke-linecap="round"/>
+<path class="sci-edge" d="M472 334 Q476 298 478 282"
+      fill="none" stroke="#fb7185" stroke-width="1.6" stroke-linecap="round"/>
+
+<!-- ENGINEERING CLUSTER (right) -->
+<ellipse cx="706" cy="240" rx="66" ry="60" fill="rgba(129,140,248,.04)" stroke="rgba(129,140,248,.12)" stroke-dasharray="3 5"/>
+<text class="f" x="706" y="168" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="0.1em" fill="rgba(129,140,248,.35)">วิศวกรรม</text>
+
+<!-- Engineering node: Iterative design -->
+<circle cx="680" cy="212" r="22" class="en1" filter="url(#glsSTEM)"/>
+<circle cx="680" cy="212" r="22" class="en1"/>
+<circle cx="680" cy="212" r="28" fill="none" class="en1r"/>
+<circle cx="680" cy="212" r="22" fill="none" stroke="#818cf8" stroke-width="2.5" class="rip-e"/>
+<g class="chk-eng"><use href="#chkSTEM" x="669" y="201" width="22" height="22" fill="#080820" color="#080820"/></g>
+<text class="f" x="680" y="208" text-anchor="middle" font-size="7.5" fill="rgba(5,5,20,.85)">ออกแบบ</text>
+<text class="f" x="680" y="219" text-anchor="middle" font-size="7.5" fill="rgba(5,5,20,.85)">เชิงซ้ำ</text>
+<text class="f" x="680" y="242" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.35)">วิศวกรรม</text>
+
+<!-- Engineering node 2: Material selection -->
+<circle cx="720" cy="268" r="18" class="en1" filter="url(#glsSTEM)"/>
+<circle cx="720" cy="268" r="18" class="en1"/>
+<circle cx="720" cy="268" r="23" fill="none" class="en1r"/>
+<g class="chk-eng"><use href="#chkSTEM" x="711" y="259" width="18" height="18" fill="#080820" color="#080820"/></g>
+<text class="f" x="720" y="265" text-anchor="middle" font-size="7.5" fill="rgba(5,5,20,.8)">วัสดุ</text>
+<text class="f" x="720" y="290" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.35)">วิศวกรรม</text>
+
+<!-- Engineering edges to challenge -->
+<path class="eng-edge" d="M658 218 Q618 228 648 238"
+      fill="none" stroke="#818cf8" stroke-width="1.8" stroke-linecap="round"/>
+<path class="eng-edge" d="M704 264 Q680 268 648 264"
+      fill="none" stroke="#818cf8" stroke-width="1.6" stroke-linecap="round"/>
+
+<!-- Cross-domain edge: math ↔ science -->
+<path class="cross-glow" d="M422 192 Q420 256 420 308"
+      fill="none" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 5"/>
+
+<!-- Caption strip -->
+<g transform="translate(376,432)">
+  <rect x="0" y="0" width="400" height="32" rx="7" fill="rgba(255,255,255,.04)"/>
+  <text class="f cap1" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#c7d2fe">ทุกโปรเจกต์เชื่อมโยงกับทักษะที่ต้องเรียนก่อนอย่างแม่นยำ</text>
+  <text class="f cap2" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#34d399">คณิต + วิทย์ + วิศวะ — มาบรรจบกัน</text>
+  <text class="f cap3" x="200" y="21" text-anchor="middle" font-size="12.5" font-weight="700" fill="#c7d2fe">ปลดล็อกโปรเจกต์ — สร้างเลย!</text>
+</g>
+</svg>
